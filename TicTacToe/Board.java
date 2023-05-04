@@ -2,14 +2,14 @@ package TicTacToe;
 
 public class Board {
     int size;
-    int[][] board;
+    char[][] board;
 
     public Board(int size) {
         this.size = size;
-        board = new int[size][size];
+        board = new char[size][size];
     }
 
-    public int[][] getBoard() {
+    public char[][] getBoard() {
         return board;
     }
 }
