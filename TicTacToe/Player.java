@@ -1,10 +1,8 @@
 package TicTacToe;
 
 public class Player {
-     private String name;
-     private String password;
-     int win;
-     int lose;
+     private String name, password;
+     int win, lose, draw;
 
      public void makeMove(Board board) {
 
