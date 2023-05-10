@@ -1,4 +1,4 @@
-package Assignment;
+package Assignment.clone;
 
 public class TicTacToe {
     private char[][] board;
