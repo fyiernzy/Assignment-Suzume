@@ -1,10 +1,10 @@
 package Assignment.clone;
 
-public class TicTacToe {
+public class TicTacToeRule {
     private char[][] board;
     char currentPlayerMark;
 
-    public TicTacToe() {
+    public TicTacToeRule() {
         board = new char[3][3];
         currentPlayerMark = 'X';
         initializeBoard();
