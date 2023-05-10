@@ -9,13 +9,14 @@ public class PlayerUserInterface {
         this.two = two;
     }
 
-    private void printRules() {
+    private void printRules(String rules) {
         System.out.println("Welcome to Tic Tac Toe!");
+        System.out.println(rules);
     }
 
-    public void gamePlay() {
+    public void gamePlay(String rules) {
         while(true) {
-            printRules();
+            printRules(rules);
 
         }
     }

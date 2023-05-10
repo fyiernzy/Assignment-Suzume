@@ -1,4 +1,4 @@
-package TicTacToe;
+package TicTacToe.ui;
 
 public class Login {
     

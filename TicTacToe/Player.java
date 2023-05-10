@@ -1,5 +1,7 @@
 package TicTacToe;
 
+import TicTacToe.board.Board;
+
 public class Player {
      private int id;
      private String name, password;
