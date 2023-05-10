@@ -96,11 +96,6 @@ public class TicTacToeRule {
                 }
             }
         }
-        if (isBoardFull())
-            System.out.println("It's finish!");
-        else
-            System.out.println("Invalid move, please try again.");
-        printBoard();
         return false;
     }
 }
