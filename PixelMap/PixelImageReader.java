@@ -1,4 +1,4 @@
-package Assignment.PixelMap;
+package PixelMap;
 
 import java.awt.image.BufferedImage;
 import java.io.File;

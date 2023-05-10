@@ -1,11 +1,11 @@
-package Assignment.clone;
-
 import java.util.Scanner;
+
+import TicTacToe.board.VariantBoard;
 
 public class Main {
     // Main method to run the game
     public static void main(String[] args) {
-        TicTacToeRule game = new TicTacToeRule();
+        VariantBoard game = new VariantBoard();
         Scanner scanner = new Scanner(System.in);
         boolean isRunning = true;
 
@@ -17,7 +17,7 @@ public class Main {
             if (game.placeMark(row, col)) {
                 if (game.checkForWin(row, col)) {
                     game.printBoard();
-                    System.out.println("Congratulations, player " + game.currentPlayerMark + " has won!");
+                    System.out.println("Congratulations, player " + game.getCurrentPlayerMark() + " has won!");
                     isRunning = false;
                 }
                 else if (game.isBoardFull()) {
@@ -33,5 +33,6 @@ public class Main {
                 System.out.println("Invalid move, please try again.");
             }
         }
+        scanner.close();
     }
 }
