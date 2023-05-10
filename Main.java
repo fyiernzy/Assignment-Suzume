@@ -5,7 +5,7 @@ import java.util.Scanner;
 public class Main {
     // Main method to run the game
     public static void main(String[] args) {
-        TicTacToe game = new TicTacToe();
+        TicTacToeRule game = new TicTacToeRule();
         Scanner scanner = new Scanner(System.in);
         boolean isRunning = true;
 
