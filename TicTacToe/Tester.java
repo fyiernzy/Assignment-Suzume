@@ -18,7 +18,7 @@ public class Tester {
             // Connect to the local MySQL database
             String url = "jdbc:mysql://127.0.0.1:3306/tictactoe";
             String username = "root";
-            String password = "1d07500b5eA@";
+            String password = "";
             conn = DriverManager.getConnection(url, username, password);
 
             // Do something with the database connection
