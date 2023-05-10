@@ -1,4 +1,4 @@
-package Assignment.PixelMap;
+package PixelMap;
 
 public class PathFinder {
     private static final int[][] DIRECTIONS = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};

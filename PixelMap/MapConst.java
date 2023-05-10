@@ -1,4 +1,4 @@
-package Assignment.PixelMap;
+package PixelMap;
 
 public class MapConst {
     public static final int OBSTACLE = 1;
