@@ -8,7 +8,7 @@ public class Main {
         VariantBoard game = new VariantBoard();
         Scanner scanner = new Scanner(System.in);
         boolean isRunning = true;
-
+        System.out.println("hello");
         while (isRunning) {
             game.printBoard();
             System.out.println("Enter row and column where you want to place your mark (e.g. 1 2): ");
