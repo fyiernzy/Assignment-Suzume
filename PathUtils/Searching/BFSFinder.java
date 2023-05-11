@@ -15,12 +15,12 @@ public class BFSFinder extends PathNumberFinder {
         Node parent;
         Set<Node> visited;
 
-        Node(int row, int col, Node parent, int cStation) {
+        Node(int row, int col, Node parent, int cStation, Set<Node> visited) {
             this.row = row;
             this.col = col;
             this.parent = parent;
             this.cStation = cStation;
-            this.visited = new HashSet<>();
+            this.visited = visited;
         }
 
         @Override
@@ -31,17 +31,25 @@ public class BFSFinder extends PathNumberFinder {
             Node other = (Node) obj;
             return row == other.row && col == other.col;
         }
+
+        @Override
+        public String toString() {
+            return "(" + row + ", " + col + ")";
+        }
     }
 
     @Override
     public int countPaths(int numberOfStation) {
-        Node src = new Node(0, 0, null, 0);
+        Node src = new Node(0, 0, null, 0, new HashSet<>());
         Queue<Node> queue = new LinkedList<>();
         queue.offer(src);
 
         int numberOfPath = 0;
         while (!queue.isEmpty()) {
+            
             Node current = queue.poll();
+            // System.out.println("Current queue: " + queue);
+            System.out.println("Current position: " + current + ", number of station: " + current.cStation);
             current.visited.add(current);
 
             if (isStation(current.row, current.col)) {
@@ -69,15 +77,10 @@ public class BFSFinder extends PathNumberFinder {
             int nextRow = node.row + dir[0];
             int nextCol = node.col + dir[1];
             if (isValid(nextRow, nextCol)
-                    && (node.parent == null || !(node.parent.row == nextRow && node.parent.col == nextCol))
                     && (!node.visited.stream().anyMatch(n -> n.row == nextRow && n.col == nextCol))) {
-                neighbors.add(new Node(nextRow, nextCol, node, node.cStation));
+                neighbors.add(new Node(nextRow, nextCol, node, node.cStation, node.visited));
             }
         }
         return neighbors;
-    }
-
-    public static void main(String[] args) {
-        
     }
 }
