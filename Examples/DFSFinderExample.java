@@ -9,7 +9,6 @@ public class DFSFinderExample {
         PixelImageReader reader = new PixelImageReader();
         List<PixelMap> list = reader.readImages("Examples/Images", ".png");
         list.stream().forEach(map -> map.transform(64));
-
         
         for(int i = 0; i < list.size(); i++) {
             DFSFinder finder = new DFSFinder(list.get(i).getPixelMap());
