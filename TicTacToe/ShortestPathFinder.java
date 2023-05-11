@@ -188,7 +188,7 @@ public class ShortestPathFinder {
         // printPath(grid ,path);
 
         // Print the coordinates of each cell in the path
-        // finder.printCoordinates(path);
+        finder.printCoordinates(path);
     }
 
     
