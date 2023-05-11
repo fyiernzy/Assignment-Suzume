@@ -1,25 +1,15 @@
-package PathUtils;
+package PathUtils.ShortestPath;
 
 import java.util.*;
 import PixelMap.*;
 
-public class ShortestPathFinder {
-    private int[][] map;
-    private int numRows;
-    private int numCols;
-
-    ShortestPathFinder(int[][] map) {
-        setMap(map);
+public class AStarFinder extends ShortestPathFinder {
+    AStarFinder(int[][] map) {
+        super(map);
     }
 
-    ShortestPathFinder(PixelMap pixelMap) {
-        this(pixelMap.getPixelMap());
-    }
-
-    public void setMap(int[][] map) {
-        this.map = map;
-        this.numRows = map.length;
-        this.numCols = map[0].length;
+    AStarFinder(PixelMap pixelMap) {
+        super(pixelMap);
     }
 
     private int heuristic(Cell n, Cell goal) {
@@ -123,7 +113,7 @@ public class ShortestPathFinder {
         // Define the start cell and the goal cell
 
         // Find the shortest path using A* algorithm
-        ShortestPathFinder finder = new ShortestPathFinder(grid);
+        AStarFinder finder = new AStarFinder(grid);
         List<Cell> path = finder.findPath();
         // finder.printMap();
         // Print the grid with the path marked as *
