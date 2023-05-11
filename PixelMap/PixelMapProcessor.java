@@ -2,6 +2,8 @@ package PixelMap;
 
 import java.util.*;
 
+import PathUtils.Searching.DFSFinder;
+
 public class PixelMapProcessor {
     public PixelMap combinePixelMaps(List<PixelMap> pixelMaps, int rowSize, int colSize) {
         if(pixelMaps.size() != rowSize * colSize) {
@@ -36,7 +38,7 @@ public class PixelMapProcessor {
 
         Map<Integer, PixelMap> map = new HashMap<>();
         for(PixelMap pixels : pixelMaps) {
-            PathFinder finder = new PathFinder(pixels.getPixelMap());
+            DFSFinder finder = new DFSFinder(pixels.getPixelMap());
             map.put(finder.countPaths(), pixels);
         }
 

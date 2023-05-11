@@ -44,7 +44,6 @@ public class ShortestPathFinder {
         for (int[] dir : dirs) {
             int x = cell.x + dir[0]; // neighbor's x coordinate
             int y = cell.y + dir[1]; // neighbor's y coordinate
-            
             if (isValid(x, y)) { // Check if the neighbor is valid and not in the closed set
                 neighbors.add(new Cell(x, y, null, 0, 0));
             }
