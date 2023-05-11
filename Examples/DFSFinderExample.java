@@ -12,6 +12,6 @@ public class DFSFinderExample {
 
         PixelMap map1 = list.get(0);
         DFSFinder finder = new DFSFinder(map1.getPixelMap());
-        System.out.println(finder.countPaths(3));
+        System.out.println("DFSFinder = " + finder.countPaths(3));
     }
 }
