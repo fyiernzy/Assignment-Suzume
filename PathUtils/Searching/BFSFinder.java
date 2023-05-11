@@ -46,10 +46,9 @@ public class BFSFinder extends PathNumberFinder {
 
         int numberOfPath = 0;
         while (!queue.isEmpty()) {
-            
-            Node current = queue.poll();
             // System.out.println("Current queue: " + queue);
-            System.out.println("Current position: " + current + ", number of station: " + current.cStation);
+            Node current = queue.poll();
+            // System.out.println("Current position: " + current + ", number of station: " + current.cStation + ", Visited = " + current.visited);
             current.visited.add(current);
 
             if (isStation(current.row, current.col)) {
@@ -78,7 +77,7 @@ public class BFSFinder extends PathNumberFinder {
             int nextCol = node.col + dir[1];
             if (isValid(nextRow, nextCol)
                     && (!node.visited.stream().anyMatch(n -> n.row == nextRow && n.col == nextCol))) {
-                neighbors.add(new Node(nextRow, nextCol, node, node.cStation, node.visited));
+                neighbors.add(new Node(nextRow, nextCol, node, node.cStation, new HashSet<>(node.visited)));
             }
         }
         return neighbors;
