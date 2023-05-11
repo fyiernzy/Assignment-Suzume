@@ -3,49 +3,10 @@ package TicTacToe;
 import java.util.*;
 import PixelMap.*;
 
-// Define a class for each cell
-class Cell {
-    int x; // x coordinate
-    int y; // y coordinate
-    Cell parent; // parent cell
-    int g; // actual cost from start cell to this cell
-    int h; // estimated cost from this cell to goal cell
-    int f; // total cost (g + h)
-
-    // Constructor
-    Cell(int x, int y, Cell parent, int g, int h) {
-        this.x = x;
-        this.y = y;
-        this.parent = parent;
-        this.g = g;
-        this.h = h;
-        this.f = g + h;
-    }
-
-    // Override equals method to compare cells by coordinates
-    @Override
-    public boolean equals(Object obj) {
-        if (obj == this)
-            return true;
-        if (!(obj instanceof Cell))
-            return false;
-        Cell other = (Cell) obj;
-        return this.x == other.x && this.y == other.y;
-    }
-
-    // Override hashCode method to use coordinates as hash code
-    @Override
-    public int hashCode() {
-        return Objects.hash(x, y);
-    }
-
-}
-
 public class ShortestPathFinder {
     private int[][] map;
     private int numRows;
     private int numCols;
-    private List<Cell> paths;
 
     ShortestPathFinder(int[][] map) {
         setMap(map);
@@ -58,7 +19,7 @@ public class ShortestPathFinder {
     public void setMap(int[][] map) {
         this.map = map;
         this.numRows = map.length;
-        this.numRows = map[0].length;
+        this.numCols = map[0].length;
     }
 
     private int heuristic(Cell n, Cell goal) {
@@ -72,8 +33,8 @@ public class ShortestPathFinder {
     }
 
     private Cell[] initializeCells() {
-        Cell goal = new Cell(numRows - 1, numCols - 1, null, 0, 0);
-        Cell start = new Cell(0, 0, null, 0, heuristic(new Cell(0, 0, null, 0, 0), goal));
+        Cell goal = new Cell(numRows - 1, numCols - 1);
+        Cell start = new Cell(0, 0, null, 0, heuristic(new Cell(), goal));
         return new Cell[] { start, goal };
     }
 
@@ -83,9 +44,8 @@ public class ShortestPathFinder {
         for (int[] dir : dirs) {
             int x = cell.x + dir[0]; // neighbor's x coordinate
             int y = cell.y + dir[1]; // neighbor's y coordinate
-
-            // Check if the neighbor is valid and not in the closed set
-            if (isValid(x, y)) {
+            
+            if (isValid(x, y)) { // Check if the neighbor is valid and not in the closed set
                 neighbors.add(new Cell(x, y, null, 0, 0));
             }
         }
@@ -116,13 +76,13 @@ public class ShortestPathFinder {
             closedSet.add(current);
 
             if (current.equals(goal)) {
-                List<Cell> paths = reconstructPath(current);
-                this.paths = paths;
-                return paths;
+                return reconstructPath(current);
             }
 
             for (Cell neighbor : getNeighbors(current)) {
+                
                 if (!closedSet.contains(neighbor)) {
+                    
                     // Calculate the g(n), h(n) and f(n) values for the neighbor
                     int g = current.g + 1; // assume unit cost for each step
                     int h = heuristic(neighbor, goal);
@@ -145,25 +105,8 @@ public class ShortestPathFinder {
         // Return null if no path is found
         return null;
     }
-    
-    public void printMap() {
-        printMap(this.map);
-    }
 
-    void printMap(int[][] map) {
-        for (int[] row : map) {
-            for (int cell : row) {
-                System.out.print(cell + " ");
-            }
-            System.out.println();
-        }
-    }
-
-    public void printCoordinates() {
-        printCoordinates(this.paths);
-    }
-
-    void printCoordinates(List<Cell> path) {
+    static void printCoordinates(List<Cell> path) {
         for (Cell cell : path) {
             System.out.println("(" + cell.x + ", " + cell.y + ")");
         }
@@ -183,13 +126,56 @@ public class ShortestPathFinder {
         // Find the shortest path using A* algorithm
         ShortestPathFinder finder = new ShortestPathFinder(grid);
         List<Cell> path = finder.findPath();
-        finder.printMap();
+        // finder.printMap();
         // Print the grid with the path marked as *
         // printPath(grid ,path);
 
         // Print the coordinates of each cell in the path
-        finder.printCoordinates(path);
+        printCoordinates(path);
+    }
+}
+
+// Define a class for each cell
+class Cell {
+    int x; // x coordinate
+    int y; // y coordinate
+    Cell parent; // parent cell
+    int g; // actual cost from start cell to this cell
+    int h; // estimated cost from this cell to goal cell
+    int f; // total cost (g + h)
+
+    Cell() {
+        this(0, 0, null, 0, 0);
     }
 
-    
+    Cell(int x, int y) {
+        this(x, y, null, 0, 0);
+    }
+    // Constructor
+    Cell(int x, int y, Cell parent, int g, int h) {
+        this.x = x;
+        this.y = y;
+        this.parent = parent;
+        this.g = g;
+        this.h = h;
+        this.f = g + h;
+    }
+
+    // Override equals method to compare cells by coordinates
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this)
+            return true;
+        if (!(obj instanceof Cell))
+            return false;
+        Cell other = (Cell) obj;
+        return this.x == other.x && this.y == other.y;
+    }
+
+    // Override hashCode method to use coordinates as hash code
+    @Override
+    public int hashCode() {
+        return Objects.hash(x, y);
+    }
+
 }
