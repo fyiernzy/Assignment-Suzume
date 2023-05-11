@@ -1,4 +1,4 @@
-package TicTacToe;
+package PathUtils;
 
 import java.util.*;
 import PixelMap.*;
