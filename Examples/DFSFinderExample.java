@@ -10,8 +10,10 @@ public class DFSFinderExample {
         List<PixelMap> list = reader.readImages("Examples/Images", ".png");
         list.stream().forEach(map -> map.transform(64));
 
-        PixelMap map1 = list.get(0);
-        DFSFinder finder = new DFSFinder(map1.getPixelMap());
-        System.out.println("DFSFinder = " + finder.countPaths(3));
+        
+        for(int i = 0; i < list.size(); i++) {
+            DFSFinder finder = new DFSFinder(list.get(i).getPixelMap());
+            System.out.println("Map = " + i + ", DFSFinder = " + finder.countPaths(3));
+        }
     }
 }
