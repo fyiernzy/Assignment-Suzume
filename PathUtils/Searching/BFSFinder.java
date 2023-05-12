@@ -13,42 +13,13 @@ public class BFSFinder extends PathNumberFinder {
         super(map);
     }
 
-    static class Node {
-        int row;
-        int col;
-        int cStation; // Cumulative number of station
-        Node parent;
-        Set<Integer> visited;
-
-        Node(int row, int col, int cStation, Set<Integer> visited) {
-            this.row = row;
-            this.col = col;
-            this.cStation = cStation;
-            this.visited = visited;
-        }
-
-        @Override
-        public boolean equals(Object obj) {
-            if (obj == this) {
-                return true;
-            }
-            Node other = (Node) obj;
-            return row == other.row && col == other.col;
-        }
-
-        @Override
-        public String toString() {
-            return "(" + row + ", " + col + ")";
-        }
-    }
-
     @Override
     public int countPaths(int numberOfStation) {
         Queue<int[]> pixelQueue = new LinkedList<>();
-        Queue<boolean[]> visitedQueue = new LinkedList<>();
+        Queue<BitSet> visitedQueue = new LinkedList<>();
 
-        boolean[] startVisited = new boolean[rows * cols];
-        startVisited[getKey(0, 0)] = true;
+        BitSet startVisited = new BitSet(rows * cols);
+        startVisited.set(getKey(0, 0));
 
         pixelQueue.offer(new int[] {0, 0, 0});
         visitedQueue.offer(startVisited);
@@ -56,7 +27,7 @@ public class BFSFinder extends PathNumberFinder {
         int numberOfPath = 0;
         while (!pixelQueue.isEmpty()) {
             int[] current = pixelQueue.poll();
-            boolean[] visited = visitedQueue.poll();
+            BitSet visited = visitedQueue.poll();
 
             int row = current[0];
             int col = current[1];
@@ -82,8 +53,8 @@ public class BFSFinder extends PathNumberFinder {
                 }
                     
                 pixelQueue.offer(neighbor);
-                boolean[] newVisited = Arrays.copyOf(visited, visited.length);
-                newVisited[getKey(newRow, newCol)] = true;
+                BitSet newVisited = (BitSet) visited.clone();
+                newVisited.set(getKey(newRow, newCol));
                 visitedQueue.offer(newVisited);
             }
 
@@ -94,7 +65,7 @@ public class BFSFinder extends PathNumberFinder {
         return numberOfPath;
     }
 
-    private List<int[]> getNeighbors(int row, int col, int cStation, boolean[] visited) {
+    private List<int[]> getNeighbors(int row, int col, int cStation, BitSet visited) {
         List<int[]> neighbors = new ArrayList<>();
         for (int[] dir : DIRECTIONS) {
             int nextRow = row + dir[0];
@@ -106,8 +77,8 @@ public class BFSFinder extends PathNumberFinder {
         return neighbors;
     }
 
-    private boolean isVisited(boolean[] visited, int nextRow, int nextCol) {
-        return visited[getKey(nextRow, nextCol)] == true;
+    private boolean isVisited(BitSet visited, int nextRow, int nextCol) {
+        return visited.get(getKey(nextRow, nextCol));
     }
 
     private int getKey(int row, int col) {
