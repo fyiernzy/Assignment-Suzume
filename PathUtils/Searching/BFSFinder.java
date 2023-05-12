@@ -48,17 +48,19 @@ public class BFSFinder extends PathNumberFinder {
         while (!queue.isEmpty()) {
             // System.out.println("Current queue: " + queue);
             Node current = queue.poll();
-            // System.out.println("Current position: " + current + ", number of station: " + current.cStation + ", Visited = " + current.visited);
+            // System.out.println("Current position: " + current + ", number of station: " +
+            // current.cStation + ", Visited = " + current.visited);
             current.visited.add(current);
 
             if (isStation(current.row, current.col)) {
                 current.cStation++;
+                if (current.cStation > numberOfStation) {
+                    continue;
+                }
             }
 
-            if (isDestination(current.row, current.col)) {
-                if (current.cStation == numberOfStation) {
-                    numberOfPath++;
-                }
+            if (isDestination(current.row, current.col) && current.cStation == numberOfStation) {
+                numberOfPath++;
                 continue;
             }
 
@@ -75,11 +77,14 @@ public class BFSFinder extends PathNumberFinder {
         for (int[] dir : DIRECTIONS) {
             int nextRow = node.row + dir[0];
             int nextCol = node.col + dir[1];
-            if (isValid(nextRow, nextCol)
-                    && (!node.visited.stream().anyMatch(n -> n.row == nextRow && n.col == nextCol))) {
+            if (isValid(nextRow, nextCol) && !isVisited(node.visited, nextRow, nextCol)) {
                 neighbors.add(new Node(nextRow, nextCol, node, node.cStation, new HashSet<>(node.visited)));
             }
         }
         return neighbors;
+    }
+
+    public boolean isVisited(Set<Node> track, int nextRow, int nextCol) {
+        return track.stream().anyMatch(node -> node.row == nextRow && node.col == nextCol);
     }
 }
