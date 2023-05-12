@@ -20,10 +20,9 @@ public class BFSFinder extends PathNumberFinder {
         Node parent;
         Set<Integer> visited;
 
-        Node(int row, int col, Node parent, int cStation, Set<Integer> visited) {
+        Node(int row, int col, int cStation, Set<Integer> visited) {
             this.row = row;
             this.col = col;
-            this.parent = parent;
             this.cStation = cStation;
             this.visited = visited;
         }
@@ -45,52 +44,73 @@ public class BFSFinder extends PathNumberFinder {
 
     @Override
     public int countPaths(int numberOfStation) {
-        Node src = new Node(0, 0, null, 0, new HashSet<>());
-        Queue<Node> queue = new LinkedList<>();
-        queue.offer(src);
+        Queue<int[]> pixelQueue = new LinkedList<>();
+        Queue<boolean[]> visitedQueue = new LinkedList<>();
+
+        boolean[] startVisited = new boolean[rows * cols];
+        startVisited[getKey(0, 0)] = true;
+
+        pixelQueue.offer(new int[] {0, 0, 0});
+        visitedQueue.offer(startVisited);
 
         int numberOfPath = 0;
-        while (!queue.isEmpty()) {
-            // System.out.println("Current queue: " + queue);
-            Node current = queue.poll();
-            // System.out.println("Current position: " + current + ", number of station: " +
-            // current.cStation + ", Visited = " + current.visited);
-            current.visited.add(current.row * cols + current.col);
+        while (!pixelQueue.isEmpty()) {
+            int[] current = pixelQueue.poll();
+            boolean[] visited = visitedQueue.poll();
 
-            if (isStation(current.row, current.col)) {
-                current.cStation++;
-                if (current.cStation > numberOfStation) {
+            int row = current[0];
+            int col = current[1];
+            int cStation = current[2];
+
+            for (int[] neighbor : getNeighbors(row, col, cStation, visited)) {
+                int newRow = neighbor[0];
+                int newCol = neighbor[1];
+
+                if (isStation(newRow, newCol)) {
+                    if (cStation < numberOfStation) {
+                        neighbor[2]++;
+                    } else {
+                        continue;
+                    }
+                }
+
+                if (isDestination(newRow, newCol)) {
+                    if(cStation == numberOfStation) {
+                        numberOfPath++;
+                    }
                     continue;
                 }
+                    
+                pixelQueue.offer(neighbor);
+                boolean[] newVisited = Arrays.copyOf(visited, visited.length);
+                newVisited[getKey(newRow, newCol)] = true;
+                visitedQueue.offer(newVisited);
             }
 
-            if (isDestination(current.row, current.col) && current.cStation == numberOfStation) {
-                numberOfPath++;
-                continue;
-            }
-
-            for (Node neighbor : getNeighbors(current)) {
-                queue.offer(neighbor);
-            }
+            current = null; // Helps GC
+            visited = null; // Helps GC
         }
 
         return numberOfPath;
-
     }
 
-    public List<Node> getNeighbors(Node node) {
-        List<Node> neighbors = new ArrayList<>();
+    private List<int[]> getNeighbors(int row, int col, int cStation, boolean[] visited) {
+        List<int[]> neighbors = new ArrayList<>();
         for (int[] dir : DIRECTIONS) {
-            int nextRow = node.row + dir[0];
-            int nextCol = node.col + dir[1];
-            if (isValid(nextRow, nextCol) && !isVisited(node.visited, nextRow, nextCol)) {
-                neighbors.add(new Node(nextRow, nextCol, node, node.cStation, new HashSet<>(node.visited)));
+            int nextRow = row + dir[0];
+            int nextCol = col + dir[1];
+            if (isValid(nextRow, nextCol) && !isVisited(visited, nextRow, nextCol)) {
+                neighbors.add(new int[] {nextRow, nextCol, cStation});
             }
         }
         return neighbors;
     }
 
-    public boolean isVisited(Set<Integer> track, int nextRow, int nextCol) {
-        return track.contains(nextRow * cols + nextCol);
+    private boolean isVisited(boolean[] visited, int nextRow, int nextCol) {
+        return visited[getKey(nextRow, nextCol)] == true;
+    }
+
+    private int getKey(int row, int col) {
+        return row * cols + col;
     }
 }
