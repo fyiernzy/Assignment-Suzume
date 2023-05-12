@@ -1,10 +1,15 @@
 package PathUtils.Searching;
 
 import java.util.*;
+import PixelMap.PixelMap;
 
 public class BFSFinder extends PathNumberFinder {
 
     public BFSFinder(int[][] map) {
+        super(map);
+    }
+
+    public BFSFinder(PixelMap map) {
         super(map);
     }
 
@@ -13,9 +18,9 @@ public class BFSFinder extends PathNumberFinder {
         int col;
         int cStation; // Cumulative number of station
         Node parent;
-        Set<Node> visited;
+        Set<Integer> visited;
 
-        Node(int row, int col, Node parent, int cStation, Set<Node> visited) {
+        Node(int row, int col, Node parent, int cStation, Set<Integer> visited) {
             this.row = row;
             this.col = col;
             this.parent = parent;
@@ -50,7 +55,7 @@ public class BFSFinder extends PathNumberFinder {
             Node current = queue.poll();
             // System.out.println("Current position: " + current + ", number of station: " +
             // current.cStation + ", Visited = " + current.visited);
-            current.visited.add(current);
+            current.visited.add(current.row * cols + current.col);
 
             if (isStation(current.row, current.col)) {
                 current.cStation++;
@@ -70,6 +75,7 @@ public class BFSFinder extends PathNumberFinder {
         }
 
         return numberOfPath;
+
     }
 
     public List<Node> getNeighbors(Node node) {
@@ -84,7 +90,7 @@ public class BFSFinder extends PathNumberFinder {
         return neighbors;
     }
 
-    public boolean isVisited(Set<Node> track, int nextRow, int nextCol) {
-        return track.stream().anyMatch(node -> node.row == nextRow && node.col == nextCol);
+    public boolean isVisited(Set<Integer> track, int nextRow, int nextCol) {
+        return track.contains(nextRow * cols + nextCol);
     }
 }

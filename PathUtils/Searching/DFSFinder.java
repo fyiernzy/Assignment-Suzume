@@ -1,7 +1,12 @@
 package PathUtils.Searching;
 
+import PixelMap.PixelMap;
 public class DFSFinder extends PathNumberFinder {
     public DFSFinder(int[][] map) {
+        super(map);
+    }
+
+    public DFSFinder(PixelMap map) {
         super(map);
     }
 

@@ -1,5 +1,7 @@
 package PathUtils.Searching;
 
+import PixelMap.PixelMap;
+
 public abstract class PathNumberFinder {
     protected static final int[][] DIRECTIONS = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
     protected final int[][] map;
@@ -12,11 +14,15 @@ public abstract class PathNumberFinder {
         this.cols = map[0].length;
     }
 
+    public PathNumberFinder(PixelMap map) {
+        this(map.getPixelMap());
+    }
+
     public int countPaths() {
         return countPaths(3);
     }
     
-    abstract int countPaths(int numOfStation);
+    public abstract int countPaths(int numOfStation);
 
     // A helper method to check if a position is a station
     protected boolean isStation(int row, int col) {
