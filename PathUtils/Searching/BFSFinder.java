@@ -18,7 +18,7 @@ public class BFSFinder extends PathNumberFinder {
         Queue<int[]> pixelQueue = new LinkedList<>();
         Queue<BitSet> visitedQueue = new LinkedList<>();
 
-        BitSet startVisited = new BitSet(rows * cols);
+        BitSet startVisited = new BitSet(numRows * numCols);
         startVisited.set(getKey(0, 0));
 
         pixelQueue.offer(new int[] {0, 0, 0});
@@ -70,7 +70,7 @@ public class BFSFinder extends PathNumberFinder {
         for (int[] dir : DIRECTIONS) {
             int nextRow = row + dir[0];
             int nextCol = col + dir[1];
-            if (isValid(nextRow, nextCol) && !isVisited(visited, nextRow, nextCol)) {
+            if (isValidLocation(nextRow, nextCol) && !isVisited(visited, nextRow, nextCol)) {
                 neighbors.add(new int[] {nextRow, nextCol, cStation});
             }
         }
@@ -79,9 +79,5 @@ public class BFSFinder extends PathNumberFinder {
 
     private boolean isVisited(BitSet visited, int nextRow, int nextCol) {
         return visited.get(getKey(nextRow, nextCol));
-    }
-
-    private int getKey(int row, int col) {
-        return row * cols + col;
     }
 }

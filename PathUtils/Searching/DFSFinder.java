@@ -12,12 +12,12 @@ public class DFSFinder extends PathNumberFinder {
 
     @Override
     public int countPaths(int numOfStation) {
-        int[][] visited = new int[rows][cols];
+        int[][] visited = new int[numRows][numCols];
         return countPathsHelper(visited, numOfStation, 0, 0, 0);
     }
 
     private int countPathsHelper(int[][] visited, int numOfStation, int row, int col, int stations) {
-        if (!isValid(row, col) || isVisited(visited, row, col)) {
+        if (!isValidLocation(row, col) || isVisited(visited, row, col)) {
             return 0;
         }
 
