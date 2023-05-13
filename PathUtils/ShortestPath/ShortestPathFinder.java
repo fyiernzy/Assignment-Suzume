@@ -1,26 +1,28 @@
 package PathUtils.ShortestPath;
 
 import PixelMap.PixelMap;
-import java.util.List;
+import PathUtils.AbstractPathFinder;
 
-public abstract class ShortestPathFinder {
-    protected int[][] map;
-    protected int numRows;
-    protected int numCols;
-
+public abstract class ShortestPathFinder extends AbstractPathFinder {
     ShortestPathFinder(int[][] map) {
-        setMap(map);
+        super(map);
     }
 
     ShortestPathFinder(PixelMap pixelMap) {
-        this(pixelMap.getPixelMap());
+        super(pixelMap);
     }
 
-    private void setMap(int[][] map) {
-        this.map = map;
-        this.numRows = map.length;
-        this.numCols = map[0].length;
+    protected String getDirectionName(int row, int col) {
+        if(row == 1 && col == 0) {
+            return "Down";
+        } else if(row == -1 && col == 0) {
+            return "Up";
+        } else if(row == 0 && col == 1) {
+            return "Right";
+        } else if(row == 0 && col == -1) {
+            return "Left";
+        } else {
+            throw new IllegalArgumentException("Invalid direction");
+        }
     }
-
-    public abstract List<Cell> findPath();
 }
