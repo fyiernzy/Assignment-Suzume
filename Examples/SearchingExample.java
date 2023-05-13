@@ -5,30 +5,40 @@ import PathUtils.Searching.*;
 import java.util.*;
 import static Examples.ExampleUtils.MapGetter.*;
 
+// Reference: https://github.com/ziflhigan/WIA1002-G303-GA/blob/main/MapSolution/MapDecipher.java#L202
+
 public class SearchingExample {
     public static void main(String[] args) {
         List<PixelMap> maps = getMapList();
-        testFinder(DFSFinder.class, maps);
-        testFinder(BFSFinder.class, maps);
+        int numOfStation = 3;
+        testFinderOnList(DFSFinder.class, maps, numOfStation);
+        testFinderOnList(BFSFinder.class, maps, numOfStation);
 
         PixelMap map = getCombinedMap();
-        System.out.println("DFSFinder: " + new DFSFinder(map).countPaths(4));
+        numOfStation = 3; 
+        testFinder(DFSFinder.class, map, numOfStation);
+        testFinder(BFSFinder.class, map, numOfStation);
     }
-    
-    private static void testFinder(Class<? extends PathNumberFinder> cls, List<PixelMap> maps) {
+
+    private static void testFinderOnList(Class<? extends PathNumberFinder> cls, List<PixelMap> maps, int numOfStation) {
         long startTime = System.currentTimeMillis();
         for (int i = 0; i < maps.size(); i++) {
-            PixelMap map = maps.get(i);
-            try {
-                PathNumberFinder finder = cls.getDeclaredConstructor(PixelMap.class).newInstance(map);
-                int count = finder.countPaths(3);
-                System.out.printf("Map %d: %s = %d\n", i, cls.getSimpleName(), count);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            testFinder(cls, maps.get(i), numOfStation);
         }
         long endTime = System.currentTimeMillis();
         System.out.println("Time used: " + (endTime - startTime) + "ms\n");
     }
-    
+
+    private static void testFinder(Class<? extends PathNumberFinder> cls, PixelMap map, int numOfStation) {
+        long startTime = System.currentTimeMillis();
+        try {
+            PathNumberFinder finder = cls.getDeclaredConstructor(PixelMap.class).newInstance(map);
+            int count = finder.countPaths(numOfStation);
+            System.out.printf("%s = %d, ", cls.getSimpleName(), count);
+        } catch (ReflectiveOperationException ex) {
+            ex.printStackTrace();
+        }
+        long endTime = System.currentTimeMillis();
+        System.out.println("Time used: " + (endTime - startTime) + "ms");
+    }
 }
