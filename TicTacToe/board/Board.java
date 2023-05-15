@@ -34,4 +34,12 @@ public abstract class Board {
             System.out.println("-------------");
         }
     }
+
+    public int getSize() {
+        return this.size;
+    }
+
+    public char[][] getBoard() {
+        return this.board;
+    }
 }

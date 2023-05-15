@@ -8,7 +8,7 @@ public abstract class GamingBoard extends Board {
         this.currentPlayerMark = 'X';
     }
 
-    abstract boolean checkForWin(int row, int col);
+    public abstract boolean checkForWin(int row, int col);
 
     // Changes player mark each turn.
     public void changePlayer() {
@@ -52,5 +52,9 @@ public abstract class GamingBoard extends Board {
 
     public char getCurrentPlayerMark() {
         return currentPlayerMark;
+    }
+
+    public void removeMark(int row, int col) {
+        board[row][col]=' ';
     }
 }
