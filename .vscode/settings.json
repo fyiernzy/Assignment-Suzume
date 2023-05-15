@@ -2,7 +2,8 @@
     "java.project.referencedLibraries": {
         "include": [
             "lib/**/*.jar",
-            "c:\\Users\\User\\Desktop\\Programmer_Life\\Java\\Jar\\mysql-connector-j-8.0.33.jar"
+            "c:\\Users\\User\\Desktop\\Programmer_Life\\Java\\Jar\\mysql-connector-j-8.0.33.jar",
+            "c:\\Users\\User\\Desktop\\Programmer_Life\\Java\\Jar\\javax.servlet-api-4.0.1.jar"
         ],
         "exclude": [
             "c:\\Users\\User\\Desktop\\Programmer_Life\\Java\\Jar\\junit.jar"

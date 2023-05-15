@@ -1,7 +1,5 @@
-package Assignment.clone;
+import TicTacToe.board.RegularBoard;
 
-import Assignment.clone.TicTacToe.board.RegularBoard;
-import Assignment.clone.TicTacToe.board.VariantBoard;
 
 import java.util.Scanner;
 

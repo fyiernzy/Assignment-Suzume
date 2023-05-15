@@ -1,4 +1,4 @@
-package Assignment.clone.TicTacToe.board;
+package TicTacToe.board;
 
 public abstract class Board {
     protected int size;

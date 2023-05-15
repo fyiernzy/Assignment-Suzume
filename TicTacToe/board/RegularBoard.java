@@ -1,4 +1,4 @@
-package Assignment.clone.TicTacToe.board;
+package TicTacToe.board;
 
 public class RegularBoard extends GamingBoard {
     public RegularBoard() {
@@ -7,130 +7,59 @@ public class RegularBoard extends GamingBoard {
 
     @Override
     public boolean checkForWin(int row, int col) {
-        for(int i = 0; i < 3; i++) {
-            for(int j = 0; j < 3; j++) {
-                if(checkForWinInSubpart(i, j))
+        int[][] positions = { { 0, 1, 2 }, { -1, 0, 1 }, { -2, -1, 0 } };
+
+        int r1, r2, r3, c1, c2, c3;
+        for (int[] pos : positions) {
+
+            r1 = row + pos[0];
+            r2 = row + pos[1];
+            r3 = row + pos[2];
+            c1 = col + pos[0];
+            c2 = col + pos[1];
+            c3 = col + pos[2];
+
+            // Check for horizontal win
+            if (isValid(c1, c2, c3)) {
+                if (board[row][c1] != ' ' && board[row][c1] == board[row][c1] && board[row][c1] == board[row][c2]) {
                     return true;
+                }
             }
-        }
 
-        return false;
-    }
-
-    public boolean checkForWinInSubpart(int row, int col) {
-        // Assume (row, col) = top left coordinate
-        // Check the row
-        for(int i = 0; i < 3; i++) {
-            if(board[row + i][col] != ' ') {
-                if (board[row + i][col] == board[row + i][col + 1] && board[row + 1][col + 1] == board[row + i][col + 2])
+            // Check for vertical win
+            if (isValid(r1, r2, r3)) {
+                if (board[r1][col] != ' ' && board[r1][col] == board[r2][col] && board[r2][col] == board[r3][col]) {
                     return true;
+                }
             }
-        }
 
-        // Check the column
-        for(int i = 0; i < 3; i++) {
-            if(board[row + i][col] != ' ') {
-                if (board[row][col + i] == board[row + 1][col + i] && board[row + 1][col + i] == board[row + 2][col + i]) {
+            // Check for diagonal win
+            if (isValid(r1, r2, r3) && isValid(c1, c2, c3)) {
+                if (board[r1][c1] != ' ' && board[r1][c1] == board[r2][c2] && board[r2][c2] == board[r3][c3]) {
+                    return true;
+                }
+            }
+
+            r1 = row - pos[0];
+            r2 = row - pos[1];
+            r3 = row - pos[2];
+
+            if (isValid(r1, r2, r3) && isValid(c1, c2, c3)) {
+                if (board[r1][c1] != ' ' && board[r1][c1] == board[r2][c2] && board[r2][c2] == board[r3][c3]) {
                     return true;
                 }
             }
         }
 
-        // Check the diagonals
-        if (board[row][col] != ' ' || board[row + 1][col + 1] != ' ' || board[row + 2][col + 2] != ' ')
-            if (board[row][col] ==board[row + 1][col + 1] && board[row + 1][col + 1] == board[row + 2][col + 2])
-                return true;
-
-        if (board[row][col + 2] != ' ' || board[row + 1][col + 1] != ' ' || board[row + 2][col] != ' ')
-            if (board[row][col + 2] == board[row + 1][col + 1] && board[row + 1][col + 1] == board[col + 2][col])
-                return true;
-
         return false;
     }
 
-//        // Check for a horizontal win
-//        int count = 0;
-//        for (int i = 0; i < size; i++) {
-//            if (board[row][i] != currentPlayerMark) {
-//                break;
-//            }
-//            else
-//                count++;
-//            if (count == 3)
-//                return true;
-//        }
-//
-//        // Check for a vertical win
-//        count = 0;
-//        for (int i = 0; i < size; i++) {
-//            if (board[i][col] != currentPlayerMark) {
-//                break;
-//            }
-//            else
-//                count++;
-//            if (count == 3)
-//                return true;
-//        }
-//
-//        // Check for a diagonal win (top-left to bottom-right)
-//        count = 0;
-//        if (row == col) {
-//            if (row == size / 2 && col == size / 2) {
-//                if (board[row][col] == board[row + 1][col - 1] && board[row + 1][col - 1] == board[row + 2][col - 2])
-//                    return true;
-//                else if (board[row][col] == board[row - 1][col + 1] && board[row - 1][col + 1] == board[row - 2][col + 2])
-//                    return true;
-//            }
-//            for (int i = 0; i < size; i++) {
-//                if (board[i][i] != currentPlayerMark) {
-//                    break;
-//                }
-//                else
-//                    count++;
-//                if (count == 3)
-//                    return true;
-//            }
-//        }
-//
-//        // Check for a diagonal win (top-right to bottom-left)
-//        if (row + col == size - 1) {
-//            for (int i = 0; i < size; i++) {
-//                if (board[i][size - 1 - i] == currentPlayerMark) {
-//                    break;
-//                }
-//                else
-//                    count++;
-//                if (count == 3)
-//                    return true;
-//            }
-//        }
-//
-//        // Check for other diagonals
-//        if (row != 0 && col != 0) {
-//            // if it is the last column
-//            if (col == size - 1) {
-//                if (board[row][col] == board[row + 1][col - 1] && board[row + 1][col - 1] == board[row + 2][col - 2])
-//                    return true;
-//                else if (board[row][col] == board[row - 1][col - 1] && board[row - 1][col - 1] == board[row - 2][col - 2])
-//                    return true;
-//            } else if (board[row][col] == board[row - 1][col - 1] && board[row - 1][col - 1] == board[row + 1][col + 1])
-//                return true;
-//        }
-//
-//        if (row == 0 && row != col && col != size - 1) {
-//            if (board[0][col] == board[1][col + 1] && board[1][col + 1] == board[2][col + 2])
-//                return true;
-//            else if (board[0][col] == board[1][col - 1] && board[1][col - 1] == board[2][col - 2])
-//                return true;
-//        }
-//
-//        if (col == 0 && row != col) {
-//            if (board[row][col] == board[row + 1][col + 1] && board[row + 1][col + 1] == board[row + 2][col + 2])
-//                return true;
-//            else if (board[row][col] == board[row - 1][col + 1] && board[row - 1][col + 1] == board[row - 2][col + 2])
-//                return true;
-//        }
-//
-//        return false;
+    public boolean isValid(int... positions) {
+        for (int pos : positions) {
+            if (pos < 0 || pos >= size) {
+                return false;
+            }
+        }
+        return true;
+    }
 }
-
