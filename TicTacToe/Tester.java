@@ -1,4 +1,4 @@
-package Assignment.clone.TicTacToe;
+package TicTacToe;
 
 import java.sql.*;
 

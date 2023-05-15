@@ -1,4 +1,4 @@
-package Assignment.clone.TicTacToe;
+package TicTacToe;
 
 public class PlayerUserInterface {
     Player one;

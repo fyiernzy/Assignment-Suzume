@@ -1,7 +1,6 @@
-package Assignment.clone.TicTacToe;
+package TicTacToe;
 
-import Assignment.clone.TicTacToe.board.Board;
-
+import TicTacToe.board.Board;
 public class Player {
      private int id;
      private String name, password;

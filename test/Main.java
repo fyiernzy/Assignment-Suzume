@@ -1,9 +1,6 @@
-import TicTacToe.board.RegularBoard;
+package test;
 
-import Assignment.clone.TicTacToe.board.RegularBoard;
-import Assignment.clone.TicTacToe.board.ReverseBoard;
-import Assignment.clone.TicTacToe.board.VariantBoard;
-
+import TicTacToe.board.*;
 import java.util.Scanner;
 
 public class Main {
