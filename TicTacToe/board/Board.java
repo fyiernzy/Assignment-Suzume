@@ -23,7 +23,7 @@ public abstract class Board {
 
     // Print the current board (may be replaced by GUI implementation later)
     public void printBoard() {
-        System.out.println("----".repeat(size));
+        System.out.println("----".repeat(size) + "-");
 
         for (int i = 0; i < size; i++) {
             System.out.print("| ");
@@ -31,7 +31,7 @@ public abstract class Board {
                 System.out.print(board[i][j] + " | ");
             }
             System.out.println();
-            System.out.println("----".repeat(size));
+            System.out.println("----".repeat(size) + "-");
         }
     }
 }
