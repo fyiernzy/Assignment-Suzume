@@ -1,4 +1,8 @@
 *.iml
 .idea/
 out/
+<<<<<<< HEAD
 *.py
+=======
+*.py
+>>>>>>> 6c87fb8f53ac24674d82d9a51b0d42f52c0c2031

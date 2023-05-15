@@ -1,4 +1,4 @@
-package TicTacToe.board;
+package Assignment.clone.TicTacToe.board;
 
 public abstract class Board {
     protected int size;
@@ -13,9 +13,9 @@ public abstract class Board {
     // Set/Reset the board back to all empty values.
     public void initializeBoard() {
         // Loop through rows
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < size; i++) {
             // Loop through columns
-            for (int j = 0; j < 3; j++) {
+            for (int j = 0; j < size; j++) {
                 board[i][j] = ' ';
             }
         }
@@ -23,15 +23,15 @@ public abstract class Board {
 
     // Print the current board (may be replaced by GUI implementation later)
     public void printBoard() {
-        System.out.println("-------------");
+        System.out.println("----".repeat(size) + "-");
 
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < size; i++) {
             System.out.print("| ");
-            for (int j = 0; j < 3; j++) {
+            for (int j = 0; j < size; j++) {
                 System.out.print(board[i][j] + " | ");
             }
             System.out.println();
-            System.out.println("-------------");
+            System.out.println("----".repeat(size) + "-");
         }
     }
 
