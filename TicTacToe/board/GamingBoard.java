@@ -1,4 +1,4 @@
-package TicTacToe.board;
+package Assignment.clone.TicTacToe.board;
 
 public abstract class GamingBoard extends Board {
     protected char currentPlayerMark;

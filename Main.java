@@ -1,11 +1,14 @@
-import java.util.Scanner;
+package Assignment.clone;
 
-import TicTacToe.board.VariantBoard;
+import Assignment.clone.TicTacToe.board.RegularBoard;
+import Assignment.clone.TicTacToe.board.VariantBoard;
+
+import java.util.Scanner;
 
 public class Main {
     // Main method to run the game
     public static void main(String[] args) {
-        VariantBoard game = new VariantBoard();
+        RegularBoard game = new RegularBoard();
         Scanner scanner = new Scanner(System.in);
         boolean isRunning = true;
         System.out.println("hello");

@@ -1,4 +1,4 @@
-package TicTacToe.board;
+package Assignment.clone.TicTacToe.board;
 
 public class VariantBoard extends GamingBoard {
     public VariantBoard() {
