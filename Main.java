@@ -1,12 +1,15 @@
 import TicTacToe.board.RegularBoard;
 
+import Assignment.clone.TicTacToe.board.RegularBoard;
+import Assignment.clone.TicTacToe.board.ReverseBoard;
+import Assignment.clone.TicTacToe.board.VariantBoard;
 
 import java.util.Scanner;
 
 public class Main {
     // Main method to run the game
     public static void main(String[] args) {
-        RegularBoard game = new RegularBoard();
+        ReverseBoard game = new ReverseBoard();
         Scanner scanner = new Scanner(System.in);
         boolean isRunning = true;
         System.out.println("hello");
@@ -18,7 +21,12 @@ public class Main {
             if (game.placeMark(row, col)) {
                 if (game.checkForWin(row, col)) {
                     game.printBoard();
-                    System.out.println("Congratulations, player " + game.getCurrentPlayerMark() + " has won!");
+                    if (game instanceof ReverseBoard) {
+                        game.changePlayer();
+                        System.out.println("Congratulations, player " + game.getCurrentPlayerMark() + " has won!");
+                    }
+                    else
+                        System.out.println("Congratulations, player " + game.getCurrentPlayerMark() + " has won!");
                     isRunning = false;
                 }
                 else if (game.isBoardFull()) {
