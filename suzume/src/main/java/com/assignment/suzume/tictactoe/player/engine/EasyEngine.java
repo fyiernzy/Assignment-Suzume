@@ -1,7 +1,7 @@
-package com.assignment.suzume.tictactoe.engine;
+package TicTacToe.engine;
 
+import TicTacToe.board.GamingBoard;
 import java.util.*;
-import com.assignment.suzume.tictactoe.board.GamingBoard;
 
 public class EasyEngine implements Engine {
 
@@ -10,19 +10,18 @@ public class EasyEngine implements Engine {
         makeRandomMove(board);
     }
 
-    private void makeRandomMove(GamingBoard board) {
+    public void makeRandomMove(GamingBoard board) {
+
+        // Check for empty cells on the board
+        List<int[]> emptyCells =board.getEmptyCells();
+
         Random random = new Random();
-        int size = board.getSize();
+        int randomIndex = random.nextInt(emptyCells.size());
+        int[] randomCell = emptyCells.get(randomIndex);
+        int randomRow = randomCell[0];
+        int randomCol = randomCell[1];
+        board.placeMark(randomRow, randomCol);
 
-        // Keep generating random indices until a valid move is found
-        int row = -1, col = -1;
-        do {
-            row = random.nextInt(size);
-            col = random.nextInt(size);
-        } while (!board.isValidMove(row, col));
-
-        // Place the AI player's mark on the valid random position
-        board.placeMark(row, col);
     }
 
 }

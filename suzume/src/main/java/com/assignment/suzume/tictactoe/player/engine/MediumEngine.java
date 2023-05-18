@@ -1,17 +1,17 @@
-package com.assignment.suzume.tictactoe.engine;
+package TicTacToe.engine;
 
+import TicTacToe.board.GamingBoard;
 import java.util.*;
-import com.assignment.suzume.tictactoe.board.GamingBoard;
 
 public class MediumEngine implements Engine {
 
     @Override
     public void makeMove(GamingBoard board) {
-        int size = board.getSize();
-
         // Check if there is a winning move for the AI player
-        for (int row = 0; row < size; row++) {
-            for (int col = 0; col < size; col++) {
+        List<int[]> emptyCells = board.getEmptyCells();
+        for (int[] cell : emptyCells) {
+            int row = cell[0];
+            int col = cell[1];
                 if (board.isValidMove(row, col)) {
                     // Place the AI player's mark and check if it leads to a win
                     board.placeMark(row, col);
@@ -21,41 +21,36 @@ public class MediumEngine implements Engine {
                     board.removeMark(row, col); // Undo the move
                 }
             }
-        }
-
+        
         // Check if there is a winning move for the human player and block it
-        // or else, choose a random empty cell
         placeOpponentMark(board);
 
+        // If no winning move found, select a random empty cell
+        makeRandomMove(board);
     }
 
+
     public void placeOpponentMark(GamingBoard board) {
-        int size = board.getSize();
         char[][] gameBoard = board.getBoard();
 
         // Check for empty cells on the board
-        List<int[]> emptyCells = new ArrayList<>();
-        for (int row = 0; row < size; row++) {
-            for (int col = 0; col < size; col++) {
-                if (gameBoard[row][col] == ' ') {
-                    emptyCells.add(new int[] { row, col });
-                }
-            }
-        }
-
-        // Check if placing a mark in any empty cell leads to a win
+        List<int[]> emptyCells = board.getEmptyCells();
         for (int[] cell : emptyCells) {
             int row = cell[0];
             int col = cell[1];
             gameBoard[row][col] = board.getCurrentPlayerMark();
             if (board.checkForWin(row, col)) {
                 board.placeMark(row, col);
+                return;
             }
             board.removeMark(row, col); // Reset the cell to empty
-
         }
+    }
 
-        // If no winning move found, select a random empty cell
+    public void makeRandomMove(GamingBoard board) {
+        // Check for empty cells on the board
+        List<int[]> emptyCells = board.getEmptyCells();
+
         Random random = new Random();
         int randomIndex = random.nextInt(emptyCells.size());
         int[] randomCell = emptyCells.get(randomIndex);

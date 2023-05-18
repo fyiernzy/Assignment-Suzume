@@ -1,7 +1,8 @@
-package com.assignment.suzume.tictactoe.engine;
+package TicTacToe.engine;
 
-import com.assignment.suzume.tictactoe.board.GamingBoard;
+import TicTacToe.board.GamingBoard;
 
 public interface Engine {
     void makeMove(GamingBoard board);
+    void makeRandomMove(GamingBoard board);
 }
