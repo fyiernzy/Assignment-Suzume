@@ -2,7 +2,7 @@ package com.assignment.suzume.test;
 
 import com.assignment.suzume.tictactoe.board.*;
 import java.util.Scanner;
-import org.jsoup.Jsoup;  
+import org.jsoup.Jsoup;
 
 public class Main {
     // Main method to run the game
