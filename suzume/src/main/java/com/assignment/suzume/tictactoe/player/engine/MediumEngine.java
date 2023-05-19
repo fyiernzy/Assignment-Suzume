@@ -1,7 +1,8 @@
-package TicTacToe.engine;
+package com.assignment.suzume.tictactoe.player.engine;
 
-import TicTacToe.board.GamingBoard;
+
 import java.util.*;
+import com.assignment.suzume.tictactoe.board.GamingBoard;
 
 public class MediumEngine implements Engine {
 
@@ -58,5 +59,4 @@ public class MediumEngine implements Engine {
         int randomCol = randomCell[1];
         board.placeMark(randomRow, randomCol);
     }
-
 }

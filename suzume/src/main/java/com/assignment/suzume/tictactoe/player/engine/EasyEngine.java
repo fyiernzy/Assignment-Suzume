@@ -12,7 +12,7 @@ public class EasyEngine implements Engine {
 
     public void makeRandomMove(GamingBoard board) {
         // Check for empty cells on the board
-        List<int[]> emptyCells =board.getEmptyCells();
+        List<int[]> emptyCells = board.getEmptyCells();
 
         Random random = new Random();
         int randomIndex = random.nextInt(emptyCells.size());
