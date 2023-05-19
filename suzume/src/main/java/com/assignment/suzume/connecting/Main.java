@@ -1,4 +1,4 @@
-package com.assignment.suzume.test;
+package com.assignment.suzume.connecting;
 
 import com.assignment.suzume.tictactoe.board.*;
 import java.util.Scanner;

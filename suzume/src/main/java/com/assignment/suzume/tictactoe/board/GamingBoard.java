@@ -60,4 +60,8 @@ public abstract class GamingBoard extends Board {
     public void removeMark(int row, int col) {
         board[row][col]=' ';
     }
+
+    public String getRule() {
+        return rule.getContent();
+    }
 }

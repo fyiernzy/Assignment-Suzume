@@ -1,6 +1,6 @@
-package TicTacToe.engine;
+package com.assignment.suzume.tictactoe.player.engine;
 
-import TicTacToe.board.GamingBoard;
+import com.assignment.suzume.tictactoe.board.GamingBoard;
 import java.util.*;
 
 public class HardEngine implements Engine {
@@ -49,8 +49,7 @@ public class HardEngine implements Engine {
 
     public void makeRandomMove(GamingBoard board) {
         int size = board.getSize();
-        char[][] gameBoard = board.getBoard();
-
+        
         // Check if the center cell is empty
         int row = size / 2;
         int col = size / 2;
@@ -91,6 +90,4 @@ public class HardEngine implements Engine {
         col = randomCell[1];
         board.placeMark(row, col);
     }
-    
-
 }

@@ -1,5 +1,6 @@
 package com.assignment.suzume.tictactoe.player;
 
+import java.util.*;
 import com.assignment.suzume.tictactoe.board.GamingBoard;
 
 public class Gamer extends Player {
@@ -14,8 +15,20 @@ public class Gamer extends Player {
      }
 
      @Override
-     public int[] makeMove(GamingBoard board) {
-        return null;
+     public void makeMove(GamingBoard board) {
+          Scanner scanner = new Scanner(System.in);
+          int[] move = new int[2];
+          while (true) {
+              System.out.println("Enter your move: ");
+              move[0] = scanner.nextInt();
+              move[1] = scanner.nextInt();
+              if(!board.isValidMove(move[0], move[1])) {
+                  System.out.print("Invalid move. ");
+              }
+              break;
+          }
+          scanner.close();
+          return move;
      }
 
      public int getWin() {
