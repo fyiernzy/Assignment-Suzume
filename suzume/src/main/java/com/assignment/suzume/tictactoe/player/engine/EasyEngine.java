@@ -1,7 +1,7 @@
-package TicTacToe.engine;
+package com.assignment.suzume.tictactoe.player.engine;
 
-import TicTacToe.board.GamingBoard;
 import java.util.*;
+import com.assignment.suzume.tictactoe.board.GamingBoard;
 
 public class EasyEngine implements Engine {
 
@@ -11,7 +11,6 @@ public class EasyEngine implements Engine {
     }
 
     public void makeRandomMove(GamingBoard board) {
-
         // Check for empty cells on the board
         List<int[]> emptyCells =board.getEmptyCells();
 

@@ -1,7 +1,7 @@
 package com.assignment.suzume.tictactoe.player.engine;
 
-import com.assignment.suzume.tictactoe.board.GamingBoard;
 import java.util.*;
+import com.assignment.suzume.tictactoe.board.GamingBoard;
 
 public class HardEngine implements Engine {
 
@@ -49,7 +49,7 @@ public class HardEngine implements Engine {
 
     public void makeRandomMove(GamingBoard board) {
         int size = board.getSize();
-        
+
         // Check if the center cell is empty
         int row = size / 2;
         int col = size / 2;
