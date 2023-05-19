@@ -1,8 +1,9 @@
 package com.assignment.suzume.tictactoe.board;
 
+import com.assignment.suzume.tictactoe.board.rules.Rule;
 public class VariantBoard extends GamingBoard {
-    public VariantBoard() {
-        super(3);
+    VariantBoard(Rule rule) {
+        super(3, rule);
     }
 
     // Returns true if the player has won after placing their mark in the given row
@@ -24,5 +25,4 @@ public class VariantBoard extends GamingBoard {
 
         return false;
     }
-
 }

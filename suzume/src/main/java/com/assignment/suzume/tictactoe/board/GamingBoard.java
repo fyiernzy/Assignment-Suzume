@@ -1,11 +1,14 @@
 package com.assignment.suzume.tictactoe.board;
 
+import com.assignment.suzume.tictactoe.board.rules.Rule;
 public abstract class GamingBoard extends Board {
     protected char currentPlayerMark;
+    private Rule rule;
 
-    GamingBoard(int size) {
+    GamingBoard(int size, Rule rule) {
         super(size);
         this.currentPlayerMark = 'X';
+        this.rule = rule;
     }
 
     public abstract boolean checkForWin(int row, int col);
