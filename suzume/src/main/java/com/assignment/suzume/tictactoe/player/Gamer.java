@@ -4,7 +4,7 @@ import java.util.*;
 import com.assignment.suzume.tictactoe.board.GamingBoard;
 
 public class Gamer extends Player {
-    private int id;
+     private int id;
      private String name, password;
      private int win, lose, draw;
      private int score;

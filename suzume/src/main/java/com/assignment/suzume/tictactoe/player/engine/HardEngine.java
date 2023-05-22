@@ -3,7 +3,7 @@ package com.assignment.suzume.tictactoe.player.engine;
 import java.util.*;
 import com.assignment.suzume.tictactoe.board.GamingBoard;
 
-public class HardEngine implements Engine {
+public class HardEngine extends Engine {
 
     @Override
     public void makeMove(GamingBoard board) {
@@ -47,6 +47,7 @@ public class HardEngine implements Engine {
         }
     }
 
+    @Override
     public void makeRandomMove(GamingBoard board) {
         int size = board.getSize();
 
