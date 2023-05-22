@@ -1,94 +1,44 @@
 package com.assignment.suzume.tictactoe.player.engine;
 
-import java.util.*;
 import com.assignment.suzume.tictactoe.board.GamingBoard;
 
 public class HardEngine extends Engine {
 
     @Override
-    public void makeMove(GamingBoard board) {
+    public int[] makeMove(GamingBoard board) {
         // Check if there is a winning move for the AI player
-        List<int[]> emptyCells = board.getEmptyCells();
-        for (int[] cell : emptyCells) {
-            int row = cell[0];
-            int col = cell[1];
-                if (board.isValidMove(row, col)) {
-                    // Place the AI player's mark and check if it leads to a win
-                    board.placeMark(row, col);
-                    if (board.checkForWin(row, col)) {
-                        return; // Found a winning move, no need to continue
-                    }
-                    board.removeMark(row, col); // Undo the move
-                }
-            }
-        
-        // Check if there is a winning move for the human player and block it
-        placeOpponentMark(board);
+        int[] move;
 
-        // If no winning move found, select a center, corner or side, or else pick a random cell
-        makeRandomMove(board);
-    }
-
-
-    public void placeOpponentMark(GamingBoard board) {
-        char[][] gameBoard = board.getBoard();
-
-        // Check for empty cells on the board
-        List<int[]> emptyCells = board.getEmptyCells();
-        for (int[] cell : emptyCells) {
-            int row = cell[0];
-            int col = cell[1];
-            gameBoard[row][col] = board.getCurrentPlayerMark();
-            if (board.checkForWin(row, col)) {
-                board.placeMark(row, col);
-                return;
-            }
-            board.removeMark(row, col); // Reset the cell to empty
+        if ((move = makeBestMove(board, board.getCurrentPlayerMark())) != null ||
+                (move = makeBestMove(board, board.getNextPlayerMark())) != null) {
+            return move;
         }
+
+        // If no winning move found, select a random empty cell
+        return makeRandomMove(board);
     }
 
     @Override
-    public void makeRandomMove(GamingBoard board) {
+    public int[] makeRandomMove(GamingBoard board) {
         int size = board.getSize();
 
-        // Check if the center cell is empty
-        int row = size / 2;
-        int col = size / 2;
-        if (board.isEmpty(row,col)) {
-            board.placeMark(row,col);
-            return;
-        }
-    
-        // Check if any corner cell is empty
-        int[][] corners = {{0, 0}, {0, size - 1}, {size - 1, 0}, {size - 1, size - 1}};
-        for (int[] corner : corners) {
-            row = corner[0];
-            col = corner[1];
-            if (board.isEmpty(row,col)) {
+        // Check if any corner cell is empty, followed by center cell and side cells
+        int[][] choices = { 
+                { 0, 0 }, { 0, size - 1 }, { size - 1, 0 }, { size - 1, size - 1 }, // corners cells
+                { size >> 1, size >> 1 }, // center cells
+                { 0, 1 }, { 1, 0 }, { size - 1, 1 }, { 1, size - 1 } // side cells
+        };
+
+        int row, col;
+        for (int[] choice : choices) {
+            row = choice[0]; col = choice[1];
+            if (board.isValidMove(row, col)) {
                 board.placeMark(row, col);
-                return;
+                return new int[] { row, col };
             }
         }
-    
-        // Check if any side cell is empty
-        int[][] sides = {{0, 1}, {1, 0}, {size - 1, 1}, {1, size - 1}};
-        for (int[] side : sides) {
-            row = side[0];
-            col = side[1];
-            if (board.isEmpty(row, col)) {
-                board.placeMark(row, col);
-                return;
-            }
-        }
-    
-        // If no corner, center, or side cell is empty, select a random empty cell
-        // Check for empty cells on the board
-        List<int[]> emptyCells = board.getEmptyCells();
-        Random random = new Random();
-        int randomIndex = random.nextInt(emptyCells.size());
-        int[] randomCell = emptyCells.get(randomIndex);
-        row = randomCell[0];
-        col = randomCell[1];
-        board.placeMark(row, col);
+
+        // If no choice, center, or side cell is empty, select a random empty cell
+        return makeRandomMove(board);
     }
 }

@@ -1,16 +1,14 @@
 package com.assignment.suzume.tictactoe.system;
 
-import java.util.*;
 import com.assignment.suzume.tictactoe.player.Player;
 import com.assignment.suzume.tictactoe.board.GamingBoard;
-import com.assignment.suzume.tictactoe.board.rules.Rule;
 
 public class GameRunner {
     Player one;
     Player two;
     GamingBoard board;
 
-    GameRunner(Player one, Player two, GamingBoard board) {
+    public GameRunner(Player one, Player two, GamingBoard board) {
         this.one = one;
         this.two = two;
         this.board = board;
@@ -23,7 +21,6 @@ public class GameRunner {
 
     public void gamePlay() {
         printRules();
-        boolean hasWinner = false;
         boolean isOneTurn = (int) (Math.random() * 2) == 0 ? true : false;
         int[] move = new int[2];
 
@@ -36,7 +33,6 @@ public class GameRunner {
             }
 
             int row = move[0], col = move[1];
-
             if(board.checkForWin(row, col)) {
                 break;
             }
