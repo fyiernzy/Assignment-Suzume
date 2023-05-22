@@ -8,5 +8,6 @@
         "exclude": [
             "c:\\Users\\User\\Desktop\\Programmer_Life\\Java\\Jar\\junit.jar"
         ]
-    }
+    },
+    "java.compile.nullAnalysis.mode": "automatic"
 }

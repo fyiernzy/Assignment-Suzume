@@ -2,8 +2,7 @@ package com.assignment.suzume.path.shortest;
 
 import java.util.*;
 import com.assignment.suzume.map.PixelMap;
-import com.assignment.suzume.utils.map.MapSimulator;
-import static com.assignment.suzume.utils.map.MapGetter.*;
+import static com.assignment.suzume.utils.PathUtils.*;
 
 public class BFSFinder extends ShortestPathFinder {
 
@@ -81,16 +80,5 @@ public class BFSFinder extends ShortestPathFinder {
             this.visited = visited;
             this.parent = parent;
         }
-    }
-
-    public static void main(String[] args) {
-        BFSFinder finder = new BFSFinder(getCombinedMap().getPixelMap());
-        List<List<String>> list = finder.findAllShortestPaths();
-        // System.out.println(list.size());
-        // for (List<String> ls : list) {
-        //     System.out.println(ls + "\n");
-        // }
-        MapSimulator simulator = new MapSimulator();
-        simulator.simulate(getCombinedMap().getPixelMap(), list.get(0));
     }
 }
