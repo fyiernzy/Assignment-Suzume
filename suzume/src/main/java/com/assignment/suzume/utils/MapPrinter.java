@@ -1,13 +1,17 @@
-package com.assignment.suzume.utils.ExampleUtils;
+package com.assignment.suzume.utils;
 
 public class MapPrinter {
+
     public static void prettyPrint(int[][] grid) {
+        prettyPrint(grid, 4);
+    }
+
+    public static void prettyPrint(int[][] grid, int formatSize) {
         int numRows = grid.length;
         int numCols = grid[0].length;
-        int size = 4;
-        String format = "%" + size + "d";
+        String format = "%" + formatSize + "d";
 
-        System.out.print(" ".repeat(size));
+        System.out.print(" ".repeat(formatSize));
 
         for(int i = 0; i < numCols; i++) {
             System.out.printf(format, i);
@@ -16,7 +20,7 @@ public class MapPrinter {
         System.out.println();
 
         for(int row = 0; row < numRows; row++) {
-            System.out.printf(" %-" + (size - 1) + "d", row);
+            System.out.printf(" %-" + (formatSize - 1) + "d", row);
             for(int col = 0; col < numCols; col++) {
                 System.out.printf(format, grid[row][col]);
             }
@@ -25,10 +29,13 @@ public class MapPrinter {
     }
 
     public static void printGrid(int[][] grid) {
+        printGrid(grid, 2);
+    }
+
+    public static void printGrid(int[][] grid, int formatSize) {
         int numRows = grid.length;
         int numCols = grid[0].length;
-        int size = 2;
-        String format = "%" + size + "d";
+        String format = "%" + formatSize + "d";
 
         for(int row = 0; row < numRows; row++) {
             for(int col = 0; col < numCols; col++) {
@@ -39,10 +46,13 @@ public class MapPrinter {
     }
 
     public static void printGrid(char[][] grid) {
+        printGrid(grid, 3);
+    }
+
+    public static void printGrid(char[][] grid, int formatSize) {
         int numRows = grid.length;
         int numCols = grid[0].length;
-        int size = 3;
-        String format = "%" + size + "c";
+        String format = "%" + formatSize + "c";
 
         for(int row = 0; row < numRows; row++) {
             for(int col = 0; col < numCols; col++) {
@@ -51,6 +61,4 @@ public class MapPrinter {
             System.out.println();
         }
     }
-
-
 }

@@ -1,4 +1,4 @@
-package com.assignment.suzume.utils.map;
+package com.assignment.suzume.utils;
 
 import com.assignment.suzume.map.*;
 import java.util.*;

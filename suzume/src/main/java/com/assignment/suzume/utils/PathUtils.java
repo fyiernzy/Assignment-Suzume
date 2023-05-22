@@ -1,25 +1,24 @@
-package com.assignment.suzume.utils.map;
+package com.assignment.suzume.utils;
 
 import java.util.*;
 import com.assignment.suzume.path.shortest.Node;
 
-public class PathPrinter {
-
-    public void printUsingNode(Node node) {
+public class PathUtils {
+    public static void printUsingNode(Node node) {
         preOrder(node, new StringBuilder());
     }
 
-    public void printUsingDirections(List<String> directions) {
+    public static void printUsingDirections(List<String> directions) {
         directions.forEach(x -> System.out.print(x + " "));
         System.out.println();
     }
 
-    public void printUsingPositions(List<int[]> positions) {
+    public static void printUsingPositions(List<int[]> positions) {
         positions.forEach(x -> System.out.print(Arrays.toString(x) + " "));
         System.out.println();
     }
 
-    private void preOrder(Node node, StringBuilder sb) {
+    private static void preOrder(Node node, StringBuilder sb) {
         if (node != null) {
             sb.append(node.toString());
             if (node.isLeaf()) {
@@ -34,7 +33,7 @@ public class PathPrinter {
         }
     }
 
-    public List<String> posToDirection(List<int[]> positions) {
+    public static List<String> posToDirection(List<int[]> positions) {
         List<String> result = new ArrayList<>();
         for(int i = 0; i < positions.size() - 1; i++) {
             int[] current = positions.get(i);
@@ -44,7 +43,7 @@ public class PathPrinter {
         return result;        
     }
 
-    public List<int[]> directionToPos(List<String> directions, int[] start) {
+    public static List<int[]> directionToPos(List<String> directions, int[] start) {
         List<int[]> result = new ArrayList<>();
         result.add(start);
         for(int i = 0; i < directions.size(); i++) {
@@ -56,7 +55,7 @@ public class PathPrinter {
         return result;
     }
 
-    String getDirectionName(int row, int col) {
+    public static String getDirectionName(int row, int col) {
         if(row == 1 && col == 0) {
             return "Down";
         } else if(row == -1 && col == 0) {
@@ -70,7 +69,7 @@ public class PathPrinter {
         }
     }
 
-    int[] getPosition(String direction) {
+    public static int[] getPosition(String direction) {
         switch(direction) {
             case "Up": return new int[] {-1, 0};
             case "Down": return new int[] {1, 0};

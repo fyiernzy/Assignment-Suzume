@@ -1,8 +1,9 @@
-package com.assignment.suzume.utils.ExampleUtils;
+package com.assignment.suzume.utils;
+
+import static com.assignment.suzume.utils.MapPrinter.*;
 
 import java.util.*;
 import com.assignment.suzume.path.shortest.*;
-import static com.assignment.suzume.utils.ExampleUtils.MapPrinter.*;
 
 public class MapSimulator {
     public void simulate(int[][] grid, List<String> steps) {
