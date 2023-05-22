@@ -15,11 +15,7 @@ public abstract class GamingBoard extends Board {
 
     // Changes player mark each turn.
     public void changePlayer() {
-        if (currentPlayerMark == 'X') {
-            currentPlayerMark = 'O';
-        } else {
-            currentPlayerMark = 'X';
-        }
+        currentPlayerMark = currentPlayerMark == 'X' ? 'O' : 'X';
     }   
 
     // Loop through all cells of the board and if one is found to be empty (contains
@@ -41,6 +37,7 @@ public abstract class GamingBoard extends Board {
     public boolean placeMark(int row, int col) {
         if (isValidMove(row, col)) {
             board[row][col] = currentPlayerMark;
+            emptyCells.removeIf(cell -> cell[0] == row && cell[1] == col); 
             return true;
         }
 
@@ -50,15 +47,19 @@ public abstract class GamingBoard extends Board {
     public boolean isValidMove(int row, int col) {
         return !isBoardFull()
                 && (row >= 0 && row < size) && (col >= 0 && col < size)
-                && board[row][col] == ' ';
+                && isEmpty(row, col);
     }
 
     public char getCurrentPlayerMark() {
         return currentPlayerMark;
     }
 
+    public char getNextPlayerMark() {
+        return currentPlayerMark == 'X' ? 'O' : 'X';
+    }
+
     public void removeMark(int row, int col) {
-        board[row][col]=' ';
+        board[row][col] = ' ';
     }
 
     public String getRule() {
