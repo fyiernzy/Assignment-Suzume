@@ -1,9 +1,9 @@
 package com.assignment.suzume.path.shortest;
 
 import java.util.*;
-import com.assignment.suzume.utils.ExampleUtils.MapSimulator;
 import com.assignment.suzume.map.PixelMap;
-import static com.assignment.suzume.utils.ExampleUtils.MapGetter.*;
+import com.assignment.suzume.utils.map.MapSimulator;
+import static com.assignment.suzume.utils.map.MapGetter.*;
 
 public class BFSFinder extends ShortestPathFinder {
 

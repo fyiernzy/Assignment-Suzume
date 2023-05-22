@@ -17,7 +17,6 @@ public class Node {
     }
 
     public void addChildNode(Node node) {
-
         if (left == null) {
             left = node;
         } else {
@@ -32,5 +31,17 @@ public class Node {
 
     public String toString() {
         return "[" + row + ", " + col + "]";
+    }
+
+    public boolean isLeaf() {
+        return left == null && right == null;
+    }
+
+    public Node getLeftChild() {
+        return this.left;
+    }
+
+    public Node getRightChild() {
+        return this.right;
     }
 }

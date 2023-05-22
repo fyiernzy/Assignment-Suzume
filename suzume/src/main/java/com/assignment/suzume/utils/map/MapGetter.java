@@ -1,4 +1,4 @@
-package com.assignment.suzume.utils.ExampleUtils;
+package com.assignment.suzume.utils.map;
 
 import com.assignment.suzume.map.*;
 import java.util.*;
@@ -7,11 +7,18 @@ public class MapGetter {
     private static final String IMAGE_PATH = "Examples/Images";
     private static final String IMAGE_SUFFIX = ".png";
     private static final int[][] NUM_OF_PATH = { { 16, 41 }, { 38, 27 } };
+    private static List<PixelMap> list;
+
+    public static PixelMap getMap(int index) {
+        return getMapList().get(index);
+    }
 
     public static List<PixelMap> getMapList() {
-        PixelImageReader reader = new PixelImageReader();
-        List<PixelMap> list = reader.readImages(IMAGE_PATH, IMAGE_SUFFIX);
-        list.stream().forEach(map -> map.transform(64));
+        if(list == null) {
+            PixelImageReader reader = new PixelImageReader();
+            List<PixelMap> list = reader.readImages(IMAGE_PATH, IMAGE_SUFFIX);
+            list.stream().forEach(map -> map.transform(64));
+        }
         return list;
     }
 
