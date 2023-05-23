@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Suzume's Adventure</title>
+    <link rel="icon" type="image/x-icon" href="/images/daijin.png" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <section class="header">
+      <nav>
+        <a href="homepage.html"><img src="images/logofinal.png" /></a>
+        <div class="nav-links">
+          <ul>
+            <li><a href="homepage.html">HOME</a></li>
+            <li><a href="gamepage.html">PLAY NOW</a></li>
+            <li><a href="loginpage.html">LOG IN</a></li>
+          </ul>
+        </div>
+      </nav>
+    </section>
+
+    <section class="box">
+      <div class="content"></div>
+      <div class="text">Login</div>
+      <form action="#">
+        <div class="field">
+          <input type="text" placeholder="Username" id="username" required />
+        </div>
+        <div class="field">
+          <input type="password" placeholder="Password" id="password" />
+        </div>
+      </form>
+      <button id="loginbutton">Log in</button>
+      <div class="or">or</div>
+
+      <button id="signupbutton">Sign Up</button>
+
+      <script type="text/javascript">
+        document.getElementById("signupbutton").onclick = function () {
+          location.href = "signuppage.html";
+        };
+      </script>
+    </section>
+
+    <footer class="footer">
+      <div class="footerContainer">
+        <p class="copyright">
+          Copyright &copy2023. Designed by DS 之 玲芽の旅.
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>
