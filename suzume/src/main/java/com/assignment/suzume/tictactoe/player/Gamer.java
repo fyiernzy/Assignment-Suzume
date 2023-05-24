@@ -6,12 +6,21 @@ import com.assignment.suzume.tictactoe.board.VariantBoard;
 
 public class Gamer extends Player {
      private int id;
-     private String name;
+     private String username, password;
      private int win, lose, draw;
      private int score;
 
      public Gamer(String name) {
-          this.name = name;
+          this.username = name;
+     }
+
+     public Gamer(String username, String password) {
+          this.username = username;
+          this.password = password;
+          win = 0;
+          lose = 0;
+          draw = 0;
+          score = 0;
      }
 
      public static void main(String[] args) {
@@ -68,6 +77,42 @@ public class Gamer extends Player {
      }
 
      public String getName() {
-          return name;
+          return username;
+     }
+
+     public void setId(int id) {
+          this.id = id;
+     }
+
+     public void setName(String name) {
+          this.username = name;
+     }
+
+     public void setPassword(String password) {
+          this.password = password;
+     }
+
+     public void setWin(int win) {
+          this.win = win;
+     }
+
+     public void setLose(int lose) {
+          this.lose = lose;
+     }
+
+     public void setDraw(int draw) {
+          this.draw = draw;
+     }
+
+     public void setScore(int score) {
+          this.score = score;
+     }
+
+     public int getId() {
+          return id;
+     }
+
+     public String getPassword() {
+          return password;
      }
 }

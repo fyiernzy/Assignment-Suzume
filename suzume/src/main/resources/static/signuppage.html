@@ -24,15 +24,17 @@
     <section class="box">
       <div class="content"></div>
       <div class="text">Sign Up</div>
-      <form action="#">
+      <<form action="/signup" method="post">
         <div class="field">
-          <input type="text" placeholder="Username" id="username" required />
+          <input type="text" placeholder="Username" id="username" name="username" maxlength="20" required />
         </div>
         <div class="field">
           <input
             type="password"
             placeholder="Password"
+            name="password"
             id="password"
+            maxlength="20"
             required
           />
         </div>
@@ -41,6 +43,7 @@
             type="password"
             placeholder="Confirm Password"
             id="passwordrpt"
+            maxlength="20"
             required
           />
         </div>

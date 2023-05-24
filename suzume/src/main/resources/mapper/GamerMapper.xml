@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.assignment.suzume.tictactoe.player.Gamer">
+
+    <resultMap id="gamerResultMap" type="Gamer">
+        <id property="id" column="id" />
+        <result property="username" column="username" />
+        <result property="password" column="password" />
+        <result property="win" column="win" />
+        <result property="lose" column="lose" />
+        <result property="draw" column="draw" />
+        <result property="score" column="score" />
+    </resultMap>
+
+    <select id="getGamerByUsername" resultMap="gamerResultMap">
+        SELECT *
+        FROM gamer
+        WHERE username = #{username}
+    </select>
+
+    <insert id="insertGamer" parameterType="Gamer">
+        INSERT INTO gamer (id, username, password, win, lose, draw, score)
+        VALUES (NULL, #{username}, #{password}, #{win}, #{lose}, #{draw}, #{score});
+    </insert>
+
+    <update id="updateGamer" parameterType="Gamer">
+        UPDATE gamer
+        SET username = #{username},
+        password = #{password},
+        win = #{win},
+        lose = #{lose},
+        draw = #{draw},
+        score = #{score}
+        WHERE id = #{id}
+    </update>
+
+</mapper>

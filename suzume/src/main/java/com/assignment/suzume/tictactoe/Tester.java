@@ -1,5 +1,7 @@
 package com.assignment.suzume.tictactoe;
 
+import com.assignment.suzume.tictactoe.player.Gamer;
+
 import java.sql.*;
 
 /**
@@ -16,7 +18,7 @@ public class Tester {
 
             System.out.println("MySQL JDBC driver loaded ok.");
             // Connect to the local MySQL database
-            String url = "jdbc:mysql://127.0.0.1:3306/tictactoe";
+            String url = "jdbc:mysql://127.0.0.1:3306/suzume_database";
             String username = "root";
             String password = "";
             conn = DriverManager.getConnection(url, username, password);
@@ -24,9 +26,9 @@ public class Tester {
             // Do something with the database connection
             System.out.println("Connected to the database!");
 
-            String sql = "INSERT INTO player (name, win, lose, draw, password, score) VALUES (?, ?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO gamer (id, username, win, lose, draw, password, score) VALUES (NULL, ?, ?, ?, ?, ?, ?)";
             PreparedStatement statement = conn.prepareStatement(sql);
-            Player player = new Player("Ng", "Suzume?");
+            Gamer player = new Gamer("Ng", "password");
             statement.setString(1, player.getName());
             statement.setInt(2, player.getWin());
             statement.setInt(3, player.getLose());
