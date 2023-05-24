@@ -5,11 +5,11 @@ import com.assignment.suzume.map.PixelMap;
 import com.assignment.suzume.path.AbstractPathFinder;
 
 public abstract class ShortestPathFinder extends AbstractPathFinder {
-    ShortestPathFinder(int[][] map) {
+    public ShortestPathFinder(int[][] map) {
         super(map);
     }
 
-    ShortestPathFinder(PixelMap pixelMap) {
+    public ShortestPathFinder(PixelMap pixelMap) {
         super(pixelMap);
     }
 

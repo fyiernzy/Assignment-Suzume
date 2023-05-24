@@ -1,4 +1,4 @@
-package com.assignment.suzume.path.shortest;
+package com.assignment.suzume.path.shortest.draft;
 
 public class Node {
 

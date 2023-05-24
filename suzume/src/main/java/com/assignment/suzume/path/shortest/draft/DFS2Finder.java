@@ -4,7 +4,6 @@ import java.util.*;
 import java.util.stream.Collectors;
 import com.assignment.suzume.map.PixelMap;
 import com.assignment.suzume.path.shortest.ShortestPathFinder;
-
 import static com.assignment.suzume.utils.PathUtils.*;
 import static com.assignment.suzume.utils.MapGetter.*;
 
