@@ -14,6 +14,7 @@ public class BFSFinder extends ShortestPathFinder {
         super(pixelMap);
     }
 
+    @Override
     public List<List<String>> findAllShortestPaths() {
         List<List<String>> shortestPaths = new ArrayList<>();
         Queue<Node> queue = new LinkedList<>();

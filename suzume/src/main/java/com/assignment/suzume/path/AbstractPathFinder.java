@@ -3,6 +3,37 @@ package com.assignment.suzume.path;
 import com.assignment.suzume.map.PixelMap;
 import static com.assignment.suzume.map.MapConst.*;
 
+/**
+ * The {@code AbstractPathFinder} class is an abstract base class for path-finding algorithms
+ * in a two-dimensional map. It provides common functionality and utility methods used by concrete
+ * path-finding implementations.
+ *
+ * <p>The class encapsulates methods for checking the validity of locations, identifying obstacles,
+ * and determining whether a location is the destination. Concrete path-finding algorithms can extend
+ * this class and implement their specific logic for traversing the map and finding optimal paths.
+ *
+ * <p>The {@code AbstractPathFinder} class includes a constant array {@code DIRECTIONS} that represents
+ * the possible movements in the map, such as moving up, down, left, or right. This array is used by
+ * concrete path-finding algorithms to explore neighboring locations.
+ *
+ * <p>Key features and functions of the {@code AbstractPathFinder} class:
+ * <ul>
+ *   <li>Providing constructors to initialize the map data either directly or through a {@code PixelMap} object.</li>
+ *   <li>Storing the map data in a two-dimensional integer array.</li>
+ *   <li>Determining the number of rows and columns in the map.</li>
+ *   <li>Verifying whether a given location is the destination.</li>
+ *   <li>Checking if a location is an obstacle within the map.</li>
+ *   <li>Ensuring that a location falls within the map boundaries.</li>
+ *   <li>Validating whether a location is both within the map boundaries and not an obstacle.</li>
+ *   <li>Computing a unique key for a given location based on its row and column coordinates.</li>
+ * </ul>
+ *
+ * <p><strong>Note:</strong> This class is abstract and should be extended by concrete path-finding
+ * algorithms to provide their specific implementations.
+ *
+ * @see PixelMap
+ */
+
 public abstract class AbstractPathFinder {
     // Up, Down, Left, Right
     protected static final int[][] DIRECTIONS = { { -1, 0 }, { 1, 0 }, { 0, -1 }, { 0, 1 }};
@@ -42,7 +73,7 @@ public abstract class AbstractPathFinder {
      * @param col the column of the location.
      * @return true if the location is an obstacle, false otherwise.
      */
-    private boolean isObstacle(int row, int col) {
+    protected boolean isObstacle(int row, int col) {
         return OBSTACLE.is(map[row][col]);
     }
 
