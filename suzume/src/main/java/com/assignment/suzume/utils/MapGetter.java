@@ -4,10 +4,10 @@ import com.assignment.suzume.map.*;
 import java.util.*;
 
 public class MapGetter {
-    private static final String IMAGE_PATH = "Examples/Images";
+    private static final String IMAGE_PATH = "./src/main/java/com/assignment/suzume/utils/Images/";
     private static final String IMAGE_SUFFIX = ".png";
     private static final int[][] NUM_OF_PATH = { { 16, 41 }, { 38, 27 } };
-    private static List<PixelMap> list;
+    private static List<PixelMap> list = null;
 
     public static PixelMap getMap(int index) {
         return getMapList().get(index);
@@ -16,7 +16,7 @@ public class MapGetter {
     public static List<PixelMap> getMapList() {
         if(list == null) {
             PixelImageReader reader = new PixelImageReader();
-            List<PixelMap> list = reader.readImages(IMAGE_PATH, IMAGE_SUFFIX);
+            list = reader.readImages(IMAGE_PATH, IMAGE_SUFFIX);
             list.stream().forEach(map -> map.transform(64));
         }
         return list;
@@ -42,5 +42,9 @@ public class MapGetter {
         });
 
         return combinedMap;
+    }
+
+    public static void main(String[] args) {
+        getCombinedMap();
     }
 }

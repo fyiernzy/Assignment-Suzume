@@ -18,6 +18,9 @@ public class MapSimulator {
             col += direction[1];
 
             if(row >= 0 && row < grid.length && col >= 0 && col < grid[0].length) {
+                if(newGrid[row][col] == '|') {
+                    System.out.println("You hit a wall!");
+                }
                 newGrid[row][col] = '*';
             }
 
