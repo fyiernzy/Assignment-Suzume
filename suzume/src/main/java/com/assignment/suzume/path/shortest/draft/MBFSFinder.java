@@ -1,6 +1,7 @@
 package com.assignment.suzume.path.shortest;
 
 import java.util.*;
+import static com.assignment.suzume.utils.PathUtils.*;
 
 public class MBFSFinder extends ShortestPathFinder {
     Map<Integer, Node> shortestPaths;
@@ -10,7 +11,7 @@ public class MBFSFinder extends ShortestPathFinder {
         this.shortestPaths = new HashMap<>();
     }
 
-    public Map<Integer, Node> findAllShortestPaths() {
+    public List<List<String>> findAllShortestPaths() {
         Queue<Node> queue = new LinkedList<>();
 
         int numRow = map.length;
@@ -18,7 +19,7 @@ public class MBFSFinder extends ShortestPathFinder {
         int[][] recDirection = { { -1, 0 }, { 0, -1 } }; // recommended direction
         int[][] altDirection = { { 1, 0 }, { 0, 1 } }; // alternative direction
 
-        queue.offer(new Node(numRow - 1, numCol - 1, 0, -1));
+        queue.offer(new Node(numRow - 1, numCol - 1, 0));
 
         while (!queue.isEmpty()) {
             Node node = queue.poll();
@@ -32,7 +33,9 @@ public class MBFSFinder extends ShortestPathFinder {
                 int newRow = node.row + dir[0];
                 int newCol = node.col + dir[1];
 
-                if (isValidLocation(newRow, newCol) && getKey(newRow, newCol) != node.parent) {
+                if (isValidLocation(newRow, newCol)
+                        && (getKey(newRow, newCol) != node.leftParent
+                                || getKey(newRow, newCol) != node.rightParent)) {
                     hasShortest = true;
                     addNewNode(newRow, newCol, node, shortestPaths, queue);
                 }
@@ -51,16 +54,25 @@ public class MBFSFinder extends ShortestPathFinder {
             }
         }
 
-        return shortestPaths;
+        return posToDirections(getPositions(shortestPaths.get(getKey(0, 0))));
     }
 
     public void addNewNode(int newRow, int newCol, Node oldNode, Map<Integer, Node> shortestPaths, Queue<Node> queue) {
         int key = getKey(newRow, newCol);
         boolean flag = shortestPaths.containsKey(key);
         Node newNode = shortestPaths.computeIfAbsent(key,
-                k -> new Node(newRow, newCol, oldNode.dist + 1, getKey(oldNode.row, oldNode.col)));
+                k -> new Node(newRow, newCol, oldNode.dist + 1));
         newNode.addChildNode(oldNode);
+        newNode.addParent(getKey(oldNode.row, oldNode.col));
         if (!flag)
             queue.offer(newNode);
+    }
+
+    public Map<Integer, Node> getShortestPaths() {
+        return shortestPaths;
+    }
+
+    public Node getShortestPathAt(int row, int col) {
+        return shortestPaths.get(getKey(row, col));
     }
 }
