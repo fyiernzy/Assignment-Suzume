@@ -1,6 +1,7 @@
-package com.assignment.suzume.path.shortest;
+package com.assignment.suzume.path.shortest.draft;
 
 import java.util.*;
+import com.assignment.suzume.path.shortest.ShortestPathFinder;
 import static com.assignment.suzume.utils.PathUtils.*;
 
 public class MBFSFinder extends ShortestPathFinder {

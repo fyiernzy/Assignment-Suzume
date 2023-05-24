@@ -1,7 +1,8 @@
 package com.assignment.suzume.utils;
 
 import java.util.*;
-import com.assignment.suzume.path.shortest.Node;
+
+import com.assignment.suzume.path.shortest.draft.Node;
 
 public class PathUtils {
     public static void printUsingNode(Node node) {

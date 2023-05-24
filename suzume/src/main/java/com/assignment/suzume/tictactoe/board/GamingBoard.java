@@ -65,4 +65,8 @@ public abstract class GamingBoard extends Board {
     public String getRule() {
         return rule.getContent();
     }
+
+    protected void setRule(Rule rule) {
+        this.rule = rule;
+    }
 }

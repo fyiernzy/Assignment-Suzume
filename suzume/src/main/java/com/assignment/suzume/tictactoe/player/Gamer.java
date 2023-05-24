@@ -5,7 +5,7 @@ import com.assignment.suzume.tictactoe.board.GamingBoard;
 import com.assignment.suzume.tictactoe.board.VariantBoard;
 
 public class Gamer extends Player {
-     private int id;
+     // private int id;
      private String name;
      private int win, lose, draw;
      private int score;

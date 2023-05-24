@@ -1,9 +1,8 @@
 package com.assignment.suzume.utils;
 
-import static com.assignment.suzume.utils.MapPrinter.*;
-
 import java.util.*;
-import com.assignment.suzume.path.shortest.*;
+import com.assignment.suzume.path.shortest.draft.Node;
+import static com.assignment.suzume.utils.MapPrinter.*;
 
 public class MapSimulator {
     public void simulate(int[][] grid, List<String> steps) {
@@ -18,9 +17,6 @@ public class MapSimulator {
             col += direction[1];
 
             if(row >= 0 && row < grid.length && col >= 0 && col < grid[0].length) {
-                if(newGrid[row][col] == '|') {
-                    System.out.println("You hit a wall!");
-                }
                 newGrid[row][col] = '*';
             }
 
@@ -66,11 +62,12 @@ public class MapSimulator {
 
         for(int row = 0; row < grid.length; row++) {
             for(int col = 0; col < grid[0].length; col++) {
-                if(grid[row][col] == 3) {
-                    newGrid[row][col] = 'X';
-                    continue;
+                switch(grid[row][col]) {
+                    case 0 -> newGrid[row][col] = ' ';
+                    case 1 -> newGrid[row][col] = '|';
+                    case 2 -> newGrid[row][col] = '@';
+                    case 3 -> newGrid[row][col] = 'X';
                 }
-                newGrid[row][col] = grid[row][col] == 0 ? ' ' : '|';
             }
         }
 
