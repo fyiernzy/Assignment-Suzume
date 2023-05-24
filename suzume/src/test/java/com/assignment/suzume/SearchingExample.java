@@ -15,7 +15,7 @@ public class SearchingExample {
         testFinderOnList(BFSFinder.class, maps, numOfStation);
 
         PixelMap map = getCombinedMap();
-        numOfStation = 3; 
+        numOfStation = 4; 
         testFinder(DFSFinder.class, map, numOfStation);
         testFinder(BFSFinder.class, map, numOfStation);
     }
