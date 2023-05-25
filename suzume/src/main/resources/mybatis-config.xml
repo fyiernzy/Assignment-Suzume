@@ -23,6 +23,7 @@
 
     <mappers>
         <mapper resource = "mapper/GamerMapper.xml"/>
+<!--        <mapper resource = "classpath:mapper/GamerMapper.xml"/>-->
     </mappers>
 
 </configuration>

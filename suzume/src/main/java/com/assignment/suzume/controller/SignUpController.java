@@ -20,9 +20,14 @@ public class SignUpController {
 
     @PostMapping
     public String signUp(@RequestParam("username") String username,
-                         @RequestParam("password") String password) {
+                         @RequestParam("password") String password,
+                         @RequestParam("passwordrpt") String confirmPassword) {
         System.out.println(username);
         System.out.println(password);
+        if (!password.equals(confirmPassword)) {
+            // Passwords do not match, handle the error appropriately
+            return "signup-error";
+        }
         Gamer gamer = new Gamer(username, password);
         gamerMapper.insertGamer(gamer);
         System.out.println("Record inserted successfully");

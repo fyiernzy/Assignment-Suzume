@@ -1,118 +1,89 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Suzume's Adventure</title>
-    <link rel="icon" type="image/x-icon" href="/images/daijin.png" />
-    <link rel="stylesheet" href="style.css" />
-  </head>
-  <body>
-    <section class="header">
-      <nav>
-        <a href="homepage.html"><img src="images/logofinal.png" /></a>
+    <link rel="icon" type="image/x-icon" href="/images/daijin.png"/>
+    <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+<section class="header">
+    <nav>
+        <a href="homepage.html"><img src="images/logofinal.png"/></a>
         <div class="nav-links">
-          <ul>
-            <li><a href="homepage.html">HOME</a></li>
-            <li><a href="gamepage.html">PLAY NOW</a></li>
-            <li><a href="loginpage.html">LOG IN</a></li>
-          </ul>
+            <ul>
+                <li><a href="homepage.html">HOME</a></li>
+                <li><a href="gamepage.html">PLAY NOW</a></li>
+                <li><a href="loginpage.html">LOG IN</a></li>
+            </ul>
         </div>
-      </nav>
-    </section>
+    </nav>
+</section>
 
-    <section class="box">
-      <div class="content"></div>
-      <div class="text">Sign Up</div>
-      <<form action="/signup" method="post">
+<section class="box">
+    <div class="content"></div>
+    <div class="text">Sign Up</div>
+    <form action="/signup" method="POST" onsubmit="return validatePassword(event)">
         <div class="field">
-          <input type="text" placeholder="Username" id="username" name="username" maxlength="20" required />
-        </div>
-        <div class="field">
-          <input
-            type="password"
-            placeholder="Password"
-            name="password"
-            id="password"
-            maxlength="20"
-            required
-          />
+            <input type="text" placeholder="Username" id="username" name="username" maxlength="20" required/>
         </div>
         <div class="field">
-          <input
-            type="password"
-            placeholder="Confirm Password"
-            id="passwordrpt"
-            maxlength="20"
-            required
-          />
+            <input
+                    type="password"
+                    placeholder="Password"
+                    name="password"
+                    id="password"
+                    maxlength="20"
+                    required
+            />
+        </div>
+        <div class="field">
+            <input
+                    type="password"
+                    placeholder="Confirm Password"
+                    name="passwordrpt"
+                    id="passwordrpt"
+                    maxlength="20"
+                    required
+            />
         </div>
 
-        <button id="signupbutton">Sign Up</button>
+        <button type="submit">Sign Up</button>
+    </form>
 
-        <script type="text/javascript">
-          var username = document.getElementById("username");
-          var password = document.getElementById("password");
-          var passwordrpt = document.getElementById("passwordrpt");
-          var signupbutton = document.getElementById("signupbutton");
+    <div class="or">or</div>
 
-          function checknullvalues(event) {
-            event.preventDefault();
-            if (
-              password.value === "" ||
-              passwordrpt.value === "" ||
-              username.value === ""
-            ) {
-              alert("Please enter all details");
-              return false; // Stop program execution
-            }
-            return true; // Proceed with program execution
-          }
+    <button id="loginbutton">Log In</button>
 
-          function validatePassword(event) {
-            event.preventDefault();
-            if (password.value !== passwordrpt.value) {
-              alert("Passwords do not match");
-            } else {
-              passwordrpt.setCustomValidity("");
-              alert("You have successfully registered");
-              signupbutton.onclick = function () {
-                location.href = "loginpage.html";
-              };
-            }
-          }
-
-          signupbutton.addEventListener("click", function (event) {
-            if (checknullvalues(event)) {
-              validatePassword(event);
-            }
-          });
-        </script>
-      </form>
-
-      <script type="text/javascript">
-        document.getElementById("signupbutton").onclick = function () {
-          location.href = "signuppage.html";
-        };
-      </script>
-
-      <div class="or">or</div>
-
-      <button id="loginbutton">Log In</button>
-
-      <script type="text/javascript">
+    <script type="text/javascript">
         document.getElementById("loginbutton").onclick = function () {
-          location.href = "loginpage.html";
+            location.href = "loginpage.html";
         };
-      </script>
-    </section>
+    </script>
+</section>
 
-    <footer class="footer">
-      <div class="footerContainer">
+<footer class="footer">
+    <div class="footerContainer">
         <p class="copyright">
-          Copyright &copy2023. Designed by DS 之 玲芽の旅.
+            Copyright &copy2023. Designed by DS 之 玲芽の旅.
         </p>
-      </div>
-    </footer>
-  </body>
+    </div>
+</footer>
+</body>
 </html>
+
+<script type="text/javascript">
+    function validatePassword(event) {
+        var password = document.getElementById("password");
+        var passwordrpt = document.getElementById("passwordrpt");
+
+        if (password.value !== passwordrpt.value) {
+            alert("Passwords do not match");
+            event.preventDefault();
+        } else {
+            alert("You have successfully registered");
+            location.href = "loginpage.html";
+        }
+    }
+</script>
