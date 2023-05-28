@@ -1,0 +1,92 @@
+package com.assignment.suzume.tictactoe.board;
+
+<<<<<<< HEAD
+import java.util.ArrayList;
+import java.util.List;
+
+=======
+import com.assignment.suzume.tictactoe.board.rules.Rule;
+>>>>>>> 625e6a65e1cb67b5f50f8683dfea08f6746d8ebb
+public abstract class GamingBoard extends Board {
+    protected char currentPlayerMark;
+    private Rule rule;
+
+    GamingBoard(int size, Rule rule) {
+        super(size);
+        this.currentPlayerMark = 'X';
+        this.rule = rule;
+    }
+
+    public abstract boolean checkForWin(int row, int col);
+
+    // Changes player mark each turn.
+    public void changePlayer() {
+        if (currentPlayerMark == 'X') {
+            currentPlayerMark = 'O';
+        } else {
+            currentPlayerMark = 'X';
+        }
+    }   
+
+    // Loop through all cells of the board and if one is found to be empty (contains
+    // char '-') then return false.
+    // Otherwise the board is full.
+    public boolean isBoardFull() {
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                if (board[i][j] == ' ') {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    // Places a mark at the cell specified by row and col with the mark of the
+    // current player.
+    public boolean placeMark(int row, int col) {
+        if (isValidMove(row, col)) {
+            board[row][col] = currentPlayerMark;
+            return true;
+        }
+
+        return false;
+    }
+
+    public boolean isValidMove(int row, int col) {
+        return !isBoardFull()
+                && (row >= 0 && row < size) && (col >= 0 && col < size)
+                && board[row][col] == ' ';
+    }
+
+    public char getCurrentPlayerMark() {
+        return currentPlayerMark;
+    }
+
+    public void removeMark(int row, int col) {
+        board[row][col]=' ';
+    }
+
+<<<<<<< HEAD
+    public List<int[]> getEmptyCells(){
+        List<int[]> emptyCells = new ArrayList<>();
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
+                char cell = board[i][j];
+                if (cell == ' ') {
+                    emptyCells.add(new int[]{i, j});
+                }
+            }
+        }
+        return emptyCells;
+
+    }
+
+    public boolean isEmpty(int row, int col){
+        return board[row][col]==' ';
+=======
+    public String getRule() {
+        return rule.getContent();
+>>>>>>> 625e6a65e1cb67b5f50f8683dfea08f6746d8ebb
+    }
+}
