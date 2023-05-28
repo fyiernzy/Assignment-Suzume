@@ -34,7 +34,7 @@ public class Gamer extends Player {
                }
                break;
           }
-          
+
           board.placeMark(move[0], move[1]);
           return move;
      }
@@ -69,5 +69,22 @@ public class Gamer extends Player {
 
      public String getName() {
           return name;
+     }
+
+     // new code added below
+     public void win() {
+          win++;
+     }
+
+     public void lose() {
+          lose++;
+     }
+
+     public void draw() {
+          draw++;
+     }
+
+     public int calScore() {
+          return score = getWinPercentage() + getLosePercentage() + getDrawPercentage();
      }
 }

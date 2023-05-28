@@ -9,14 +9,16 @@ public abstract class Player {
         this.name = name;
     }
 
-    public Player(){
-        
+    public Player() {
+
     }
 
     protected char mark;
+
     public abstract int[] makeMove(GamingBoard board);
 
     public String getName() {
         return name;
-   }
+    }
+
 }
