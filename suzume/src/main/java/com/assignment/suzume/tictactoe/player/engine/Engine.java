@@ -26,4 +26,9 @@ public abstract class Engine extends Player {
         }
         return null;
     }
+
+    @Override
+    public String toString() {
+        return this.getClass().getSimpleName();
+    }
 }

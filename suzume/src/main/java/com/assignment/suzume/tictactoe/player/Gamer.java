@@ -1,5 +1,6 @@
 package com.assignment.suzume.tictactoe.player;
 
+import java.io.IOException;
 import java.util.*;
 import com.assignment.suzume.tictactoe.board.GamingBoard;
 import com.assignment.suzume.tictactoe.board.VariantBoard;
@@ -34,7 +35,6 @@ public class Gamer extends Player {
                }
                break;
           }
-          scanner.close();
           board.placeMark(move[0], move[1]);
           return move;
      }
@@ -69,5 +69,10 @@ public class Gamer extends Player {
 
      public String getName() {
           return name;
+     }
+
+     @Override
+     public String toString(){
+          return getName();
      }
 }

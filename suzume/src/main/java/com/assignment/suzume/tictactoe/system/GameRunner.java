@@ -1,5 +1,6 @@
 package com.assignment.suzume.tictactoe.system;
 
+import com.assignment.suzume.tictactoe.player.Gamer;
 import com.assignment.suzume.tictactoe.player.Player;
 import com.assignment.suzume.tictactoe.board.GamingBoard;
 
@@ -23,17 +24,24 @@ public class GameRunner {
         printRules();
         boolean isOneTurn = (int) (Math.random() * 2) == 0 ? true : false;
         int[] move = new int[2];
+        boolean hasWon = false;
 
         while(!board.isBoardFull()) {
             board.printBoard();
+            System.out.println();
             if(isOneTurn) {
+                board.setCurrentPlayer(one);
+                System.out.println(one + "'s turn");
                 move = one.makeMove(board);
             } else {
+                board.setCurrentPlayer(two);
+                System.out.println(two + "'s turn");
                 move = two.makeMove(board);
             }
 
             int row = move[0], col = move[1];
-            if(board.checkForWin(row, col)) {
+            hasWon = board.checkForWin(row, col);
+            if(hasWon) {
                 break;
             }
 
@@ -41,10 +49,12 @@ public class GameRunner {
             board.changePlayer();
         }
 
-        if(board.isBoardFull()) {
+        if(board.isBoardFull() && !hasWon) {
+            board.printBoard();
             System.out.println("It's a tie!");
         } else {
-            System.out.println("Congratulations, player " + board.getCurrentPlayerMark() + " has won!");
+            board.printBoard();
+            System.out.println("Congratulations, " + board.getCurrentPlayer() + "(" + board.getCurrentPlayerMark() + ")" + " has won!\n");
         }
     }
 }

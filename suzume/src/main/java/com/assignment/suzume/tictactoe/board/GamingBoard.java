@@ -1,8 +1,11 @@
 package com.assignment.suzume.tictactoe.board;
 
 import com.assignment.suzume.tictactoe.board.rules.Rule;
+import com.assignment.suzume.tictactoe.player.Player;
+
 public abstract class GamingBoard extends Board {
     protected char currentPlayerMark;
+    protected Player currentPlayer;
     private Rule rule;
 
     GamingBoard(int size, Rule rule) {
@@ -68,5 +71,13 @@ public abstract class GamingBoard extends Board {
 
     protected void setRule(Rule rule) {
         this.rule = rule;
+    }
+
+    public Player getCurrentPlayer() {
+        return currentPlayer;
+    }
+
+    public void setCurrentPlayer(Player currentPlayer) {
+        this.currentPlayer = currentPlayer;
     }
 }

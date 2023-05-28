@@ -17,7 +17,7 @@ public class RegularBoard extends GamingBoard {
 
             // Check for horizontal win
             if (isValid(c1, c2, c3)) 
-                if (board[row][c1] != ' ' && board[row][c1] == board[row][c1] && board[row][c1] == board[row][c2]) 
+                if (board[row][c1] != ' ' && board[row][c1] == board[row][c2] && board[row][c2] == board[row][c3])
                     return true;
 
             // Check for vertical win
