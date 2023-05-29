@@ -26,16 +26,17 @@ public class GameRunner {
         int[] move = new int[2];
         boolean hasWon = false;
 
+
         while(!board.isBoardFull()) {
             board.printBoard();
             System.out.println();
             if(isOneTurn) {
                 board.setCurrentPlayer(one);
-                System.out.println(one + "'s turn");
+                System.out.println(one + "'s turn(" + (char)board.getCurrentPlayerMark() + ")");
                 move = one.makeMove(board);
             } else {
                 board.setCurrentPlayer(two);
-                System.out.println(two + "'s turn");
+                System.out.println(two + "'s turn(" + + (char)board.getCurrentPlayerMark() + ")");
                 move = two.makeMove(board);
             }
 
