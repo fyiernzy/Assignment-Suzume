@@ -14,6 +14,10 @@ public class Gamer extends Player {
           this.name = name;
      }
 
+     public char getMark() {
+          return mark;
+      }
+
      public static void main(String[] args) {
           Gamer gamer = new Gamer("Player 1");
           gamer.makeMove(new VariantBoard());
@@ -63,9 +67,9 @@ public class Gamer extends Player {
           return (draw / (win + lose + draw)) * 100;
      }
 
-     public int getScore() {
-          return this.score;
-     }
+     // public int getScore() {
+     //      return this.score;
+     // }
 
      public String getName() {
           return name;
@@ -84,7 +88,7 @@ public class Gamer extends Player {
           draw++;
      }
 
-     public int calScore() {
+     public int getScore() {
           return score = getWinPercentage() + getLosePercentage() + getDrawPercentage();
      }
 }

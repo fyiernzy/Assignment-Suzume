@@ -8,7 +8,6 @@ public class GameRunner2 {
     Player one;
     Player two;
     GamingBoard board;
-    char thisUser ;
 
     public GameRunner2(Player one, Player two, GamingBoard board) {
         this.one = one;
@@ -22,54 +21,49 @@ public class GameRunner2 {
     }
 
     public void gamePlay() {
-        thisUser = board.getCurrentPlayerMark();
         printRules();
+        one.setMark(board.pickMark());
+        two.setMark(one.getMark() == 'X' ? 'O' : 'X');
         boolean isOneTurn = (int) (Math.random() * 2) == 0 ? true : false;
         int[] move = new int[2];
-
-        while (!board.isBoardFull()) {
-            System.out.println((isOneTurn ? one : two).getName() + "'s turn");
+        boolean hasWon = false;
+        if(!isOneTurn){
+            board.changePlayer();
+        }
+        while(!board.isBoardFull()) {
             board.printBoard();
-            if (isOneTurn) {
+            System.out.println();
+            if(isOneTurn) {
+                board.setCurrentPlayer(one);
+                System.out.println(one.getName() + "'s turn");
                 move = one.makeMove(board);
+                
             } else {
+                board.setCurrentPlayer(two);
+                System.out.println(two.getName() + "'s turn");
                 move = two.makeMove(board);
             }
-
+            
             int row = move[0], col = move[1];
-            if (board.checkForWin(row, col)) {
-                board.printBoard();
+            hasWon = board.checkForWin(row, col);
+            if(hasWon) {
                 break;
             }
-
+            
             isOneTurn = !isOneTurn;
             board.changePlayer();
         }
 
-        if (board.isBoardFull()) {
+        if(board.isBoardFull() && !hasWon) {
+            board.printBoard();
             System.out.println("It's a tie!");
         } else {
-            calScore(one, two);
-
-            if (OneWin()) {
-                System.out
-                        .println("Congratulations, player " + one + " [" + board.getCurrentPlayerMark() + "] has won!");
-            } else {
-                System.out
-                        .println("Congratulations, player " + two + " [" + board.getCurrentPlayerMark() + "] has won!");
-            }
+            board.printBoard();
+            System.out.println("Congratulations, " + board.getCurrentPlayer() + "(" + board.getCurrentPlayerMark() + ")" + " has won!\n");
         }
     }
 
     public boolean OneWin() {
-        return (thisUser == board.getCurrentPlayerMark());
+        return board.getCurrentPlayer().equals(one);
     }
-
-    public void calScore(Player one, Player two) {
-        if (OneWin() && one instanceof Gamer) {
-            ((Gamer) one).win();
-            ((Gamer) two).lose();
-        }
-    }
-
 }
