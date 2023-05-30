@@ -80,4 +80,9 @@ public abstract class GamingBoard extends Board {
     public void setCurrentPlayer(Player currentPlayer) {
         this.currentPlayer = currentPlayer;
     }
+
+    public char getMark(int row, int col) {
+        return board[row][col];
+    }
+    
 }

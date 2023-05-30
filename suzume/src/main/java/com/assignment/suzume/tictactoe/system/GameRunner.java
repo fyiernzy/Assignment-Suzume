@@ -1,8 +1,8 @@
 package com.assignment.suzume.tictactoe.system;
 
-import com.assignment.suzume.tictactoe.player.Gamer;
 import com.assignment.suzume.tictactoe.player.Player;
 import com.assignment.suzume.tictactoe.board.GamingBoard;
+import com.assignment.suzume.tictactoe.board.ReverseBoard;
 
 public class GameRunner {
     Player one;
@@ -26,23 +26,29 @@ public class GameRunner {
         int[] move = new int[2];
         boolean hasWon = false;
 
+        if(!isOneTurn){
+            board.changePlayer();
+        }
 
         while(!board.isBoardFull()) {
             board.printBoard();
             System.out.println();
             if(isOneTurn) {
                 board.setCurrentPlayer(one);
-                System.out.println(one + "'s turn(" + (char)board.getCurrentPlayerMark() + ")");
+                System.out.println(one + "'s turn(" + board.getCurrentPlayerMark() + ")");
                 move = one.makeMove(board);
             } else {
                 board.setCurrentPlayer(two);
-                System.out.println(two + "'s turn(" + + (char)board.getCurrentPlayerMark() + ")");
+                System.out.println(two + "'s turn(" + board.getCurrentPlayerMark() + ")");
                 move = two.makeMove(board);
             }
 
             int row = move[0], col = move[1];
             hasWon = board.checkForWin(row, col);
             if(hasWon) {
+                if (board instanceof ReverseBoard) {
+                    board.changePlayer();
+                }
                 break;
             }
 
@@ -57,5 +63,9 @@ public class GameRunner {
             board.printBoard();
             System.out.println("Congratulations, " + board.getCurrentPlayer() + "(" + board.getCurrentPlayerMark() + ")" + " has won!\n");
         }
+    }
+
+    public boolean isOneWin(){
+        return board.getCurrentPlayer().equals(one);
     }
 }

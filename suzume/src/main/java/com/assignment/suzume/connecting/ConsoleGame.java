@@ -14,15 +14,22 @@ public class ConsoleGame {
     private static final Scanner scanner = new Scanner(System.in);
 
     public void play() {
+        System.out.print("Enter name (Player 1): ");
+        String p1 = scanner.nextLine();
+
         DFSFinder finder = new DFSFinder(getCombinedMap());
         int[][] grid = getCombinedMap().getPixelMap();
         List<String> steps = finder.findAllShortestPaths().get(0);
         int currentRow = 0;
         int currentCol = 0;
+        int station = 0;
+        int stationRow = 0;
+        int stationColumn =0;
+        int stationStep =0;
 
-        int step = 0, totalStep = steps.size();
-        while (step < totalStep) {
-            switch (steps.get(step)) {
+        int currentStep = 0, totalStep = steps.size();
+        while (currentStep < totalStep) {
+            switch (steps.get(currentStep)) {
                 case "Up" -> currentRow--;
                 case "Down" -> currentRow++;
                 case "Left" -> currentCol--;
@@ -30,6 +37,10 @@ public class ConsoleGame {
             }
 
             if (grid[currentRow][currentCol] == 2) {
+                System.out.println(
+                        "Suzume has arrived at station " + station+ " (" + currentRow + ", " + currentCol + ").");
+                        station++;
+
                 Player player1 = null;
                 Player player2 = null;
                 GamingBoard board = null;
@@ -43,16 +54,16 @@ public class ConsoleGame {
                     scanner.nextLine();
 
                     if (modeChoice == 1) {
-                        System.out.print("Enter name (Player 1): ");
-                        String p1 = scanner.nextLine();
+                        // System.out.print("Enter name (Player 1): ");
+                        // String p1 = scanner.nextLine();
                         System.out.print("Enter name (Player 2): ");
                         String p2 = scanner.nextLine();
                         player1 = new Gamer(p1);
                         player2 = new Gamer(p2);
                         break;
                     } else if (modeChoice == 2) {
-                        System.out.print("Enter name (Player 1): ");
-                        String p1 = scanner.nextLine();
+                        // System.out.print("Enter name (Player 1): ");
+                        // String p1 = scanner.nextLine();
                         player1 = new Gamer(p1);
                         player2 = enginePlayer();
                         break;
@@ -87,6 +98,25 @@ public class ConsoleGame {
 
                 GameRunner gameRunner = new GameRunner(player1, player2, board);
                 gameRunner.gamePlay();
+                boolean SuzumeWin = gameRunner.isOneWin();
+
+                if (!SuzumeWin) {
+                    System.out.println("Suzume has lost the station game.");
+                    if (station== 1) {
+                        System.out.println("Suzume has failed at the first station. Her journey ends.");
+                        return;
+                    } else {
+                        System.out.println("Suzume falls back to the previous station.");
+                        currentStep = stationStep;
+                        currentRow = stationRow;
+                        currentCol = stationColumn;
+                    }
+                } 
+                else {
+                    stationRow = currentRow;
+                    stationColumn = currentCol;
+                    stationStep = currentStep;
+                }
             }
 
             if (grid[currentRow][currentCol] == 3) {
@@ -94,7 +124,8 @@ public class ConsoleGame {
                 break;
             }
 
-            step++;
+            currentStep++;
+            
         }
     }
 
@@ -115,11 +146,12 @@ public class ConsoleGame {
             System.out.println("Invalid choice. Please try again.");
             return enginePlayer();
         }
+
     }
 
     public static void main(String[] args) {
         ConsoleGame consoleGame = new ConsoleGame();
         consoleGame.play();
     }
-}
 
+}

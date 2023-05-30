@@ -9,8 +9,7 @@ public class HardEngine extends Engine {
         // Check if there is a winning move for the AI player
         int[] move;
 
-        if ((move = makeBestMove(board, board.getCurrentPlayerMark())) != null ||
-                (move = makeBestMove(board, board.getNextPlayerMark())) != null) {
+        if ((move = makeBestMove(board)) != null ) {
             return move;
         }
 
