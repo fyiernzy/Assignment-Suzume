@@ -7,8 +7,8 @@
         <typeAlias alias = "Gamer" type = "com.assignment.suzume.tictactoe.player.Gamer"/>
     </typeAliases>
 
-    <environments default = "default">
-        <environment id = "default">
+    <environments default = "development">
+        <environment id = "development">
             <transactionManager type = "JDBC"/>
 
             <dataSource type = "POOLED">
@@ -23,7 +23,6 @@
 
     <mappers>
         <mapper resource = "mapper/GamerMapper.xml"/>
-<!--        <mapper resource = "classpath:mapper/GamerMapper.xml"/>-->
     </mappers>
 
 </configuration>

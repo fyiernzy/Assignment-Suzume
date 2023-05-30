@@ -24,7 +24,7 @@
 <section class="box">
     <div class="content"></div>
     <div class="text">Sign Up</div>
-    <form action="/signup" method="POST" onsubmit="return validatePassword(event)">
+    <form action="/gamer/signup" method="POST" onsubmit="return validatePassword(event)">
         <div class="field">
             <input type="text" placeholder="Username" id="username" name="username" maxlength="20" required/>
         </div>
@@ -86,4 +86,14 @@
             location.href = "loginpage.html";
         }
     }
+</script>
+
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    var message = /*[[${message}]]*/ '';
+    if (message) {
+        alert(message);
+        location.href = "signuppage.html";
+    }
+    /*]]>*/
 </script>

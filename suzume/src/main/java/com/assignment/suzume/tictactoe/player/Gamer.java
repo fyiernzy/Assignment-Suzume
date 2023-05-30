@@ -10,6 +10,9 @@ public class Gamer extends Player {
      private int win, lose, draw;
      private int score;
 
+     public Gamer() {
+     }
+
      public Gamer(String name) {
           this.username = name;
      }
@@ -76,7 +79,7 @@ public class Gamer extends Player {
           return this.score;
      }
 
-     public String getName() {
+     public String getUsername() {
           return username;
      }
 
@@ -84,7 +87,7 @@ public class Gamer extends Player {
           this.id = id;
      }
 
-     public void setName(String name) {
+     public void setUsername(String name) {
           this.username = name;
      }
 
