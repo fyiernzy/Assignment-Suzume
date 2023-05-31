@@ -7,7 +7,7 @@ public class RegularBoard extends GamingBoard {
     }
 
     @Override
-    public boolean checkForWin(int row, int col) {
+    public boolean checkForWin(int row, int col, char mark) {
         int[][] positions = { { 0, 1, 2 }, { -1, 0, 1 }, { -2, -1, 0 } };
         int r1, r2, r3, c1, c2, c3;
 
@@ -17,23 +17,23 @@ public class RegularBoard extends GamingBoard {
 
             // Check for horizontal win
             if (isValid(c1, c2, c3)) 
-                if (board[row][c1] != ' ' && board[row][c1] == board[row][c2] && board[row][c2] == board[row][c3])
+                if (board[row][c1] == mark && board[row][c2] == mark && board[row][c3] == mark)
                     return true;
 
             // Check for vertical win
             if (isValid(r1, r2, r3)) 
-                if (board[r1][col] != ' ' && board[r1][col] == board[r2][col] && board[r2][col] == board[r3][col]) 
+                if (board[r1][col] == mark && board[r2][col] == mark && board[r3][col] == mark) 
                     return true;
        
             // Check for diagonal win
             if (isValid(r1, r2, r3) && isValid(c1, c2, c3)) 
-                if (board[r1][c1] != ' ' && board[r1][c1] == board[r2][c2] && board[r2][c2] == board[r3][c3]) 
+                if (board[r1][c1] == mark && board[r2][c2] == mark && board[r3][c3] == mark) 
                     return true;
 
             r1 = row - pos[0]; r2 = row - pos[1]; r3 = row - pos[2];
 
             if (isValid(r1, r2, r3) && isValid(c1, c2, c3)) 
-                if (board[r1][c1] != ' ' && board[r1][c1] == board[r2][c2] && board[r2][c2] == board[r3][c3]) 
+                if (board[r1][c1] == mark && board[r2][c2] == mark && board[r3][c3] == mark) 
                     return true;
         }
 

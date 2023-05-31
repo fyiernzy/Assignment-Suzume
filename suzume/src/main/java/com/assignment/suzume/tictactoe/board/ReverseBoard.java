@@ -6,8 +6,8 @@ public class ReverseBoard extends VariantBoard {
         this.setRule(Rule.REVERSE);
     }
 
-    public boolean checkForWin(int row, int col) {
-        return super.checkForWin(row, col);
+    public boolean checkForWin(int row, int col, char mark) {
+        return super.checkForWin(row, col, mark);
     }
 }
 

@@ -43,8 +43,14 @@ public class GameRunner {
                 move = two.makeMove(board);
             }
 
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
             int row = move[0], col = move[1];
-            hasWon = board.checkForWin(row, col);
+            hasWon = board.checkForWin(row, col, board.getCurrentPlayerMark());
             if(hasWon) {
                 if (board instanceof ReverseBoard) {
                     board.changePlayer();

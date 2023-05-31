@@ -3,8 +3,15 @@ package com.assignment.suzume.utils;
 import java.util.*;
 
 import com.assignment.suzume.path.shortest.draft.Node;
+import com.assignment.suzume.path.shortest.DFSFinder;
+import static com.assignment.suzume.utils.MapGetter.*;
 
 public class PathUtils {
+    public static List<String> getOneShortestPath() {
+        DFSFinder finder = new DFSFinder(getCombinedMap());
+        return finder.findAllShortestPaths().get(0);
+    }
+
     public static void printUsingNode(Node node) {
         preOrder(node, new StringBuilder());
     }

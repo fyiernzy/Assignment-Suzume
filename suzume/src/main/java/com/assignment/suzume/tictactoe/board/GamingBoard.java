@@ -14,7 +14,7 @@ public abstract class GamingBoard extends Board {
         this.rule = rule;
     }
 
-    public abstract boolean checkForWin(int row, int col);
+    public abstract boolean checkForWin(int row, int col, char mark);
 
     // Changes player mark each turn.
     public void changePlayer() {
@@ -37,14 +37,16 @@ public abstract class GamingBoard extends Board {
 
     // Places a mark at the cell specified by row and col with the mark of the
     // current player.
-    public boolean placeMark(int row, int col) {
+    public boolean placeMark(int row, int col, char mark) {
         if (isValidMove(row, col)) {
-            board[row][col] = currentPlayerMark;
-            emptyCells.removeIf(cell -> cell[0] == row && cell[1] == col); 
+            board[row][col] = mark;
             return true;
         }
-
         return false;
+    }
+
+    public boolean placeMark(int row, int col) {
+        return placeMark(row, col, currentPlayerMark);
     }
 
     public boolean isValidMove(int row, int col) {

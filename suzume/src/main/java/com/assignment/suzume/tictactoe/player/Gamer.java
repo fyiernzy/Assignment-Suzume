@@ -1,6 +1,5 @@
 package com.assignment.suzume.tictactoe.player;
 
-import java.io.IOException;
 import java.util.*;
 import com.assignment.suzume.tictactoe.board.GamingBoard;
 import com.assignment.suzume.tictactoe.board.VariantBoard;

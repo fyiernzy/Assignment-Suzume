@@ -16,7 +16,7 @@ public class Main {
             int row = scanner.nextInt() - 1;
             int col = scanner.nextInt() - 1;
             if (game.placeMark(row, col)) {
-                if (game.checkForWin(row, col)) {
+                if (game.checkForWin(row, col, game.getCurrentPlayerMark())) {
                     game.printBoard();
                     if (game instanceof ReverseBoard) {
                         game.changePlayer();

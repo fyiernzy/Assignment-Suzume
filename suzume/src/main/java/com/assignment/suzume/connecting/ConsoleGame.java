@@ -1,152 +1,97 @@
 package com.assignment.suzume.connecting;
 
 import java.util.*;
-import com.assignment.suzume.path.shortest.DFSFinder;
+import com.assignment.suzume.map.PixelMap;
 import static com.assignment.suzume.utils.MapGetter.*;
-import com.assignment.suzume.tictactoe.player.engine.EasyEngine;
-import com.assignment.suzume.tictactoe.player.engine.HardEngine;
-import com.assignment.suzume.tictactoe.player.engine.MediumEngine;
-import com.assignment.suzume.tictactoe.system.GameRunner;
-import com.assignment.suzume.tictactoe.player.*;
-import com.assignment.suzume.tictactoe.board.*;
+import static com.assignment.suzume.utils.PathUtils.*;
 
 public class ConsoleGame {
-    private static final Scanner scanner = new Scanner(System.in);
-
-    public void play() {
-        System.out.print("Enter name (Player 1): ");
-        String p1 = scanner.nextLine();
-
-        DFSFinder finder = new DFSFinder(getCombinedMap());
-        int[][] grid = getCombinedMap().getPixelMap();
-        List<String> steps = finder.findAllShortestPaths().get(0);
+    static class GameStatus {
         int currentRow = 0;
         int currentCol = 0;
-        int station = 0;
-        int stationRow = 0;
-        int stationColumn =0;
-        int stationStep =0;
+        int currentStep = 0;
+        Stack<int[]> stationHistory = new Stack<>(); // format: [row, col, step]
 
-        int currentStep = 0, totalStep = steps.size();
-        while (currentStep < totalStep) {
-            switch (steps.get(currentStep)) {
+        public void updatePosition(String direction) {
+            switch (direction) {
                 case "Up" -> currentRow--;
                 case "Down" -> currentRow++;
                 case "Left" -> currentCol--;
                 case "Right" -> currentCol++;
             }
+        }
 
-            if (grid[currentRow][currentCol] == 2) {
-                System.out.println(
-                        "Suzume has arrived at station " + station+ " (" + currentRow + ", " + currentCol + ").");
-                        station++;
+        public void backToPreviousStation() {
+            int[] lastStation = stationHistory.pop();
+            currentRow = lastStation[0];
+            currentCol = lastStation[1];
+            currentStep = lastStation[2];
+        }
 
-                Player player1 = null;
-                Player player2 = null;
-                GamingBoard board = null;
+        public void saveCurrentStation() {
+            stationHistory.push(new int[] { currentRow, currentCol, currentStep });
+        }
+    }
+    
+
+    public void play() {
+        GameStatus status = new GameStatus();
+
+        PixelMap map = getCombinedMap();
+        int[][] grid = map.getPixelMap();
+        List<String> steps = getOneShortestPath();
+
+        int totalStep = steps.size();
+
+        while (status.currentStep < totalStep) {
+            int currentRow = status.currentRow;
+            int currentCol = status.currentCol;
+            int currentStep = status.currentStep;
+
+            status.updatePosition(steps.get(currentStep));
+
+            if (isStation(grid, currentRow, currentCol)) {
+                // System.out.println("Suzume has arrived at station (%d, %d).".formatted(currentRow, currentCol));
                 System.out.println("You reached a game tile!");
-                while (true) {
-                    System.out.println("Please choose the game mode:");
-                    System.out.println("[1] Player vs Player");
-                    System.out.println("[2] Player vs Engine");
-                    System.out.println("[3] Engine vs Engine");
-                    int modeChoice = scanner.nextInt();
-                    scanner.nextLine();
 
-                    if (modeChoice == 1) {
-                        // System.out.print("Enter name (Player 1): ");
-                        // String p1 = scanner.nextLine();
-                        System.out.print("Enter name (Player 2): ");
-                        String p2 = scanner.nextLine();
-                        player1 = new Gamer(p1);
-                        player2 = new Gamer(p2);
-                        break;
-                    } else if (modeChoice == 2) {
-                        // System.out.print("Enter name (Player 1): ");
-                        // String p1 = scanner.nextLine();
-                        player1 = new Gamer(p1);
-                        player2 = enginePlayer();
-                        break;
-                    } else if (modeChoice == 3) {
-                        player1 = enginePlayer();
-                        player2 = enginePlayer();
-                        break;
-                    } else
-                        System.out.println("Invalid choice. Please try again.");
-                }
+                StationGame stationGame = new StationGame();
+                stationGame.play();
 
-                while (true) {
-                    System.out.println("Please choose the gaming board: ");
-                    System.out.println("[1] Regular Board");
-                    System.out.println("[2] Reverse Board");
-                    System.out.println("[3] Variant Board");
-                    int boardChoice = scanner.nextInt();
-                    scanner.nextLine();
+                boolean isSuzumeWin = stationGame.isSuzumeWin();
 
-                    if (boardChoice == 1) {
-                        board = new RegularBoard();
-                        break;
-                    } else if (boardChoice == 2) {
-                        board = new ReverseBoard();
-                        break;
-                    } else if (boardChoice == 3) {
-                        board = new VariantBoard();
-                        break;
-                    } else
-                        System.out.println("Invalid choice. Please try again.");
-                }
-
-                GameRunner gameRunner = new GameRunner(player1, player2, board);
-                gameRunner.gamePlay();
-                boolean SuzumeWin = gameRunner.isOneWin();
-
-                if (!SuzumeWin) {
+                if (!isSuzumeWin) {
                     System.out.println("Suzume has lost the station game.");
-                    if (station== 1) {
+                    if (status.stationHistory.isEmpty()) {
                         System.out.println("Suzume has failed at the first station. Her journey ends.");
                         return;
-                    } else {
-                        System.out.println("Suzume falls back to the previous station.");
-                        currentStep = stationStep;
-                        currentRow = stationRow;
-                        currentCol = stationColumn;
                     }
-                } 
-                else {
-                    stationRow = currentRow;
-                    stationColumn = currentCol;
-                    stationStep = currentStep;
+
+                    System.out.println("Suzume falls back to the previous station.");
+                    status.backToPreviousStation();
+
+                } else {
+                    System.out.println("Suzume has won the station game.");
+                    status.saveCurrentStation();
                 }
             }
 
-            if (grid[currentRow][currentCol] == 3) {
+            if (isDestination(grid, currentRow, currentCol)) {
                 System.out.println("Congratulations, you reached the end!");
                 break;
             }
 
             currentStep++;
-            
         }
     }
 
-    private Player enginePlayer() {
-        System.out.println("Please choose the engine difficulty:");
-        System.out.println("[1] Easy");
-        System.out.println("[2] Medium");
-        System.out.println("[3] Hard");
-        int engineChoice = scanner.nextInt();
-        scanner.nextLine();
-        if (engineChoice == 1)
-            return new EasyEngine();
-        if (engineChoice == 2)
-            return new MediumEngine();
-        if (engineChoice == 3)
-            return new HardEngine();
-        else {
-            System.out.println("Invalid choice. Please try again.");
-            return enginePlayer();
-        }
 
+    boolean isDestination(int[][] grid, int row, int col) {
+        return grid[row][col] == 3;
+    }
+
+
+    boolean isStation(int[][] grid, int row, int col) {
+        return grid[row][col] == 2;
     }
 
     public static void main(String[] args) {

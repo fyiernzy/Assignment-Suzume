@@ -5,13 +5,11 @@ import java.util.*;
 public abstract class Board {
     protected int size;
     protected char[][] board;
-    protected List<int[]> emptyCells;
 
     public Board(int size) {
         this.size = size;
         board = new char[size][size];
         initializeBoard();
-        initializeEmptyCells();
     }
 
     // Set/Reset the board back to all empty values.
@@ -47,14 +45,12 @@ public abstract class Board {
         return this.board;
     }
 
-    private void initializeEmptyCells() {
-        this.emptyCells = new ArrayList<>();
-        for (int i = 0; i < size; i++) 
-            for (int j = 0; j < size; j++) 
-                emptyCells.add(new int[] { i, j });
-    }
-
     public List<int[]> getEmptyCells() {
+        List<int[]> emptyCells = new ArrayList<>();
+        for (int i = 0; i < size; i++) 
+            for (int j = 0; j < size; j++)
+                if(board[i][j] == ' ')
+                    emptyCells.add(new int[] { i, j });
         return emptyCells;
     }
 

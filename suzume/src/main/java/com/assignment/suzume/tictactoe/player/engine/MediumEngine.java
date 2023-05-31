@@ -6,15 +6,7 @@ public class MediumEngine extends Engine {
 
     @Override
     public int[] makeMove(GamingBoard board) {
-        // Check if there is a winning move for the AI player
         int[] move;
-
-        if ((move = makeBestMove(board)) != null ) {
-            return move;
-        }
-
-        // If no winning move found, select a random empty cell
-        return makeRandomMove(board);
+        return (move = makeWinningMove(board)) == null ? makeRandomMove(board) : move;
     }
-
 }
