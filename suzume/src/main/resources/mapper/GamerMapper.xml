@@ -3,8 +3,7 @@
 <mapper namespace="com.assignment.suzume.mapper.GamerMapper">
 
     <resultMap id="gamerResultMap" type="Gamer">
-        <id property="id" column="id" />
-        <result property="username" column="username" />
+        <id property="username" column="username" />
         <result property="password" column="password" />
         <result property="win" column="win" />
         <result property="lose" column="lose" />
@@ -19,8 +18,8 @@
     </select>
 
     <insert id="insertGamer" parameterType="Gamer">
-        INSERT INTO gamer (id, username, password, win, lose, draw, score)
-        VALUES (NULL, #{username}, #{password}, #{win}, #{lose}, #{draw}, #{score});
+        INSERT INTO gamer (username, password, win, lose, draw, score)
+        VALUES (#{username}, #{password}, #{win}, #{lose}, #{draw}, #{score});
     </insert>
 
     <update id="updateGamer" parameterType="Gamer">

@@ -24,10 +24,11 @@
 <section class="box">
     <div class="content"></div>
     <div class="text">Sign Up</div>
-    <form action="/gamer/signup" method="POST" onsubmit="return validatePassword(event)">
-        <div class="field">
+    <form action="/gamer/signup" method="POST" onsubmit="return checkUsername(event)">
+    <div class="field">
             <input type="text" placeholder="Username" id="username" name="username" maxlength="20" required/>
         </div>
+
         <div class="field">
             <input
                     type="password"
@@ -88,12 +89,25 @@
     }
 </script>
 
-<script th:inline="javascript">
-    /*<![CDATA[*/
-    var message = /*[[${message}]]*/ '';
-    if (message) {
-        alert(message);
-        location.href = "signuppage.html";
+<script type="text/javascript">
+    function checkUsername(event) {
+        var username = document.getElementById("username").value;
+
+        // Send an AJAX request to the server to check if the username exists
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                var response = JSON.parse(xhr.responseText);
+                if (response.exists) {
+                    alert("Username already exists");
+                    event.preventDefault();
+                } else {
+                    // Continue with the sign-up process
+                    validatePassword(event);
+                }
+            }
+        };
+        xhr.open("GET", "/gamer/checkUsername?username=" + username, true);
+        xhr.send();
     }
-    /*]]>*/
 </script>

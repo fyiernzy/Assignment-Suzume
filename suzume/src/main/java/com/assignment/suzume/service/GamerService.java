@@ -15,6 +15,12 @@ public class GamerService {
         this.gamerMapper = gamerMapper;
     }
 
+    public boolean checkUsernameExists(String username) {
+        Gamer existingGamer = gamerMapper.getGamerByUsername(username);
+        return existingGamer != null;
+    }
+
+
     @Transactional
     public boolean createGamer(Gamer gamer) {
         Gamer existingGamer = gamerMapper.getGamerByUsername(gamer.getUsername());
