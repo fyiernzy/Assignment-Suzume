@@ -5,6 +5,15 @@ import com.assignment.suzume.tictactoe.player.Player;
 import com.assignment.suzume.tictactoe.board.GamingBoard;
 
 public abstract class Engine extends Player {
+    private static int id = 0;
+
+    Engine(char mark) {
+        this("Engine " + ++id, mark);
+    }
+
+    Engine(String name, char mark) {
+        super(name, mark);
+    }
 
     public int[] makeRandomMove(GamingBoard board) {
         List<int[]> emptyCells = board.getEmptyCells();

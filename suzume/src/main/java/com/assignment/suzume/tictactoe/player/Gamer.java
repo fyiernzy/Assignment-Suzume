@@ -2,21 +2,14 @@ package com.assignment.suzume.tictactoe.player;
 
 import java.util.*;
 import com.assignment.suzume.tictactoe.board.GamingBoard;
-import com.assignment.suzume.tictactoe.board.VariantBoard;
 
 public class Gamer extends Player {
      // private int id;
-     private String name;
      private int win, lose, draw;
      private int score;
 
-     public Gamer(String name) {
-          this.name = name;
-     }
-
-     public static void main(String[] args) {
-          Gamer gamer = new Gamer("Player 1");
-          gamer.makeMove(new VariantBoard());
+     public Gamer(String name, char mark) {
+          super(name, mark);
      }
 
      @Override

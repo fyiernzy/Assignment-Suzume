@@ -31,18 +31,20 @@ public class StationGame {
         int modeChoice = getGameMode();
 
         Player p1 = null, p2 = null;
+        char p1Mark = 'X', p2Mark = 'O';
+
         switch(modeChoice) {
             case 1 -> {
-                p1 = getGamer();
-                p2 = getGamer();
+                p1 = getGamer(p1Mark);
+                p2 = getGamer(p2Mark);
             }
             case 2 -> {
-                p1 = getGamer();
-                p2 = getEngine();
+                p1 = getGamer(p1Mark);
+                p2 = getEngine(p2Mark);
             }
             case 3 -> {
-                p1 = getEngine();
-                p2 = getEngine();
+                p1 = getEngine(p1Mark);
+                p2 = getEngine(p2Mark);
             }
         }
 
@@ -67,10 +69,10 @@ public class StationGame {
         }
     }
 
-    public Gamer getGamer() {
+    public Gamer getGamer(char mark) {
         System.out.print("Enter name: ");
         String name = scanner.nextLine();
-        return new Gamer(name);
+        return new Gamer(name, mark);
     }
 
     public GamingBoard getBoard() {
@@ -91,7 +93,7 @@ public class StationGame {
         }
     }
 
-    public Engine getEngine() {
+    public Engine getEngine(char mark) {
         while (true) {
             System.out.println("Please choose the engine difficulty:");
             for(int i = 0; i < ENGINE_DIFFICULTY.length; i++) {
@@ -101,9 +103,9 @@ public class StationGame {
             scanner.nextLine();
 
             switch(engineChoice) {
-                case 1 : return new EasyEngine();
-                case 2 : return new MediumEngine();
-                case 3 : return new HardEngine();
+                case 1 : return new EasyEngine(mark);
+                case 2 : return new MediumEngine(mark);
+                case 3 : return new GeneralHardEngine(mark);
                 default: System.out.println("Invalid choice. Please try again.");
             }
         }

@@ -18,20 +18,12 @@ public abstract class GamingBoard extends Board {
 
     // Places a mark at the cell specified by row and col with the mark of the
     // current player.
-    public boolean placeMark(int row, int col, char mark) {
-        if (isValidMove(row, col)) {
-            board[row][col] = mark;
-            return true;
-        }
-        return false;
+    public void placeMark(int row, int col, char mark) {
+        board[row][col] = mark;
     }
 
-    public boolean placeMark(int row, int col) {
-        if(isValidMove(row, col)) {
-            placeMark(row, col, currentPlayerMark);
-            return true;
-        }
-        return false;
+    public void placeMark(int row, int col) {
+        placeMark(row, col, currentPlayerMark);
     }
 
     public void removeMark(int row, int col) {
@@ -40,6 +32,10 @@ public abstract class GamingBoard extends Board {
 
     public boolean isValidMove(int row, int col) {
         return !isFull() && isCellWithinBoard(row, col) && isCellEmpty(row, col);
+    }
+
+    public char getCellValue(int row, int col) {
+        return board[row][col];
     }
 
     public char getCurrentPlayerMark() {
@@ -61,7 +57,7 @@ public abstract class GamingBoard extends Board {
     // Changes player mark each turn.
     public void changePlayer() {
         currentPlayerMark = currentPlayerMark == 'X' ? 'O' : 'X';
-    }   
+    }
 
     public String getRule() {
         return rule.getContent();
