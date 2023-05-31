@@ -7,18 +7,15 @@ public class HardEngine extends Engine {
     @Override
     public int[] makeMove(GamingBoard board) {
         int[] move;
-        if((move = makeWinningMove(board)) != null) {
+        if ((move = makeWinningMove(board)) != null) 
             return move;
-        }
 
-        if((move = makeBlockingMove(board)) != null) {
+        if ((move = makeBlockingMove(board)) != null) 
             return move;
-        }
-
-        if((move = makeWiseMove(board)) != null) {
+            
+        if ((move = makeWiseMove(board)) != null) 
             return move;
-        }
-
+        
         return makeRandomMove(board);
     }
 

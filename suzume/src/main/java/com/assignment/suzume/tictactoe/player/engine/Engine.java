@@ -16,57 +16,28 @@ public abstract class Engine extends Player {
 
     private int[] makeBestMove(GamingBoard board, char mark) {
         List<int[]> emptyCells = board.getEmptyCells();
-        List<int[]> validMoves = new ArrayList<>(emptyCells);
-        for (int[] cell : validMoves) {
+
+        for (int[] cell : emptyCells) {
             int row = cell[0];
             int col = cell[1];
             board.placeMark(row, col, mark);
             
-            System.out.println("Engine: " + this + " is trying to place mark " + mark + " at " + row + ", " + col + ".");
-            if (board.checkForWin(row, col, mark)) {
-                return new int[] { row, col };
-            }
-            board.removeMark(row, col);
-        }
-        return null;
-    }
-
-    public int[] makeWinningMove(GamingBoard board) {
-        List<int[]> emptyCells = board.getEmptyCells();
-        List<int[]> validMoves = new ArrayList<>(emptyCells);
-        char mark = board.getCurrentPlayerMark();
-        
-        for (int[] cell : validMoves) {
-            int row = cell[0];
-            int col = cell[1];
-            board.placeMark(row, col, mark);
-            
-            if (board.checkForWin(row, col, mark)) {
-                return new int[] { row, col };
-            }
-            board.removeMark(row, col);
-        }
-        return null;
-    }
-
-    public int[] makeBlockingMove(GamingBoard board) {
-        List<int[]> emptyCells = board.getEmptyCells();
-        List<int[]> validMoves = new ArrayList<>(emptyCells);
-        char mark = board.getNextPlayerMark();
-
-        for (int[] cell : validMoves) {
-            int row = cell[0];
-            int col = cell[1];
-            board.placeMark(row, col, mark);
-
             if (board.checkForWin(row, col, mark)) {
                 board.removeMark(row, col);
-                board.placeMark(row, col, board.getCurrentPlayerMark());
+                board.placeMark(row, col);
                 return new int[] { row, col };
             }
             board.removeMark(row, col);
         }
         return null;
+    }
+
+    protected int[] makeWinningMove(GamingBoard board) {
+        return makeBestMove(board, board.getCurrentPlayerMark());
+    }
+
+    protected int[] makeBlockingMove(GamingBoard board) {
+        return makeBestMove(board, board.getNextPlayerMark());
     }
 
     @Override

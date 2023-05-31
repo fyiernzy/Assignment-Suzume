@@ -30,7 +30,7 @@ public class GameRunner {
             board.changePlayer();
         }
 
-        while(!board.isBoardFull()) {
+        while(!board.isFull()) {
             board.printBoard();
             System.out.println();
             if(isOneTurn) {
@@ -62,7 +62,7 @@ public class GameRunner {
             board.changePlayer();
         }
 
-        if(board.isBoardFull() && !hasWon) {
+        if(board.isFull() && !hasWon) {
             board.printBoard();
             System.out.println("It's a tie!");
         } else {

@@ -16,25 +16,6 @@ public abstract class GamingBoard extends Board {
 
     public abstract boolean checkForWin(int row, int col, char mark);
 
-    // Changes player mark each turn.
-    public void changePlayer() {
-        currentPlayerMark = currentPlayerMark == 'X' ? 'O' : 'X';
-    }   
-
-    // Loop through all cells of the board and if one is found to be empty (contains
-    // char '-') then return false.
-    // Otherwise the board is full.
-    public boolean isBoardFull() {
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
-                if (board[i][j] == ' ') {
-                    return false;
-                }
-            }
-        }
-        return true;
-    }
-
     // Places a mark at the cell specified by row and col with the mark of the
     // current player.
     public boolean placeMark(int row, int col, char mark) {
@@ -46,13 +27,19 @@ public abstract class GamingBoard extends Board {
     }
 
     public boolean placeMark(int row, int col) {
-        return placeMark(row, col, currentPlayerMark);
+        if(isValidMove(row, col)) {
+            placeMark(row, col, currentPlayerMark);
+            return true;
+        }
+        return false;
+    }
+
+    public void removeMark(int row, int col) {
+        board[row][col] = ' ';
     }
 
     public boolean isValidMove(int row, int col) {
-        return !isBoardFull()
-                && (row >= 0 && row < size) && (col >= 0 && col < size)
-                && isEmpty(row, col);
+        return !isFull() && isCellWithinBoard(row, col) && isCellEmpty(row, col);
     }
 
     public char getCurrentPlayerMark() {
@@ -63,18 +50,6 @@ public abstract class GamingBoard extends Board {
         return currentPlayerMark == 'X' ? 'O' : 'X';
     }
 
-    public void removeMark(int row, int col) {
-        board[row][col] = ' ';
-    }
-
-    public String getRule() {
-        return rule.getContent();
-    }
-
-    protected void setRule(Rule rule) {
-        this.rule = rule;
-    }
-
     public Player getCurrentPlayer() {
         return currentPlayer;
     }
@@ -83,8 +58,16 @@ public abstract class GamingBoard extends Board {
         this.currentPlayer = currentPlayer;
     }
 
-    public char getMark(int row, int col) {
-        return board[row][col];
+    // Changes player mark each turn.
+    public void changePlayer() {
+        currentPlayerMark = currentPlayerMark == 'X' ? 'O' : 'X';
+    }   
+
+    public String getRule() {
+        return rule.getContent();
     }
-    
+
+    public void setRule(Rule rule) {
+        this.rule = rule;
+    }
 }

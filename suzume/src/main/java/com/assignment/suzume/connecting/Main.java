@@ -9,7 +9,6 @@ public class Main {
         ReverseBoard game = new ReverseBoard();
         Scanner scanner = new Scanner(System.in);
         boolean isRunning = true;
-        System.out.println("hello");
         while (isRunning) {
             game.printBoard();
             System.out.println("Enter row and column where you want to place your mark (e.g. 1 2): ");
@@ -26,7 +25,7 @@ public class Main {
                         System.out.println("Congratulations, player " + game.getCurrentPlayerMark() + " has won!");
                     isRunning = false;
                 }
-                else if (game.isBoardFull()) {
+                else if (game.isFull()) {
                     game.printBoard();
                     System.out.println("It's a tie!");
                     isRunning = false;

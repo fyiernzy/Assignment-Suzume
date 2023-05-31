@@ -54,7 +54,29 @@ public abstract class Board {
         return emptyCells;
     }
 
-    public boolean isEmpty(int row, int col) {
+    public boolean isCellEmpty(int row, int col) {
         return board[row][col] == ' ';
+    }
+
+    // Loop through all cells of the board and if one is found to be empty (contains
+    // char '-') then return false.
+    // Otherwise the board is full.
+    public boolean isFull() {
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                if (board[i][j] == ' ') {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    boolean isCellWithinBoard(int row, int col) {
+        return (row >= 0 && row < size) && (col >= 0 && col < size);
+    }
+
+    char getCellAt(int row, int col) {
+        return board[row][col];
     }
 }
