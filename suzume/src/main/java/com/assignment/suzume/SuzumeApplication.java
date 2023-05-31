@@ -15,5 +15,4 @@ public class SuzumeApplication {
 			e.printStackTrace();
 		}
 	}
-
 }
