@@ -14,8 +14,8 @@
             <dataSource type = "POOLED">
                 <property name = "driver" value = "com.mysql.cj.jdbc.Driver"/>
                 <property name = "url" value = "jdbc:mysql://aws.connect.psdb.cloud/suzume?sslMode=VERIFY_IDENTITY"/>
-                <property name = "username" value = "v32ol4xksz1huygc4fd9"/>
-                <property name = "password" value = "pscale_pw_jWyTI3SpLP0SZX7nR0Mnb6SzGOgMSL3iuggckGI10Ji"/>
+                <property name = "username" value = "3r129miq82cubkxxq8ar"/>
+                <property name = "password" value = "pscale_pw_mOv8i4sO9l1mRTLAHv4a3mKC1EwvQewdHnYLS1xKot4"/>
             </dataSource>
 
         </environment>
