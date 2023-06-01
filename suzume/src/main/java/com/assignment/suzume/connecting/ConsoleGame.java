@@ -6,39 +6,20 @@ import static com.assignment.suzume.utils.MapGetter.*;
 import static com.assignment.suzume.utils.PathUtils.*;
 
 public class ConsoleGame {
-    static class GameStatus {
-        int currentRow = 0;
-        int currentCol = 0;
-        int currentStep = 0;
-        Stack<int[]> stationHistory = new Stack<>(); // format: [row, col, step]
+    private GameStatus status;
+    private int[][] grid;
 
-        public void updatePosition(String direction) {
-            switch (direction) {
-                case "Up" -> currentRow--;
-                case "Down" -> currentRow++;
-                case "Left" -> currentCol--;
-                case "Right" -> currentCol++;
-            }
-        }
-
-        public void backToPreviousStation() {
-            int[] lastStation = stationHistory.pop();
-            currentRow = lastStation[0];
-            currentCol = lastStation[1];
-            currentStep = lastStation[2];
-        }
-
-        public void saveCurrentStation() {
-            stationHistory.push(new int[] { currentRow, currentCol, currentStep });
-        }
+    ConsoleGame(int[][] grid) {
+        this.grid = grid;
+        this.status = new GameStatus(MapUtils.transformMap(grid));
+        
     }
-    
+
+    ConsoleGame(PixelMap map) {
+        this(map.getPixelMap());
+    }
 
     public void play() {
-        GameStatus status = new GameStatus();
-
-        PixelMap map = getCombinedMap();
-        int[][] grid = map.getPixelMap();
         List<String> steps = getOneShortestPath();
 
         int totalStep = steps.size();
@@ -49,9 +30,10 @@ public class ConsoleGame {
             int currentStep = status.currentStep;
 
             status.updatePosition(steps.get(currentStep));
+            MapUtils.visualizeMap(status.currentMap, currentStep);
 
             if (isStation(grid, currentRow, currentCol)) {
-                // System.out.println("Suzume has arrived at station (%d, %d).".formatted(currentRow, currentCol));
+                System.out.println("Suzume has arrived at station (%d, %d).".formatted(currentRow, currentCol));
                 System.out.println("You reached a game tile!");
 
                 StationGame stationGame = new StationGame();
@@ -80,7 +62,7 @@ public class ConsoleGame {
                 break;
             }
 
-            currentStep++;
+            status.currentStep++;
         }
     }
 
@@ -95,7 +77,7 @@ public class ConsoleGame {
     }
 
     public static void main(String[] args) {
-        ConsoleGame consoleGame = new ConsoleGame();
+        ConsoleGame consoleGame = new ConsoleGame(getCombinedMap());
         consoleGame.play();
     }
 

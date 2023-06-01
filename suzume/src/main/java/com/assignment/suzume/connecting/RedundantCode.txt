@@ -1,0 +1,15 @@
+public void simulateUsingNode(int[][] grid, List<Node> list) {
+        char[][] newGrid = transform(grid);
+        printGrid(newGrid);
+        for(Node node : list) {
+            newGrid[node.row][node.col] = '*';
+            printGrid(newGrid);
+            System.out.println("\n\n");
+
+            try {
+                Thread.sleep(1200);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
