@@ -32,4 +32,9 @@ public class GamerService {
         gamerMapper.insertGamer(gamer);
         return true;
     }
+
+    public boolean checkPasswordMatch(String username, String password) {
+        Gamer existingGamer = gamerMapper.getGamerByUsername(username);
+        return existingGamer != null && existingGamer.getPassword().equals(password);
+    }
 }
