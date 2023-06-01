@@ -1,0 +1,83 @@
+.gamemode {
+    position: absolute;
+    top: 33%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .mbuttons,
+  .dbuttons {
+    background-color: #202A44;
+    margin: 0 70px;
+    width: 180px;
+    height: 180px;
+    border: none;
+    border-radius: 10px;
+    position: relative;
+    transition: background-color 0.3s ease;
+  }
+  
+  .mbuttons:hover,
+  .mbuttons.chosen,
+  .dbuttons:hover,
+  .dbuttons.chosen {
+    background-color: rgba(0, 0, 0, 0.7);
+  }
+  
+  .difficulty {
+    position: absolute;
+    top: 65%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .dbuttons {
+    margin: 0 70px;
+    background-color: transparent;
+    border: none;
+    border-radius: 10px;
+  }
+
+  .dbuttons:hover img,
+  .dbuttons.chosen img {
+  filter: brightness(30%); /* Add a brightness effect on hover and chosen state */
+}
+  
+  .dbuttons img {
+    filter: brightness(60%);
+    width: 180px;
+    height: 180px;
+    object-fit: cover;
+    object-position: 50% 25%;
+    border-radius: 10px;
+    transition: filter 0.3s ease; /* Add transition for smooth effect */
+  }
+  
+  .button-text {
+    color: white;
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    transition: color 0.3s ease;
+    z-index: 1; /* Ensure the text is positioned above the image */
+
+  }
+  
+  .mbuttons:hover .button-text,
+  .mbuttons.chosen .button-text,
+  .dbuttons:hover .button-text,
+  .dbuttons.chosen .button-text {
+    color: #fff;
+  }
+  
