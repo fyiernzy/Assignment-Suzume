@@ -1,9 +1,8 @@
-package com.assignment.suzume.connecting;
+package com.assignment.suzume.connecting.account;
 
 import javax.json.Json;
 import javax.json.JsonObject;
 import javax.json.JsonReader;
-import java.io.IOException;
 import java.io.Reader;
 
 public class JsonFileReader {
@@ -14,7 +13,7 @@ public class JsonFileReader {
     }
 
     public static JsonFileReader createJsonFileReader(Reader reader) {
-        JsonReader jsonReader = Json.createReader(reader)
+        JsonReader jsonReader = Json.createReader(reader);
         JsonObject jsonObject = jsonReader.readObject();
         return new JsonFileReader(jsonObject);
     }

@@ -3,7 +3,7 @@ package com.assignment.suzume.path.shortest;
 import java.util.*;
 import com.assignment.suzume.map.PixelMap;
 import static com.assignment.suzume.utils.PathUtils.*;
-
+import static com.assignment.suzume.utils.MapGetter.*;
 public class BFSFinder extends ShortestPathFinder {
 
     public BFSFinder(int[][] map) {
@@ -65,6 +65,14 @@ public class BFSFinder extends ShortestPathFinder {
             }
         }
         return shortestPaths;
+    }
+
+    public static void main(String[] args) {
+        BFSFinder finder = new BFSFinder(getCombinedMap());
+        List<List<String>> paths = finder.findAllShortestPaths();
+        for(List<String> ls : paths) {
+            System.out.println(ls.size());
+        }
     }
 
     static class Node {
