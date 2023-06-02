@@ -3,6 +3,7 @@ package com.assignment.suzume.connecting;
 import java.util.Stack;
 
 public class GameStatus {
+    String user;
     int currentRow;
     int currentCol;
     int currentStep;
@@ -11,7 +12,10 @@ public class GameStatus {
     Stack<char[][]> mapHistory;
 
     GameStatus(char[][] map) {
+        this.currentRow = 0;
+        this.currentCol = 0;
         this.currentMap = map;
+        this.currentMap[0][0] = '*';
         this.stationHistory = new Stack<>();
         this.mapHistory = new Stack<>();
     }

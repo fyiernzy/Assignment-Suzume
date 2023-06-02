@@ -1,21 +1,23 @@
 package com.assignment.suzume.connecting;
 
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 import com.assignment.suzume.map.PixelMap;
+import com.google.common.util.concurrent.Uninterruptibles;
 import static com.assignment.suzume.utils.MapGetter.*;
 import static com.assignment.suzume.utils.PathUtils.*;
+
 
 public class ConsoleGame {
     private GameStatus status;
     private int[][] grid;
 
-    ConsoleGame(int[][] grid) {
+    public ConsoleGame(int[][] grid) {
         this.grid = grid;
         this.status = new GameStatus(MapUtils.transformMap(grid));
-        
     }
 
-    ConsoleGame(PixelMap map) {
+    public ConsoleGame(PixelMap map) {
         this(map.getPixelMap());
     }
 
@@ -24,13 +26,16 @@ public class ConsoleGame {
 
         int totalStep = steps.size();
 
+        MapUtils.visualizeMap(status.currentMap);
+        System.out.println("Suzume is starting her journey.");
+        Uninterruptibles.sleepUninterruptibly(1, TimeUnit.SECONDS);
+
         while (status.currentStep < totalStep) {
+            status.updatePosition(steps.get(status.currentStep++));
             int currentRow = status.currentRow;
             int currentCol = status.currentCol;
-            int currentStep = status.currentStep;
-
-            status.updatePosition(steps.get(currentStep));
-            MapUtils.visualizeMap(status.currentMap, currentStep);
+            MapUtils.visualizeMap(status.currentMap);
+            Uninterruptibles.sleepUninterruptibly(500, TimeUnit.MILLISECONDS);
 
             if (isStation(grid, currentRow, currentCol)) {
                 System.out.println("Suzume has arrived at station (%d, %d).".formatted(currentRow, currentCol));
@@ -61,8 +66,6 @@ public class ConsoleGame {
                 System.out.println("Congratulations, you reached the end!");
                 break;
             }
-
-            status.currentStep++;
         }
     }
 
