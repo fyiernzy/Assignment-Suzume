@@ -8,7 +8,7 @@ public class MapUtils {
     public static void visualizeMap(char[][] grid, int formatSize) {
         int numRows = grid.length;
         int numCols = grid[0].length;
-        String format = "%" + formatSize + "d";
+        String format = "%" + formatSize + "s";
 
         for(int row = 0; row < numRows; row++) {
             for(int col = 0; col < numCols; col++) {
@@ -16,17 +16,18 @@ public class MapUtils {
             }
             System.out.println();
         }
+
         System.out.println("\n\n");
     }
 
     public static char[][] transformMap(int[][] map) {
         int numOfRow = map.length;
-        int numOfCol = map.length;
+        int numOfCol = map[0].length;
         char[][] grid = new char[numOfRow][numOfCol];
 
         for(int row = 0; row < numOfRow; row++) {
             for(int col = 0; col < numOfCol; col++) {
-                switch(grid[row][col]) {
+                switch(map[row][col]) {
                     case 0 -> grid[row][col] = ' ';
                     case 1 -> grid[row][col] = '|';
                     case 2 -> grid[row][col] = '@';
@@ -47,4 +48,5 @@ public class MapUtils {
         }
         return cloned;
     }
+
 }
