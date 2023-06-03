@@ -1,0 +1,103 @@
+.gamemode {
+    position: absolute;
+    top: 33%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .mbuttons,
+  .dbuttons{
+    background-color: rgba(6, 10, 45, 0.58);
+    margin: 0 70px;
+    width: 180px;
+    height: 180px;
+    border: none;
+    border-radius: 10px;
+    position: relative;
+    transition: background-color 0.5s ease;
+  }
+  
+  .mbuttons:hover,
+  .mbuttons.chosen {
+    background-color: rgba(0, 0, 0, 0.65);
+  }
+  
+  .difficulty {
+    position: absolute;
+    top: 65%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .dbuttons {
+    margin: 0 70px;
+    background-color: transparent;
+    border: none;
+    border-radius: 10px;
+  }
+
+  .dbuttons:hover img,
+  .dbuttons.chosen img {
+  filter: brightness(20%); /* Add a brightness effect on hover and chosen state */
+}
+  
+  .dbuttons img {
+    filter: brightness(60%);
+    width: 180px;
+    height: 180px;
+    object-fit: cover;
+    object-position: 50% 25%;
+    border-radius: 10px;
+    transition: filter 0.5s ease; /* Add transition for smooth effect */
+  }
+  
+  .button-text {
+    color: white;
+    text-align: center;
+    font-size: 16px;
+    font-family: georgia;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    transition: color 0.3s ease;
+    z-index: 1; /* Ensure the text is positioned above the image */
+
+  }
+  
+  .mbuttons:hover .button-text,
+  .mbuttons.chosen .button-text,
+  .dbuttons:hover .button-text,
+  .dbuttons.chosen .button-text {
+    color: #fff;
+  }
+  
+
+  #nextButton{
+    margin: 25px 0 0 0;
+    width: 10%;
+    height: 35px;
+    color: #fff;
+    font-size: 15px;
+    font-weight: 500;
+    font-family: georgia;
+    border-radius: 8px;
+    background: rgba(6, 10, 45, 0.58);
+    border-radius: 8px;
+    position: absolute;
+    top: 85%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  #nextButton:hover {
+    transition: background-color 0.3s ease ; /* Add a delay of 0.5s before the transition */
+    background-color: rgba(0, 0, 0, 0.7);
+  }

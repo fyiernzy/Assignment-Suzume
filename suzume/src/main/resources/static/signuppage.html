@@ -15,7 +15,7 @@
         <div class="nav-links">
           <ul>
             <li><a href="homepage.html">HOME</a></li>
-            <li><a href="gamepage.html">PLAY NOW</a></li>
+            <li><a href="gamepage1.html">PLAY NOW</a></li>
             <li><a href="loginpage.html">LOG IN</a></li>
           </ul>
         </div>
@@ -25,15 +25,29 @@
     <section class="box">
       <div class="content"></div>
       <div class="text">Sign Up</div>
-      <form action="#">
+      <form
+        action="/gamer/signup"
+        method="POST"
+        onsubmit="return checkUsername(event)"
+      >
         <div class="field">
-          <input type="text" placeholder="Username" id="username" required />
+          <input
+            type="text"
+            placeholder="Username"
+            id="username"
+            name="username"
+            maxlength="20"
+            required
+          />
         </div>
+
         <div class="field">
           <input
             type="password"
             placeholder="Password"
+            name="password"
             id="password"
+            maxlength="20"
             required
           />
         </div>
@@ -41,62 +55,19 @@
           <input
             type="password"
             placeholder="Confirm Password"
+            name="passwordrpt"
             id="passwordrpt"
+            maxlength="20"
             required
           />
         </div>
 
-        <button class="lbutton" id="signupbutton">Sign Up</button>
-
-        <script type="text/javascript">
-          var username = document.getElementById("username");
-          var password = document.getElementById("password");
-          var passwordrpt = document.getElementById("passwordrpt");
-          var signupbutton = document.getElementById("signupbutton");
-
-          function checknullvalues(event) {
-            event.preventDefault();
-            if (
-              password.value === "" ||
-              passwordrpt.value === "" ||
-              username.value === ""
-            ) {
-              alert("Please enter all details");
-              return false; // Stop program execution
-            }
-            return true; // Proceed with program execution
-          }
-
-          function validatePassword(event) {
-            event.preventDefault();
-            if (password.value !== passwordrpt.value) {
-              alert("Passwords do not match");
-            } else {
-              passwordrpt.setCustomValidity("");
-              alert("You have successfully registered");
-              signupbutton.onclick = function () {
-                location.href = "loginpage.html";
-              };
-            }
-          }
-
-          signupbutton.addEventListener("click", function (event) {
-            if (checknullvalues(event)) {
-              validatePassword(event);
-            }
-          });
-        </script>
+        <button class="lbutton" type="submit">Sign Up</button>
       </form>
-
-      <script type="text/javascript">
-        document.getElementById("signupbutton").onclick = function () {
-          location.href = "signuppage.html";
-        };
-      </script>
 
       <div class="or">or</div>
 
-      <button class="lbutton" id="loginbutton">Log In</button>
+      <button class="lbutton" id="loginbutton">Log in</button>
 
       <script type="text/javascript">
         document.getElementById("loginbutton").onclick = function () {
@@ -112,5 +83,40 @@
         </p>
       </div>
     </footer>
+
+    <script type="text/javascript">
+      function validatePassword(event) {
+        var password = document.getElementById("password");
+        var passwordrpt = document.getElementById("passwordrpt");
+
+        if (password.value !== passwordrpt.value) {
+          alert("Passwords do not match");
+          event.preventDefault();
+        } else {
+          alert("You have successfully registered");
+          location.href = "loginpage.html";
+        }
+      }
+      function checkUsername(event) {
+        var username = document.getElementById("username").value;
+
+        // Send an AJAX request to the server to check if the username exists
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function () {
+          if (xhr.readyState === 4 && xhr.status === 200) {
+            var response = JSON.parse(xhr.responseText);
+            if (response.exists) {
+              alert("Username already exists");
+              event.preventDefault();
+            } else {
+              // Continue with the sign-up process
+              validatePassword(event);
+            }
+          }
+        };
+        xhr.open("GET", "/gamer/checkUsername?username=" + username, true);
+        xhr.send();
+      }
+    </script>
   </body>
 </html>

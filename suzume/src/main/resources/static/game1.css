@@ -1,0 +1,47 @@
+#htp{
+    font-family: Georgia;
+    font-weight: 20;
+    color: #fff;
+    display: inline-block;
+    margin-top: 1%;
+    margin-left: 7%;
+    margin-right: 7%;
+    word-spacing: 3px;
+    line-height: 25px;
+    border-radius: 8px;
+}
+
+#htph{
+    font-family: Georgia;
+    font-weight: 50;
+    color: #fff;
+    display: inline-block;
+    margin-top: 1%;
+    margin-left: 7%;
+    word-spacing: 3px;
+    line-height: 25px;
+}
+
+#nextButton{
+    margin: 25px 0 0 0;
+    width: 10%;
+    height: 35px;
+    color: #fff;
+    font-size: 15px;
+    font-weight: 500;
+    font-family: georgia;
+    border-radius: 8px;
+    background: rgba(6, 10, 45, 0.58);
+    border-radius: 8px;
+    position: absolute;
+    top: 85%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: transparent; 
+  }
+
+  #nextButton:hover {
+    transition: background-color 0.3s ease ; /* Add a delay of 0.5s before the transition */
+    background-color: rgba(0, 0, 0, 0.7);
+  }
+
