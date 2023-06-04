@@ -6,7 +6,7 @@
     <title>Suzume's Adventure</title>
     <link rel="icon" type="image/x-icon" href="/images/daijin.png" />
     <link rel="stylesheet" href="style.css" />
-    <link rel="stylesheet" href="game.css" />
+    <link rel="stylesheet" href="game2.css" />
   </head>
   <body>
     <section class="header">
@@ -15,7 +15,7 @@
         <div class="nav-links">
           <ul>
             <li><a href="homepage.html">HOME</a></li>
-            <li><a href="gamepage.html">PLAY NOW</a></li>
+            <li><a href="gamepage1.html">PLAY NOW</a></li>
             <li><a href="loginpage.html">LOG IN</a></li>
           </ul>
         </div>
@@ -49,6 +49,8 @@
       </button>
     </section>
 
+    <button id="nextButton" disabled>Start!</button>
+
     <script>
       // Game mode buttons
       const mbuttons = document.querySelectorAll(".mbuttons");
@@ -78,13 +80,38 @@
               btn.classList.remove("chosen");
             }
           });
-          // Retrieve the selected difficulty
+          // Retrieve the selected difficulty™
           const selectedDifficulty = isSelected
             ? button.querySelector(".button-text").textContent
             : "";
           console.log(`Selected Difficulty: ${selectedDifficulty}`);
         });
       });
+
+      // Next button
+      const nextButton = document.getElementById("nextButton");
+      nextButton.addEventListener("click", () => {
+        const selectedGameMode = document.querySelector(
+          ".mbuttons.chosen .button-text"
+        ).textContent;
+        const selectedDifficulty = document.querySelector(
+          ".dbuttons.chosen .button-text"
+        ).textContent;
+        console.log(
+          `Redirecting to next game page with Game Mode: ${selectedGameMode} and Difficulty: ${selectedDifficulty}`
+        );
+        // Redirect to the next game page or perform necessary actions
+      });
+
+      function enableNextButton() {
+        const gameModeSelected = document.querySelector(".mbuttons.chosen");
+        const difficultySelected = document.querySelector(".dbuttons.chosen");
+        if (gameModeSelected && difficultySelected) {
+          nextButton.disabled = false;
+        } else {
+          nextButton.disabled = true;
+        }
+      }
     </script>
 
     <footer class="footer">
