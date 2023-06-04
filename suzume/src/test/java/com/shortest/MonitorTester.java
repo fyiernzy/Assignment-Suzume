@@ -9,7 +9,9 @@ public class MonitorTester {
     public static void main(String[] args) {
         PixelMap combinedMap = getCombinedMap();
         evaluateShortestPathFinder(DFSFinder.class, combinedMap);
-        evaluateShortestPathFinder(BFSFinder.class, combinedMap);
+        // evaluateShortestPathFinder(BFSFinder.class, combinedMap);
+        evaluateShortestPathFinder(NewBFSFinder.class, combinedMap);
+        evaluateShortestPathFinder(NewDFSFinder.class, combinedMap);
     }
 
     public static <T extends ShortestPathFinder> void evaluateShortestPathFinder(Class<T> finderClass, PixelMap map) {

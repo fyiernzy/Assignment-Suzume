@@ -1,10 +1,8 @@
 package com.assignment.suzume.connecting.account.data;
 
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import java.sql.*;
 import org.sqlite.SQLiteException;
+import com.sarojaba.prettytable4j.PrettyTable;
 import com.assignment.suzume.connecting.account.User;
 
 public class DatabaseManager {
@@ -125,30 +123,63 @@ public class DatabaseManager {
 
     public User getUser(String username) {
         String selectQuery = "SELECT name, win, lose, draw, score FROM users WHERE name = ?";
-        
+
         try (PreparedStatement preparedStatement = connection.prepareStatement(selectQuery)) {
             preparedStatement.setString(1, username);
             ResultSet resultSet = preparedStatement.executeQuery();
-            
+
             if (resultSet.next()) {
                 return new User(
                         resultSet.getString("name"),
                         resultSet.getInt("win"),
                         resultSet.getInt("lose"),
                         resultSet.getInt("draw"),
-                        resultSet.getInt("score")
-                );
+                        resultSet.getInt("score"));
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        
+
         return null; // User not found or an error occurred
+    }
+
+    public void showDatabase() {
+        try (Statement statement = connection.createStatement()) {
+            String sql = "SELECT name, win, lose, draw, score FROM users";
+            ResultSet rs = statement.executeQuery(sql);
+
+            // Print the table headers
+            ResultSetMetaData rsmd = rs.getMetaData();
+            int numColumns = rsmd.getColumnCount();
+            String[] headers = new String[numColumns];
+            for (int i = 1; i <= numColumns; i++) {
+                headers[i - 1] = rsmd.getColumnName(i);
+            }
+
+            // Create the table object
+            PrettyTable table = PrettyTable.fieldNames(headers);
+
+            // Add rows to the table
+            while (rs.next()) {
+                String[] row = new String[numColumns];
+                for (int i = 1; i <= numColumns; i++) {
+                    row[i - 1] = rs.getString(i);
+                }
+                table.addRow((Object[]) row);
+            }
+
+            // Print the table
+            table.sortTable("score", true);
+            System.out.println(table.toString());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     public static void main(String[] args) {
         DatabaseManager database = DatabaseManager.getInstance();
         System.out.println(database.checkIfUserExists("Ng"));
+        database.showDatabase();
     }
 
 }
