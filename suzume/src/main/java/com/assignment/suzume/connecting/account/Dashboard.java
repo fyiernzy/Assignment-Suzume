@@ -53,7 +53,7 @@ public class Dashboard {
                         }
                         System.out.print(".");
                     }
-                    System.out.println("Logout successfully.");
+                    System.out.println("\nLogout successfully.");
                     break loop;
                 }
                 default -> System.out.println("Invalid choice.");

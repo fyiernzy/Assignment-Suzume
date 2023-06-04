@@ -2,6 +2,7 @@ package com.assignment.suzume.connecting.account;
 
 import java.util.Scanner;
 import com.assignment.suzume.connecting.ConsolePrinter;
+import com.assignment.suzume.connecting.account.data.GameDataManager;
 
 public class LoginManager {
     private Scanner scanner;
@@ -9,6 +10,7 @@ public class LoginManager {
     private SignUpManager signUpManager;
 
     LoginManager() {
+        GameDataManager.getInstance().checkGameFolder();
         this.scanner = new Scanner(System.in);
         this.signInManager = new SignInManager();
         this.signUpManager = new SignUpManager();

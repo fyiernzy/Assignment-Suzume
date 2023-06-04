@@ -6,6 +6,15 @@ public class User {
     int win;
     int lose;
     int draw;
+    int score;
+
+    public User(String name, int win, int lose, int draw, int score) {
+        this.name = name;
+        this.win = win;
+        this.lose = lose;
+        this.draw = draw;
+        this.score = score;
+    }
 
     public int getWinRate() {
         return (win + lose + draw) == 0 ? -1 : (win * 100) / (win + lose + draw);
@@ -20,6 +29,6 @@ public class User {
     }
 
     public int getScore() {
-        return 5 * win + 2 * draw - 3 * lose;
+        return score;
     }
 }
