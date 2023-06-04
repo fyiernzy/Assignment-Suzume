@@ -9,7 +9,7 @@ public class ConsolePrinter {
     private static String welcomeMessage;
 
     public static void printDecorator() {
-        System.out.printf("%s ", Configuration.DECORATOR);
+        System.out.printf("%s ", Configuration.getDecorator());
     }
 
     public static void printBanner() {

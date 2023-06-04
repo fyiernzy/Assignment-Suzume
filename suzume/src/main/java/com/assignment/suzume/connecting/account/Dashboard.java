@@ -2,6 +2,7 @@ package com.assignment.suzume.connecting.account;
 
 import java.util.Scanner;
 import com.assignment.suzume.connecting.*;
+import com.assignment.suzume.connecting.account.data.DatabaseManager;
 import static com.assignment.suzume.utils.MapGetter.getCombinedMap;
 
 public class Dashboard {
@@ -34,7 +35,8 @@ public class Dashboard {
         loop: while (true) {
             System.out.println(" --> [1] Check account analysis");
             System.out.println(" --> [2] Start challenge the Suzume's Adventure");
-            System.out.println(" --> [3] Logout");
+            System.out.println(" --> [3] Show leaderboard");
+            System.out.println(" --> [4] Logout");
 
             ConsolePrinter.printDecorator();
             int choice = scanner.nextInt();
@@ -43,7 +45,8 @@ public class Dashboard {
             switch (choice) {
                 case 1 -> checkAccountAnalysis();
                 case 2 -> new ConsoleGame(getCombinedMap()).play();
-                case 3 -> {
+                case 3 -> DatabaseManager.getInstance().showDatabase();
+                case 4 -> {
                     System.out.println("Logging out...");
                     for(int i = 0; i < 3; i++) {
                         try {
