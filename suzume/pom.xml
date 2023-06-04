@@ -147,8 +147,7 @@
             <artifactId>prettytable4j</artifactId>
             <version>662a2fb</version>
         </dependency>
-
-
+		
 	</dependencies>
 
 	<build>

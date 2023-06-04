@@ -2,8 +2,8 @@ package com.assignment.suzume.tictactoe.player.engine;
 
 import com.assignment.suzume.tictactoe.board.GamingBoard;
 
-public class HardEngine extends Engine {
-    public HardEngine(char mark) {
+public class HardVariantEngine extends Engine {
+    public HardVariantEngine(char mark) {
         super(mark);
     }
     
