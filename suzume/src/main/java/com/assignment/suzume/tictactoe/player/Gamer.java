@@ -16,18 +16,31 @@ public class Gamer extends Player {
      public int[] makeMove(GamingBoard board) {
           Scanner scanner = new Scanner(System.in);
           int[] move = new int[2];
-          while (true) {
-               System.out.println("Enter your move: ");
-               move[0] = scanner.nextInt();
-               move[1] = scanner.nextInt();
-               System.out.println("Your move is: " + move[0] + " " + move[1]);
-               if (!board.isValidMove(move[0], move[1])) {
-                    System.out.print("Invalid move. ");
-                    continue;
-               }
-               break;
+
+          System.out.println(" --> [1] Take back previous move");
+          System.out.println(" --> [2] Make a move");
+
+          int choice = scanner.nextInt();
+          scanner.nextLine();
+
+          switch (choice) {
+               case 1:
+                    board.takeBackMove();
+               case 2:
+                    while (true) {
+                         System.out.println("Enter your move: ");
+                         move[0] = scanner.nextInt();
+                         move[1] = scanner.nextInt();
+                         System.out.println("Your move is: " + move[0] + " " + move[1]);
+                         if (!board.isValidMove(move[0], move[1])) {
+                              System.out.print("Invalid move. ");
+                              continue;
+                         }
+                         break;
+                    }
+                    board.placeMark(move[0], move[1]);
           }
-          board.placeMark(move[0], move[1]);
+
           return move;
      }
 
@@ -64,7 +77,7 @@ public class Gamer extends Player {
      }
 
      @Override
-     public String toString(){
+     public String toString() {
           return getName();
      }
 }

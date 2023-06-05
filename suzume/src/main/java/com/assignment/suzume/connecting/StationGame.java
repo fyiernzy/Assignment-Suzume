@@ -4,7 +4,6 @@ import java.util.Scanner;
 import com.assignment.suzume.tictactoe.board.*;
 import com.assignment.suzume.tictactoe.player.engine.*;
 import com.assignment.suzume.tictactoe.player.*;
-import com.assignment.suzume.tictactoe.system.*;
 
 public class StationGame {
     private static final String[] ENGINE_DIFFICULTY = { "Easy", "Medium", "Hard" };
@@ -12,7 +11,7 @@ public class StationGame {
     private Scanner scanner;
 
     int modeChoice;
-    GameRunner gameRunner;
+    BoardGameRunner gameRunner;
 
     public StationGame() {
         this.scanner = new Scanner(System.in);
@@ -49,7 +48,7 @@ public class StationGame {
         }
 
         GamingBoard board = getBoard();
-        this.gameRunner = new GameRunner(p1, p2, board);
+        this.gameRunner = new BoardGameRunner(p1, p2, board);
     }
 
     public int getGameMode() {
