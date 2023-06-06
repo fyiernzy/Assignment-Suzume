@@ -1,5 +1,7 @@
 package com.assignment.suzume.connecting;
 
-public class GameSaver {
-    
+public class GameIOHelper {
+    public void saveGame() {
+
+    }
 }

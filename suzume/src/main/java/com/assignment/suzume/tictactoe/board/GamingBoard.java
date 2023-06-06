@@ -2,25 +2,18 @@ package com.assignment.suzume.tictactoe.board;
 
 import java.util.Stack;
 import com.assignment.suzume.tictactoe.board.rules.Rule;
-import com.assignment.suzume.tictactoe.player.Player;
 
 public abstract class GamingBoard extends Board {
-    protected char currentPlayerMark;
-    protected Player currentPlayer;
     private Rule rule;
     private Stack<int[]> moveHistory;
 
     GamingBoard(int size, Rule rule) {
         super(size);
-        this.currentPlayerMark = 'X';
         this.rule = rule;
         this.moveHistory = new Stack<>();
     }
 
     public abstract boolean checkForWin(int row, int col, char mark);
-
-    // Places a mark at the cell specified by row and col with the mark of the
-    // current player.
 
     public void recordMove(int[] move) {
         moveHistory.push(move);
@@ -36,12 +29,9 @@ public abstract class GamingBoard extends Board {
         }
         return false;
     }
+
     public void placeMark(int row, int col, char mark) {
         board[row][col] = mark;
-    }
-
-    public void placeMark(int row, int col) {
-        placeMark(row, col, currentPlayerMark);
     }
 
     public void removeMark(int row, int col) {
@@ -52,36 +42,13 @@ public abstract class GamingBoard extends Board {
         return !isFull() && isCellWithinBoard(row, col) && isCellEmpty(row, col);
     }
 
-    public char getCellValue(int row, int col) {
-        return board[row][col];
+    public void printRule() {
+        System.out.println("=".repeat(50));
+        System.out.println(rule.getContent());
+        System.out.println("=".repeat(50));
     }
 
-    public char getCurrentPlayerMark() {
-        return currentPlayerMark;
-    }
-
-    public char getNextPlayerMark() {
-        return currentPlayerMark == 'X' ? 'O' : 'X';
-    }
-
-    public Player getCurrentPlayer() {
-        return currentPlayer;
-    }
-
-    public void setCurrentPlayer(Player currentPlayer) {
-        this.currentPlayer = currentPlayer;
-    }
-
-    // Changes player mark each turn.
-    public void changePlayer() {
-        currentPlayerMark = currentPlayerMark == 'X' ? 'O' : 'X';
-    }
-
-    public String getRule() {
-        return rule.getContent();
-    }
-
-    public void setRule(Rule rule) {
+    protected void setRule(Rule rule) {
         this.rule = rule;
     }
 }

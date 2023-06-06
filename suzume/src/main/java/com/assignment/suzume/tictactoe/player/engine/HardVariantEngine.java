@@ -37,7 +37,7 @@ public class HardVariantEngine extends Engine {
             row = choice[0];
             col = choice[1];
             if (board.isValidMove(row, col)) {
-                board.placeMark(row, col);
+                board.placeMark(row, col, this.mark);
                 return new int[] { row, col };
             }
         }

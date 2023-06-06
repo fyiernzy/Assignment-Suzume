@@ -38,7 +38,7 @@ public class Gamer extends Player {
                          }
                          break;
                     }
-                    board.placeMark(move[0], move[1]);
+                    board.placeMark(move[0], move[1], this.mark);
           }
 
           return move;

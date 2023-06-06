@@ -19,7 +19,7 @@ public abstract class Engine extends Player {
         List<int[]> emptyCells = board.getEmptyCells();
         int randomIndex = (int) (Math.random() * emptyCells.size());
         int[] randomCell = emptyCells.get(randomIndex);
-        board.placeMark(randomCell[0], randomCell[1]);
+        board.placeMark(randomCell[0], randomCell[1], this.mark);
         return randomCell;
     }
 
@@ -33,7 +33,7 @@ public abstract class Engine extends Player {
             
             if (board.checkForWin(row, col, mark)) {
                 board.removeMark(row, col);
-                board.placeMark(row, col);
+                board.placeMark(row, col, this.mark);
                 return new int[] { row, col };
             }
             board.removeMark(row, col);
@@ -42,15 +42,10 @@ public abstract class Engine extends Player {
     }
 
     protected int[] makeWinningMove(GamingBoard board) {
-        return makeBestMove(board, board.getCurrentPlayerMark());
+        return makeBestMove(board, this.mark);
     }
 
     protected int[] makeBlockingMove(GamingBoard board) {
-        return makeBestMove(board, board.getNextPlayerMark());
-    }
-
-    @Override
-    public String toString() {
-        return this.getClass().getSimpleName();
+        return makeBestMove(board, this.getOpponentMark());
     }
 }

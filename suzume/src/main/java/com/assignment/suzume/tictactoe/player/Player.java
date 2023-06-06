@@ -11,4 +11,12 @@ public abstract class Player {
         this.name = name;
         this.mark = mark;
     }
+
+    public char getMark() {
+        return mark;
+    }
+
+    public char getOpponentMark() {
+        return mark == 'X' ? 'O' : 'X';
+    }
 }

@@ -31,7 +31,7 @@ public class GeneralHardEngine extends Engine {
             }
         }
 
-        board.placeMark(bestMoves[0], bestMoves[1]);
+        board.placeMark(bestMoves[0], bestMoves[1], this.mark);
         return bestMoves;
     }
 

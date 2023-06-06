@@ -1,8 +1,9 @@
 package com.assignment.suzume.connecting.account;
 
 import java.util.Scanner;
-import com.assignment.suzume.connecting.ConsolePrinter;
+
 import com.assignment.suzume.connecting.account.data.GameDataManager;
+import com.assignment.suzume.connecting.game.ConsolePrinter;
 
 public class LoginManager {
     private Scanner scanner;
