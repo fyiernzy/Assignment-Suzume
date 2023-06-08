@@ -121,7 +121,7 @@ public class DatabaseManager {
         }
     }
 
-    public User getUser(String username) {
+    public void loadUser(String username) {
         String selectQuery = "SELECT name, win, lose, draw, score FROM users WHERE name = ?";
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(selectQuery)) {
@@ -129,18 +129,17 @@ public class DatabaseManager {
             ResultSet resultSet = preparedStatement.executeQuery();
 
             if (resultSet.next()) {
-                return new User(
-                        resultSet.getString("name"),
-                        resultSet.getInt("win"),
-                        resultSet.getInt("lose"),
-                        resultSet.getInt("draw"),
-                        resultSet.getInt("score"));
+                User user = User.getInstance();
+                user.initializeProfile(
+                    resultSet.getString("name"),
+                    resultSet.getInt("win"),
+                    resultSet.getInt("lose"),
+                    resultSet.getInt("draw"),
+                    resultSet.getInt("score"));
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
-        return null; // User not found or an error occurred
     }
 
     public void showDatabase() {
