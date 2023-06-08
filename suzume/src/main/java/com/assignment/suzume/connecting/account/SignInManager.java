@@ -31,7 +31,7 @@ public class SignInManager {
             return ;
         }
 
-        User user = databaseManager.getUser(username);
+        User user = User.getInstance();
         if(user != null) {
             Dashboard dashboard = new Dashboard(user);
             dashboard.showDashboard();
