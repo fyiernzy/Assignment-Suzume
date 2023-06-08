@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Suzume's Adventure</title>
+    <link rel="icon" type="image/x-icon" href="/images/daijin.png" />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="profile.css" />
+  </head>
+  <body>
+    <section class="header">
+      <nav>
+        <a href="homepage.html"><img src="images/logofinal.png" /></a>
+        <div class="nav-links">
+          <ul>
+            <li><a href="homepage.html">HOME</a></li>
+            <li><a href="gamepage1.html">PLAY NOW</a></li>
+            <li><a href="profilepage.html">PROFILE</a></li>
+          </ul>
+        </div>
+      </nav>
+      <div id="profile">
+        <a id="username">Username : </a>
+        <a id="password"><br />Password : </a>
+        <a id="winrate"><br />Win Rate : </a>
+        <a id="ranking"><br />Ranking : </a>
+      </div>
+      <div id="desc">
+        <a id="descr"
+          >Click this button below if you wish to change your details.
+        </a>
+        <button id="change" onclick="redirectToGamePage()">
+          Change Details
+        </button>
+      </div>
+    </section>
+
+    <script>
+      function redirectToGamePage() {
+        window.location.href = "changeinfo.html";
+      }
+    </script>
+
+    <footer class="footer">
+      <div class="footerContainer">
+        <p class="copyright">
+          Copyright &copy2023. Designed by DS 之 玲芽の旅.
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>
