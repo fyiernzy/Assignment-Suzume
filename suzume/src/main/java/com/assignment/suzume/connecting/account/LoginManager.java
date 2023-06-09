@@ -6,15 +6,23 @@ import com.assignment.suzume.connecting.account.data.GameDataManager;
 import com.assignment.suzume.connecting.game.ConsolePrinter;
 
 public class LoginManager {
+    private static LoginManager instance; // Singleton
     private Scanner scanner;
     private SignInManager signInManager;
     private SignUpManager signUpManager;
 
-    LoginManager() {
+    private LoginManager() {
         GameDataManager.getInstance().checkGameFolder();
         this.scanner = new Scanner(System.in);
         this.signInManager = new SignInManager();
         this.signUpManager = new SignUpManager();
+    }
+
+    public static LoginManager getInstance() {
+        if(instance == null) {
+            instance = new LoginManager();
+        }
+        return instance;
     }
 
     public void login() {
@@ -37,10 +45,5 @@ public class LoginManager {
                 default -> System.out.println("Invalid choice.");
             }
         }
-    }
-
-    public static void main(String[] args) {
-        LoginManager loginHelper = new LoginManager();
-        loginHelper.login();
     }
 }

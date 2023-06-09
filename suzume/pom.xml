@@ -88,25 +88,6 @@
 			<version>2.12.0</version>
 		</dependency>
 
-		<dependency>
-			<groupId>com.jayway.jsonpath</groupId>
-			<artifactId>json-path</artifactId>
-			<version>2.6.0</version>
-		</dependency>
-
-		<dependency>
-			<groupId>javax.json</groupId>
-			<artifactId>javax.json-api</artifactId>
-			<version>1.1.4</version>
-		</dependency>
-
-
-		<dependency>
-			<groupId>org.glassfish</groupId>
-			<artifactId>javax.json</artifactId>
-			<version>1.1.4</version>
-		</dependency>
-
 		<!-- https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 -->
 		<dependency>
 			<groupId>org.apache.commons</groupId>
@@ -114,12 +95,6 @@
 			<version>3.0</version>
 		</dependency>
 
-		<!-- https://mvnrepository.com/artifact/com.google.code.gson/gson -->
-		<dependency>
-			<groupId>com.google.code.gson</groupId>
-			<artifactId>gson</artifactId>
-			<version>2.10.1</version>
-		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/com.google.guava/guava -->
 		<dependency>
@@ -147,6 +122,21 @@
 			<artifactId>prettytable4j</artifactId>
 			<version>662a2fb</version>
 		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/com.mdlaf/material-ui-swing -->
+		<dependency>
+			<groupId>io.github.vincenzopalazzo</groupId>
+			<artifactId>material-ui-swing</artifactId>
+			<version>1.1.2</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/com.kitfox.svg/svg-salamander -->
+		<dependency>
+			<groupId>com.kitfox.svg</groupId>
+			<artifactId>svg-salamander</artifactId>
+			<version>1.0</version>
+		</dependency>
+
 
 	</dependencies>
 
