@@ -20,12 +20,26 @@ public class DFSFinder extends ShortestPathFinder {
 
     @Override
     public List<List<String>> findAllShortestPaths() {
-        pathFinderHelper(0, 0, new ArrayList<>(), new BitSet());
+        pathFinderHelper(0, 0, 0, 4, new ArrayList<>(), new BitSet());
         return convertListVectorToName(shortestPaths);
     }
 
-    private void pathFinderHelper(int row, int col, List<int[]> currentPath, BitSet visited) {
+    public List<List<String>> findAllShortestPaths(int numOfStationRequired) {
+        pathFinderHelper(0, 0, 0, numOfStationRequired, new ArrayList<>(), new BitSet());
+        return convertListVectorToName(shortestPaths);
+    }
+
+    private void pathFinderHelper(int row, int col, int numOfStationVisited, int numOfStationRequired,
+            List<int[]> currentPath, BitSet visited) {
         if (!isValidLocation(row, col) || visited.get(getKey(row, col))) {
+            return;
+        }
+
+        if (isStation(row, col)) {
+            numOfStationVisited++;
+        }
+
+        if (numOfStationVisited > numOfStationRequired) {
             return;
         }
 
@@ -38,7 +52,7 @@ public class DFSFinder extends ShortestPathFinder {
         if (isDestination(row, col)) {
             if (currentPath.size() < shortestDistance) {
                 shortestDistance = currentPath.size();
-                shortestPaths = null; // Helps GC 
+                shortestPaths = null; // Helps GC
                 shortestPaths = new ArrayList<>();
             }
 
@@ -54,7 +68,8 @@ public class DFSFinder extends ShortestPathFinder {
             List<int[]> tmp = new ArrayList<>(currentPath);
             int newRow = row + dir[0];
             int newCol = col + dir[1];
-            pathFinderHelper(newRow, newCol, tmp, visited);
+            pathFinderHelper(newRow, newCol, numOfStationVisited,
+                    numOfStationRequired, tmp, visited);
         }
         visited.flip(getKey(row, col));
     }
