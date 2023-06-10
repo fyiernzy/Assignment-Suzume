@@ -21,22 +21,18 @@ public class SignInManager {
         System.out.print("Enter your password: ");
         password = scanner.nextLine();
 
-        if(!databaseManager.checkIfUserExists(username)) {
+        if (!databaseManager.checkIfUserExists(username)) {
             System.out.println("User does not exist!");
-            return ;
+            return;
         }
 
-        if(!databaseManager.checkIfPasswordMatch(username, password)) {
+        if (!databaseManager.checkIfPasswordMatch(username, password)) {
             System.out.println("Password does not match!");
-            return ;
+            return;
         }
 
-        User user = User.getInstance();
-        if(user != null) {
-            Dashboard dashboard = new Dashboard(user);
-            dashboard.showDashboard();
-        } else {
-            System.out.println("Failed to get user data.");
-        }
+        databaseManager.loadUser(username);
+        Dashboard dashboard = new Dashboard(User.getInstance());
+        dashboard.showDashboard();
     }
 }

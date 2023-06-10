@@ -6,7 +6,6 @@ import java.util.Properties;
 import mdlaf.MaterialLookAndFeel;
 import mdlaf.utils.MaterialColors;
 import javax.swing.UnsupportedLookAndFeelException;
-
 import com.assignment.suzume.connecting.configuration.Configuration;
 
 public class GameDataManager {
