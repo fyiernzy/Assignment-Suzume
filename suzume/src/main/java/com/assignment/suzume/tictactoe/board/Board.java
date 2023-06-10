@@ -76,7 +76,7 @@ public abstract class Board {
         return (row >= 0 && row < size) && (col >= 0 && col < size);
     }
 
-    char getCellAt(int row, int col) {
+    public char getCellAt(int row, int col) {
         return board[row][col];
     }
 }

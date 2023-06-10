@@ -4,12 +4,10 @@ import java.util.Stack;
 import com.assignment.suzume.tictactoe.board.rules.Rule;
 
 public abstract class GamingBoard extends Board {
-    private Rule rule;
     private Stack<int[]> moveHistory;
 
     GamingBoard(int size, Rule rule) {
         super(size);
-        this.rule = rule;
         this.moveHistory = new Stack<>();
     }
 
@@ -40,15 +38,5 @@ public abstract class GamingBoard extends Board {
 
     public boolean isValidMove(int row, int col) {
         return !isFull() && isCellWithinBoard(row, col) && isCellEmpty(row, col);
-    }
-
-    public void printRule() {
-        System.out.println("=".repeat(50));
-        System.out.println(rule.getContent());
-        System.out.println("=".repeat(50));
-    }
-
-    protected void setRule(Rule rule) {
-        this.rule = rule;
     }
 }
