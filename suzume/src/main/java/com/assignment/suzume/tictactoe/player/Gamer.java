@@ -4,10 +4,6 @@ import java.util.*;
 import com.assignment.suzume.tictactoe.board.GamingBoard;
 
 public class Gamer extends Player {
-     // private int id;
-     private int win, lose, draw;
-     private int score;
-
      public Gamer(String name, char mark) {
           super(name, mark);
      }
@@ -17,59 +13,40 @@ public class Gamer extends Player {
           Scanner scanner = new Scanner(System.in);
           int[] move = new int[2];
 
-          System.out.println(" --> [1] Take back previous move");
-          System.out.println(" --> [2] Make a move");
+          while (true) {
+               System.out.println("Please select an option:");
+               System.out.println(" --> [1] Take back previous move");
+               System.out.println(" --> [2] Make a move");
 
-          int choice = scanner.nextInt();
-          scanner.nextLine();
+               int choice = scanner.nextInt();
+               scanner.nextLine();
 
-          switch (choice) {
-               case 1:
-                    board.takeBackMove();
-               case 2:
+               if (choice == 1) {
+                    if(!board.takeBackMove()) {
+                         System.out.println("No move to take back!!!");
+                    }
+                    continue;
+               } else if (choice == 2) {
                     while (true) {
-                         System.out.println("Enter your move: ");
+                         System.out.println("Enter your move (row column): ");
                          move[0] = scanner.nextInt();
                          move[1] = scanner.nextInt();
                          System.out.println("Your move is: " + move[0] + " " + move[1]);
+
                          if (!board.isValidMove(move[0], move[1])) {
-                              System.out.print("Invalid move. ");
+                              System.out.println("Invalid move. Please try again.");
                               continue;
                          }
                          break;
                     }
                     board.placeMark(move[0], move[1], this.mark);
+                    break;
+               } else {
+                    System.out.println("Invalid choice. Please try again.");
+               }
           }
 
           return move;
-     }
-
-     public int getWin() {
-          return this.win;
-     }
-
-     public int getLose() {
-          return this.lose;
-     }
-
-     public int getDraw() {
-          return this.draw;
-     }
-
-     public int getWinPercentage() {
-          return (win / (win + lose + draw)) * 100;
-     }
-
-     public int getLosePercentage() {
-          return (lose / (win + lose + draw)) * 100;
-     }
-
-     public int getDrawPercentage() {
-          return (draw / (win + lose + draw)) * 100;
-     }
-
-     public int getScore() {
-          return this.score;
      }
 
      public String getName() {
