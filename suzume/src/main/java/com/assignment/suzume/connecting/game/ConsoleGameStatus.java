@@ -1,23 +1,24 @@
 package com.assignment.suzume.connecting.game;
 
 import java.util.Stack;
-
 import com.assignment.suzume.map.utils.MapUtils;
 
-public class GameStatus {
+public class ConsoleGameStatus {
     String user;
     int currentRow;
     int currentCol;
     int currentStep;
     char[][] currentMap;
+    boolean isContinueJourney;
     Stack<int[]> stationHistory; // format: [row, col, step]
     Stack<char[][]> mapHistory;
 
-    GameStatus(char[][] map) {
+    ConsoleGameStatus(char[][] map) {
         this.currentRow = 0;
         this.currentCol = 0;
         this.currentMap = map;
         this.currentMap[0][0] = '*';
+        this.isContinueJourney = true;
         this.stationHistory = new Stack<>();
         this.mapHistory = new Stack<>();
     }

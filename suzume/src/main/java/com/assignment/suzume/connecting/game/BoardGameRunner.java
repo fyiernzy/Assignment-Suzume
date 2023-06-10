@@ -1,16 +1,16 @@
 package com.assignment.suzume.connecting.game;
 
+import com.assignment.suzume.connecting.game.analyzer.*;
 import com.assignment.suzume.tictactoe.board.*;
 import com.assignment.suzume.tictactoe.player.Player;
-import com.assignment.suzume.connecting.game.monitor.*;
 
 public class BoardGameRunner {
     private Player one;
     private Player two;
     private GamingBoard board;
-    private GameMonitor monitor;
+    private GameAnalyzer monitor;
 
-    public BoardGameRunner(Player one, Player two, GamingBoard board, GameMonitor monitor) {
+    public BoardGameRunner(Player one, Player two, GamingBoard board, GameAnalyzer monitor) {
         this.one = one;
         this.two = two;
         this.board = board;
