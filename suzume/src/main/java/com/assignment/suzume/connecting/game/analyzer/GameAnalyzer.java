@@ -1,9 +1,10 @@
 package com.assignment.suzume.connecting.game.analyzer;
 
+import java.io.Serializable;
 import com.assignment.suzume.tictactoe.board.GamingBoard;
 
-public abstract class GameAnalyzer {
-    protected static final int WIN_SCORE = Integer.MAX_VALUE >> 16;
+public abstract class GameAnalyzer implements Serializable {
+    transient protected static final int WIN_SCORE = Integer.MAX_VALUE >> 16;
     protected char playerOne;
     protected char playerTwo;
     protected GamingBoard gamingBoard;

@@ -1,9 +1,9 @@
-package com.assignment.suzume.connecting.game.monitor;
+package com.assignment.suzume.connecting.game.analyzer;
 
 import com.assignment.suzume.tictactoe.board.GamingBoard;
 
-public class VariantGameMonitor extends GameMonitor {
-    public VariantGameMonitor(char playerOne, char playerTwo, GamingBoard gamingBoard) {
+public class VariantGameAnalyzer extends GameAnalyzer {
+    public VariantGameAnalyzer(char playerOne, char playerTwo, GamingBoard gamingBoard) {
         super(playerOne, playerTwo, gamingBoard);
     }
 

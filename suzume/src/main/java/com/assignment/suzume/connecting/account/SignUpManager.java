@@ -9,12 +9,12 @@ import com.assignment.suzume.connecting.configuration.Configuration;
 public class SignUpManager {
     private Scanner scanner;
     private DatabaseManager databaseManager;
-    private GameDataManager gameDataManager;
+    private GameDataInitializer gameDataManager;
 
     SignUpManager() {
         this.scanner = new Scanner(System.in);
         this.databaseManager = DatabaseManager.getInstance();
-        this.gameDataManager = GameDataManager.getInstance();
+        this.gameDataManager = GameDataInitializer.getInstance();
     }
 
     public void run() {

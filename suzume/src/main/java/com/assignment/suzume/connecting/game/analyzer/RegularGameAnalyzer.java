@@ -2,7 +2,7 @@ package com.assignment.suzume.connecting.game.analyzer;
 
 import com.assignment.suzume.tictactoe.board.GamingBoard;
 
-public class RegularGameAnalyzer extends GameAnalyzer {
+public class RegularGameAnalyzer extends GameAnalyzer{
     public RegularGameAnalyzer(char playerOne, char playerTwo, GamingBoard gamingBoard) {
         super(playerOne, playerTwo, gamingBoard);
     }
