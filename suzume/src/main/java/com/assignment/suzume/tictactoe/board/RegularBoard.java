@@ -1,9 +1,8 @@
 package com.assignment.suzume.tictactoe.board;
 
-import com.assignment.suzume.tictactoe.board.rules.Rule;
 public class RegularBoard extends GamingBoard {
     public RegularBoard() {
-        super(5, Rule.REGULAR); // Set the size of the board to 5x5
+        super(5); // Set the size of the board to 5x5
     }
 
     @Override

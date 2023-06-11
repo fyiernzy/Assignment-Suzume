@@ -1,12 +1,11 @@
 package com.assignment.suzume.tictactoe.board;
 
 import java.util.Stack;
-import com.assignment.suzume.tictactoe.board.rules.Rule;
 
 public abstract class GamingBoard extends Board {
     private Stack<int[]> moveHistory;
 
-    GamingBoard(int size, Rule rule) {
+    public GamingBoard(int size) {
         super(size);
         this.moveHistory = new Stack<>();
     }

@@ -26,10 +26,10 @@ public class ConsoleGameSetup {
         initializeConfiguration();
     }
 
-    public BoardGameRunner getBoardGameRunner() {
+    BoardGameRunner getBoardGameRunner() {
         GamingBoard board = createGamingBoard(boardChoice);
         GameAnalyzer monitor = createGameMonitor(boardChoice, board);
-        return new BoardGameRunner(p1, p2, board, monitor);
+        return new BoardGameRunner(modeChoice, p1, p2, rule, board, monitor);
     }
 
     public int getModeChoice() {
@@ -79,7 +79,7 @@ public class ConsoleGameSetup {
 
             if (choice >= 1 && choice <= 3) {
                 modeChoice = choice;
-                return ;
+                return;
             }
 
             System.out.println("Invalid choice. Please try again.");
@@ -97,7 +97,7 @@ public class ConsoleGameSetup {
 
             if (choice >= 1 && choice <= 3) {
                 boardChoice = choice;
-                return ;
+                return;
             }
             System.out.println("Invalid choice. Please try again.");
         }
@@ -127,19 +127,28 @@ public class ConsoleGameSetup {
 
     GamingBoard createGamingBoard(int boardChoice) {
         switch (boardChoice) {
-            case 1: return new RegularBoard();
-            case 2: return new ReverseBoard();
-            case 3: return new VariantBoard();
-            default: System.out.println("Invalid board choice. Default board is used."); return new VariantBoard();
+            case 1:
+                return new RegularBoard();
+            case 2:
+                return new ReverseBoard();
+            case 3:
+                return new VariantBoard();
+            default:
+                System.out.println("Invalid board choice. Default board is used.");
+                return new VariantBoard();
         }
     }
 
     GameAnalyzer createGameMonitor(int boardChoice, GamingBoard board) {
-        switch(boardChoice) {
-            case 1: return new RegularGameAnalyzer(p1.getMark(), p2.getMark(), board);
-            case 2: return new ReverseGameAnalyzer(p1.getMark(), p2.getMark(), board);
-            case 3: return new VariantGameAnalyzer(p1.getMark(), p2.getMark(), board);
-            default: return new VariantGameAnalyzer(p1.getMark(), p2.getMark(), board);
+        switch (boardChoice) {
+            case 1:
+                return new RegularGameAnalyzer(p1.getMark(), p2.getMark(), board);
+            case 2:
+                return new ReverseGameAnalyzer(p1.getMark(), p2.getMark(), board);
+            case 3:
+                return new VariantGameAnalyzer(p1.getMark(), p2.getMark(), board);
+            default:
+                return new VariantGameAnalyzer(p1.getMark(), p2.getMark(), board);
         }
     }
 }

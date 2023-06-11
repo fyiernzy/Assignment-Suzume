@@ -1,8 +1,9 @@
 package com.assignment.suzume.tictactoe.board;
 
+import java.io.Serializable;
 import java.util.*;
 
-public abstract class Board {
+public abstract class Board implements Serializable {
     protected int size;
     protected char[][] board;
 

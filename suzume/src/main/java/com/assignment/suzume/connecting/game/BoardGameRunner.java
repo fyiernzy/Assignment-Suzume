@@ -1,20 +1,25 @@
 package com.assignment.suzume.connecting.game;
 
-import com.assignment.suzume.connecting.game.analyzer.*;
+import java.io.Serializable;
 import com.assignment.suzume.tictactoe.board.*;
-import com.assignment.suzume.tictactoe.player.Player;
-
-public class BoardGameRunner {
+import com.assignment.suzume.tictactoe.player.*;
+import com.assignment.suzume.connecting.game.analyzer.*;
+import com.assignment.suzume.tictactoe.board.rules.Rule;
+public class BoardGameRunner implements Serializable {
+    private Rule rule;
     private Player one;
     private Player two;
     private GamingBoard board;
-    private GameAnalyzer monitor;
+    private GameAnalyzer analyzer;
+    private UserActionHandler userActionHandler;
 
-    public BoardGameRunner(Player one, Player two, GamingBoard board, GameAnalyzer monitor) {
+    public BoardGameRunner(int gameMode, Player one, Player two, Rule rule, GamingBoard board, GameAnalyzer analyzer) {
         this.one = one;
         this.two = two;
+        this.rule = rule;
         this.board = board;
-        this.monitor = monitor;
+        this.analyzer = analyzer;
+        this.userActionHandler = new UserActionHandler(gameMode, board, this);
     }
 
     public int play() {
@@ -22,7 +27,9 @@ public class BoardGameRunner {
         Player currentPlayer = null;
         boolean hasWon = false;
         boolean isFirstPlayerTurn = Math.random() < 0.5;
-        
+
+        ConsolePrinter.printRule(rule);
+
         while (!board.isFull()) {
             board.printBoard();
             System.out.println();
@@ -31,7 +38,20 @@ public class BoardGameRunner {
             System.out.println(currentPlayer + "'s turn (" + currentPlayer.getMark() + ")");
             printWinProbability();
 
-            int[] move = currentPlayer.makeMove(board);
+            int[] action = { -1, -1, -1 };
+
+            if (currentPlayer instanceof Gamer) {
+                action = userActionHandler.showUserMenu((Gamer) currentPlayer);
+            } else {
+                int[] move = currentPlayer.makeMove(board);
+                action = new int[] { GameConstant.MOVE, move[0], move[1] };
+            }
+
+            if (action[0] == GameConstant.EXIT) {
+                return GameConstant.EXIT;
+            }
+
+            int[] move = { action[1], action[2] };
             board.recordMove(move);
 
             sleepForOneSecond();
@@ -68,7 +88,7 @@ public class BoardGameRunner {
     }
 
     private void printWinProbability() {
-        double[] winProbability = monitor.getWinProbability();
+        double[] winProbability = analyzer.getWinProbability();
         System.out.printf("Win probability --> %s: %.2f%%\n", one, winProbability[0] * 100);
         System.out.printf("Win probability --> %s: %.2f%%\n", two, winProbability[1] * 100);
     }
