@@ -9,6 +9,7 @@ public class StationGame {
     private static final String[] ENGINE_DIFFICULTY = { "Easy", "Medium", "Hard" };
     private static final String[] BOARD_TYPE = { "Regular", "Reverse", "Variant" };
     private Scanner scanner;
+    private int boardChoice;
 
     int modeChoice;
     BoardGameRunner gameRunner;
@@ -28,7 +29,7 @@ public class StationGame {
         Player p1 = null, p2 = null;
         char p1Mark = 'X', p2Mark = 'O';
 
-        switch(modeChoice) {
+        switch (modeChoice) {
             case 1 -> {
                 p1 = getGamer(p1Mark);
                 p2 = getGamer(p2Mark);
@@ -56,7 +57,7 @@ public class StationGame {
             int modeChoice = scanner.nextInt();
             scanner.nextLine();
 
-            if(modeChoice >= 1 && modeChoice <= 3) {
+            if (modeChoice >= 1 && modeChoice <= 3) {
                 return modeChoice;
             }
 
@@ -73,17 +74,21 @@ public class StationGame {
     public GamingBoard getBoard() {
         while (true) {
             System.out.println("Please choose the gaming board: ");
-            for(int i = 0; i < BOARD_TYPE.length; i++) {
+            for (int i = 0; i < BOARD_TYPE.length; i++) {
                 System.out.printf("  [%d] %s Board\n", i + 1, BOARD_TYPE[i]);
             }
-            int boardChoice = scanner.nextInt();
+            boardChoice = scanner.nextInt();
             scanner.nextLine();
 
-            switch(boardChoice) {
-                case 1 : return new RegularBoard();
-                case 2 : return new ReverseBoard();
-                case 3 : return new VariantBoard();
-                default: System.out.println("Invalid choice. Please try again.");
+            switch (boardChoice) {
+                case 1:
+                    return new RegularBoard();
+                case 2:
+                    return new ReverseBoard();
+                case 3:
+                    return new VariantBoard();
+                default:
+                    System.out.println("Invalid choice. Please try again.");
             }
         }
     }
@@ -91,18 +96,35 @@ public class StationGame {
     public Engine getEngine(char mark) {
         while (true) {
             System.out.println("Please choose the engine difficulty:");
-            for(int i = 0; i < ENGINE_DIFFICULTY.length; i++) {
+            for (int i = 0; i < ENGINE_DIFFICULTY.length; i++) {
                 System.out.printf("  [%d] %s\n", i + 1, ENGINE_DIFFICULTY[i]);
             }
             int engineChoice = scanner.nextInt();
             scanner.nextLine();
 
-            switch(engineChoice) {
-                case 1 : return new EasyEngine(mark);
-                case 2 : return new MediumEngine(mark);
-                case 3 : return new GeneralHardEngine(mark);
-                default: System.out.println("Invalid choice. Please try again.");
+            switch (engineChoice) {
+                case 1:
+                    return new EasyEngine(mark);
+                case 2:
+                    if (boardChoice == 2) {
+                        return new reverseMediumEngine(mark);
+                    } else {
+                        return new MediumEngine(mark);
+                    }
+                case 3:
+                    if (boardChoice == 3) {
+                        return new reverseHardEngine(mark);
+                    } else {
+                        return new HardEngine(mark);
+                    }
+                default:
+                    System.out.println("Invalid choice. Please try again.");
             }
         }
+    }
+
+    public static void main(String[] args) {
+        StationGame game = new StationGame();
+        System.out.println(game.play());
     }
 }
