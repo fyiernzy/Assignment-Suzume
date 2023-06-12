@@ -51,7 +51,7 @@ public class BoardGameRunner implements Serializable {
                 return GameConstant.EXIT;
             }
 
-            int[] move = { action[1], action[2] };
+            int[] move = { action[1], action[2], (int) currentPlayer.getMark() };
             board.recordMove(move);
 
             sleepForOneSecond();
@@ -72,9 +72,11 @@ public class BoardGameRunner implements Serializable {
 
         if (board.isFull() && !hasWon) {
             System.out.println("It's a tie!");
+            userActionHandler.showSaveReplayMenu();
             return GameConstant.DRAW;
         } else {
             System.out.println("Congratulations, " + winner + " (" + winner.getMark() + ") has won!\n");
+            userActionHandler.showSaveReplayMenu();
             return winner == one ? GameConstant.WIN : GameConstant.LOSE;
         }
     }

@@ -24,6 +24,22 @@ public class UserActionHandler implements Serializable {
         this.gameFileManager = GameFileManager.getInstance();
     }
 
+    public void showSaveReplayMenu() {
+        while(true) {
+            System.out.println("Do you want to save the game replay? (Y/N)");
+            String choice = scanner.nextLine();
+            
+            if(choice.toUpperCase().startsWith("Y")) {
+                saveGameReplay();
+                break;
+            } else if(choice.toUpperCase().startsWith("N")) {
+                break;
+            } else {
+                System.out.println("Invalid option!");
+            }
+        }
+    }
+
     public int[] showUserMenu(Gamer gamer) {
         while (true) {
             System.out.println("Please select an option:");
@@ -50,6 +66,11 @@ public class UserActionHandler implements Serializable {
                     System.out.println("Invalid option!");
             }
         }
+    }
+
+    private void saveGameReplay() {
+        gameFileManager.saveGameReplay(board);
+        System.out.println("Game replay saved successfully!");
     }
 
     private void handleUndoMove() {

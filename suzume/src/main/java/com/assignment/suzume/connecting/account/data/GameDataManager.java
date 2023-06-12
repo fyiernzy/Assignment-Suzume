@@ -1,10 +1,7 @@
 package com.assignment.suzume.connecting.account.data;
 
 import java.io.*;
-import com.assignment.suzume.tictactoe.player.Gamer;
-import com.assignment.suzume.tictactoe.board.VariantBoard;
-import com.assignment.suzume.tictactoe.board.rules.Rule;
-import com.assignment.suzume.connecting.game.analyzer.VariantGameAnalyzer;
+import com.assignment.suzume.tictactoe.board.GamingBoard;
 import com.assignment.suzume.connecting.game.BoardGameRunner;
 
 public class GameDataManager {
@@ -39,13 +36,25 @@ public class GameDataManager {
         return runner;
     }
 
-    public static void main(String[] args) {
-        GameDataManager gameDataManager = GameDataManager.getInstance();
-        VariantBoard board = new VariantBoard();
-        BoardGameRunner runner = new BoardGameRunner(1, new Gamer("Ng", 'X'), new Gamer("test", 'O'),
-                Rule.VARIANT, board, new VariantGameAnalyzer('X', 'O', board));
-        gameDataManager.saveGame("C:\\Users\\User\\Desktop\\suzume\\Ng\\save_game\\pvp", "game_1", runner);
-        BoardGameRunner runner2 = gameDataManager.loadGame("C:\\Users\\User\\Desktop\\suzume\\Ng\\save_game\\pvp", "game_1");
-        System.out.println(runner2);
+    public void saveGameReplay(String parentFolder, String filename, GamingBoard board) {
+        try (ObjectOutputStream out = new ObjectOutputStream(
+                new FileOutputStream(parentFolder + File.separator + filename))) {
+            out.writeObject(board);
+            System.out.println("Game Replay saved successfully.");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public GamingBoard loadGameReplay(String parentFolder, String filename) {
+        GamingBoard board = null;
+        try (ObjectInputStream in = new ObjectInputStream(
+                new FileInputStream(parentFolder + File.separator + filename))) {
+            board = (GamingBoard) in.readObject();
+            System.out.println("Game loaded successfully.");
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return board;
     }
 }

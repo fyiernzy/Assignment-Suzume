@@ -12,6 +12,10 @@ public abstract class GamingBoard extends Board {
 
     public abstract boolean checkForWin(int row, int col, char mark);
 
+    public Stack<int[]> getMoveHistory() {
+        return moveHistory;
+    }
+
     public void recordMove(int[] move) {
         moveHistory.push(move);
     }

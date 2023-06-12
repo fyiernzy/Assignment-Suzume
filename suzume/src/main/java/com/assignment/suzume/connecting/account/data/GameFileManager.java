@@ -3,6 +3,7 @@ package com.assignment.suzume.connecting.account.data;
 import java.io.File;
 import java.util.Scanner;
 import com.assignment.suzume.connecting.account.User;
+import com.assignment.suzume.tictactoe.board.GamingBoard;
 import com.assignment.suzume.connecting.game.BoardGameRunner;
 import com.assignment.suzume.connecting.configuration.Configuration;
 
@@ -26,22 +27,40 @@ public class GameFileManager {
     }
 
     public void saveGame(BoardGameRunner runner, int gameMode) {
-        String[] folders = generateFolderPaths(gameMode);
+        String[] folders = generateGameFolderPaths(gameMode);
         createFolderIfNotExists(folders[0]);
         gameDataManager.saveGame(folders[0], folders[1], runner);
     }
 
     public BoardGameRunner loadGame(int gameMode) {
-        String[] folders = generateFolderPaths(gameMode);
+        String[] folders = generateGameFolderPaths(gameMode);
         return gameDataManager.loadGame(folders[0], folders[1]);
     }
 
-    private String[] generateFolderPaths(int gameMode) {
+    public void saveGameReplay(GamingBoard board) {
+        String[] folders = generateReplayFolderPaths();
+        createFolderIfNotExists(folders[0]);
+        gameDataManager.saveGameReplay(folders[0], folders[1], board);
+    }
+
+    public GamingBoard loadGameReplay() {
+        String[] folders = generateReplayFolderPaths();
+        return gameDataManager.loadGameReplay(folders[0], folders[1]);
+    }
+
+    private String[] generateReplayFolderPaths() {
+        String username = User.getInstance().getName();
+        String subfolder = "replay";
+        String parentFolder = String.format(parentFolderFormat, Configuration.getGameFolderURL(), username, subfolder);
+        String fileName = getValidFileName(parentFolder);
+        return new String[] { parentFolder, fileName };
+    }
+
+    private String[] generateGameFolderPaths(int gameMode) {
         String username = User.getInstance().getName();
         String subfolder = getSubfolder(gameMode);
         String parentFolder = String.format(parentFolderFormat, Configuration.getGameFolderURL(), username, subfolder);
         String fileName = getValidFileName(parentFolder);
-        System.out.println(parentFolder);
         return new String[] { parentFolder, fileName };
     }
 
@@ -50,6 +69,12 @@ public class GameFileManager {
         while (true) {
             System.out.print("Enter the filename: ");
             fileName = scanner.nextLine();
+            if(isFileExist(parentFolder, fileName)) {
+                System.out.println("File already exists. Do you want to overwrite it? (y/n)");
+                if(scanner.nextLine().equalsIgnoreCase("y")){
+                    break;
+                }
+            }
             if (!fileName.isBlank() && isFileNameValid(fileName)) {
                 break;
             }
@@ -89,6 +114,6 @@ public class GameFileManager {
 
     public static void main(String[] args) {
         GameDataInitializer.getInstance().checkGameFolder();
-        System.out.println(GameFileManager.getInstance().generateFolderPaths(1)[0]);
+        System.out.println(GameFileManager.getInstance().generateGameFolderPaths(1)[0]);
     }
 }
