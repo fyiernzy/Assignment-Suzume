@@ -2,9 +2,12 @@ package com.assignment.suzume.connecting.account;
 
 import java.util.Scanner;
 import com.assignment.suzume.map.utils.MapUtils;
+import com.assignment.suzume.tictactoe.board.GamingBoard;
 import com.assignment.suzume.connecting.game.ConsoleGame;
 import com.assignment.suzume.connecting.game.ConsolePrinter;
+import com.assignment.suzume.connecting.game.VideoPlayer;
 import com.assignment.suzume.connecting.account.data.DatabaseManager;
+import com.assignment.suzume.connecting.account.data.GameFileManager;
 
 public class Dashboard {
     private User user;
@@ -37,7 +40,8 @@ public class Dashboard {
             System.out.println(" --> [1] Check account analysis");
             System.out.println(" --> [2] Start challenge the Suzume's Adventure");
             System.out.println(" --> [3] Show leaderboard");
-            System.out.println(" --> [4] Logout");
+            System.out.println(" --> [4] Show game replay");
+            System.out.println(" --> [5] Logout");
 
             ConsolePrinter.printDecorator();
             int choice = scanner.nextInt();
@@ -48,6 +52,11 @@ public class Dashboard {
                 case 2 -> new ConsoleGame(MapUtils.getCombinedMap()).play();
                 case 3 -> DatabaseManager.getInstance().showDatabase();
                 case 4 -> {
+                    GamingBoard board = GameFileManager.getInstance().loadGameReplay();
+                    VideoPlayer player = VideoPlayer.getSuitableVideoPlayer(board);
+                    player.replay();
+                }
+                case 5 -> {
                     System.out.println("Logging out...");
                     for(int i = 0; i < 3; i++) {
                         try {

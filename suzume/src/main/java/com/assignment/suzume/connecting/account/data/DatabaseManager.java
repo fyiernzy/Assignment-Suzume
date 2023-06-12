@@ -53,15 +53,15 @@ public class DatabaseManager {
         }
     }
 
-    public boolean updateUserGameStatus(String username, int win, int lose, int draw, int score) {
+    public boolean updateUserGameStatus(User user) {
         String updateQuery = "UPDATE users SET win = ?, lose = ?, draw = ?, score = ? WHERE name = ?";
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(updateQuery)) {
-            preparedStatement.setInt(1, win);
-            preparedStatement.setInt(2, lose);
-            preparedStatement.setInt(3, draw);
-            preparedStatement.setInt(4, score);
-            preparedStatement.setString(5, username);
+            preparedStatement.setInt(1, user.getWin());
+            preparedStatement.setInt(2, user.getLose());
+            preparedStatement.setInt(3, user.getDraw());
+            preparedStatement.setInt(4, user.getScore());
+            preparedStatement.setString(5, user.getName());
             int rowsAffected = preparedStatement.executeUpdate();
 
             System.out.println(rowsAffected > 0 ? "Game status updated successfully." : "User not found.");
@@ -129,6 +129,7 @@ public class DatabaseManager {
             ResultSet resultSet = preparedStatement.executeQuery();
 
             if (resultSet.next()) {
+                System.out.println("Load user successfully!");
                 User user = User.getInstance();
                 user.initializeProfile(
                     resultSet.getString("name"),
@@ -174,11 +175,4 @@ public class DatabaseManager {
             e.printStackTrace();
         }
     }
-
-    public static void main(String[] args) {
-        DatabaseManager database = DatabaseManager.getInstance();
-        System.out.println(database.checkIfUserExists("Ng"));
-        database.showDatabase();
-    }
-
 }

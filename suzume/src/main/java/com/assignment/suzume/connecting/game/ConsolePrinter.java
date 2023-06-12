@@ -3,6 +3,7 @@ package com.assignment.suzume.connecting.game;
 import java.io.*;
 import org.apache.commons.lang3.StringUtils;
 import com.assignment.suzume.connecting.configuration.Configuration;
+import com.assignment.suzume.tictactoe.board.rules.Rule;
 
 public class ConsolePrinter {
     private static String banner;
@@ -10,6 +11,12 @@ public class ConsolePrinter {
 
     public static void printDecorator() {
         System.out.printf("%s ", Configuration.getDecorator());
+    }
+
+    public static void printRule(Rule rule) {
+        System.out.println("=".repeat(50));
+        System.out.println(rule.getContent());
+        System.out.println("=".repeat(50));
     }
 
     public static void printBanner() {

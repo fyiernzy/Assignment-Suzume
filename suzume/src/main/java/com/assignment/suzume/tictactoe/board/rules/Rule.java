@@ -28,6 +28,8 @@ public enum Rule {
     }
 
     public String getContent() {
+        if(this.content == null)
+            readContent();
         return this.content;
     }
 }

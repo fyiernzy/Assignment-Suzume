@@ -35,11 +35,11 @@ public class User {
         this.score = score;
     }
 
-    public void updateResult(int win, int lose, int draw, int score) {
-        this.win += win;
-        this.lose += lose;
-        this.draw += draw;
-        this.score += score;
+    public void updateResult(int result) {
+        this.win += Math.max(result, 0);
+        this.lose += Math.max(-1 * result, 0);
+        this.draw += Math.max(1 - Math.abs(result), 0);
+        this.score = 5 * win + 2 * draw - 3 * lose;
     }
 
     public int getWinRate() {

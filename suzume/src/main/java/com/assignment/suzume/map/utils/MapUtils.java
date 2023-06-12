@@ -7,7 +7,7 @@ import com.assignment.suzume.map.reader.MapProcessor;
 import com.assignment.suzume.map.reader.MapReader;
 
 public class MapUtils {
-    private static final String IMAGE_PATH = "./src/main/java/com/assignment/suzume/utils/Images/";
+    private static final String IMAGE_PATH = "./src/main/java/com/assignment/suzume/map/Images/";
     private static final String IMAGE_SUFFIX = ".png";
     private static final int[][] NUM_OF_PATH = { { 16, 41 }, { 38, 27 } };
     private static List<PixelMap> list;

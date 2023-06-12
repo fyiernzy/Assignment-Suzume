@@ -1,27 +1,34 @@
 package com.assignment.suzume.connecting.game;
 
-import com.assignment.suzume.tictactoe.player.Player;
-import com.assignment.suzume.tictactoe.board.GamingBoard;
-import com.assignment.suzume.tictactoe.board.ReverseBoard;
-
-public class BoardGameRunner {
+import java.io.Serializable;
+import com.assignment.suzume.tictactoe.board.*;
+import com.assignment.suzume.tictactoe.player.*;
+import com.assignment.suzume.connecting.game.analyzer.*;
+import com.assignment.suzume.tictactoe.board.rules.Rule;
+public class BoardGameRunner implements Serializable {
+    private Rule rule;
     private Player one;
     private Player two;
     private GamingBoard board;
+    private GameAnalyzer analyzer;
+    private UserActionHandler userActionHandler;
 
-    public BoardGameRunner(Player one, Player two, GamingBoard board) {
+    public BoardGameRunner(int gameMode, Player one, Player two, Rule rule, GamingBoard board, GameAnalyzer analyzer) {
         this.one = one;
         this.two = two;
+        this.rule = rule;
         this.board = board;
+        this.analyzer = analyzer;
+        this.userActionHandler = new UserActionHandler(gameMode, board, this);
     }
 
-    public boolean gamePlay() {
-        board.printRule();
-
-        boolean isFirstPlayerTurn = Math.random() < 0.5;
-        boolean hasWon = false;
-        Player currentPlayer = null;
+    public int play() {
         Player winner = null;
+        Player currentPlayer = null;
+        boolean hasWon = false;
+        boolean isFirstPlayerTurn = Math.random() < 0.5;
+
+        ConsolePrinter.printRule(rule);
 
         while (!board.isFull()) {
             board.printBoard();
@@ -29,7 +36,22 @@ public class BoardGameRunner {
 
             currentPlayer = isFirstPlayerTurn ? one : two;
             System.out.println(currentPlayer + "'s turn (" + currentPlayer.getMark() + ")");
-            int[] move = currentPlayer.makeMove(board);
+            printWinProbability();
+
+            int[] action = { -1, -1, -1 };
+
+            if (currentPlayer instanceof Gamer) {
+                action = userActionHandler.showUserMenu((Gamer) currentPlayer);
+            } else {
+                int[] move = currentPlayer.makeMove(board);
+                action = new int[] { GameConstant.MOVE, move[0], move[1] };
+            }
+
+            if (action[0] == GameConstant.EXIT) {
+                return GameConstant.EXIT;
+            }
+
+            int[] move = { action[1], action[2], (int) currentPlayer.getMark() };
             board.recordMove(move);
 
             sleepForOneSecond();
@@ -50,10 +72,12 @@ public class BoardGameRunner {
 
         if (board.isFull() && !hasWon) {
             System.out.println("It's a tie!");
-            return false;
+            userActionHandler.showSaveReplayMenu();
+            return GameConstant.DRAW;
         } else {
             System.out.println("Congratulations, " + winner + " (" + winner.getMark() + ") has won!\n");
-            return true;
+            userActionHandler.showSaveReplayMenu();
+            return winner == one ? GameConstant.WIN : GameConstant.LOSE;
         }
     }
 
@@ -64,5 +88,11 @@ public class BoardGameRunner {
             e.printStackTrace();
         }
     }
-}
 
+    private void printWinProbability() {
+        double[] winProbability = analyzer.getWinProbability();
+        System.out.printf("Win probability --> %s: %.2f%%\n", one, winProbability[0] * 100);
+        System.out.printf("Win probability --> %s: %.2f%%\n", two, winProbability[1] * 100);
+    }
+
+}

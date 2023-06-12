@@ -1,20 +1,11 @@
 package com.assignment.suzume.connecting.account.data;
 
-import java.util.Properties;
 import java.io.*;
-import javax.swing.JFileChooser;
-import javax.swing.JFrame;
-import com.assignment.suzume.connecting.configuration.Configuration;
+import com.assignment.suzume.tictactoe.board.GamingBoard;
+import com.assignment.suzume.connecting.game.BoardGameRunner;
 
 public class GameDataManager {
-
     private static GameDataManager instance; // Singleton
-    private Properties properties;
-    private String gameFolderURL;
-
-    GameDataManager() {
-        this.properties = Configuration.properties;
-    }
 
     public static GameDataManager getInstance() {
         if (instance == null) {
@@ -23,77 +14,47 @@ public class GameDataManager {
         return instance;
     }
 
-    public void checkGameFolder() {
-        if (!isGameFolderURLSet()) {
-            configureGameFolderURL();
-            saveConfiguration();
-            Configuration.setGameFolderURL(gameFolderURL);
-        } 
-
-        if(gameFolderURL == null) {
-            this.gameFolderURL = properties.getProperty("game_folder_url");
-        }
-        
-        createGameFolder();
-    }
-
-    private void configureGameFolderURL() {
-        // Create a JFrame to act as the parent for the file chooser dialog
-        JFrame parentFrame = new JFrame();
-
-        // Create an instance of JFileChooser
-        JFileChooser fileChooser = new JFileChooser();
-
-        // Set the file chooser to select directories only
-        fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-
-        // Show the file chooser dialog
-        int result = fileChooser.showOpenDialog(parentFrame);
-
-        // Check if the user clicked the "Open" button
-        if (result == JFileChooser.APPROVE_OPTION) {
-            // Get the selected file
-            File selectedFolder = fileChooser.getSelectedFile();
-
-            // Get the absolute path of the selected folder
-            this.gameFolderURL = selectedFolder.getAbsolutePath() + "\\suzume\\";
-        }
-    }
-
-    public String getGameFolderURL() {
-        if(this.gameFolderURL == null) {
-            properties.getProperty("game_folder_url");
-        }
-        return gameFolderURL;
-    }
-
-    private boolean saveConfiguration() {
-        // Edit the game_folder_url property
-        properties.setProperty("game_folder_url", gameFolderURL);
-
-        // Save the modified properties back to a file if needed
-        try (FileOutputStream fileOutputStream = new FileOutputStream(Configuration.CONFIG_FILE)) {
-            properties.store(fileOutputStream, "Modified properties");
-            return true;
+    public void saveGame(String parentFolder, String filename, BoardGameRunner runner) {
+        try (ObjectOutputStream out = new ObjectOutputStream(
+                new FileOutputStream(parentFolder + File.separator + filename))) {
+            out.writeObject(runner);
+            System.out.println("Game saved successfully.");
         } catch (IOException e) {
-            return false;
+            e.printStackTrace();
         }
     }
 
-    private boolean isGameFolderURLSet() {
-        return this.properties.getProperty("game_folder_url") != null;
+    public BoardGameRunner loadGame(String parentFolder, String filename) {
+        BoardGameRunner runner = null;
+        try (ObjectInputStream in = new ObjectInputStream(
+                new FileInputStream(parentFolder + File.separator + filename))) {
+            runner = (BoardGameRunner) in.readObject();
+            System.out.println("Game loaded successfully.");
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return runner;
     }
 
-    private void createGameFolder() {
-        new File(gameFolderURL).mkdirs();
+    public void saveGameReplay(String parentFolder, String filename, GamingBoard board) {
+        try (ObjectOutputStream out = new ObjectOutputStream(
+                new FileOutputStream(parentFolder + File.separator + filename))) {
+            out.writeObject(board);
+            System.out.println("Game Replay saved successfully.");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
-    public void createUserFolder(String username) {
-        final File userFolder = new File(gameFolderURL, username);
-        final File saveGameFolder = new File(userFolder, "save_game");
-        final File replayFolder = new File(userFolder, "replay");
-
-        saveGameFolder.mkdirs();
-        replayFolder.mkdirs();
+    public GamingBoard loadGameReplay(String parentFolder, String filename) {
+        GamingBoard board = null;
+        try (ObjectInputStream in = new ObjectInputStream(
+                new FileInputStream(parentFolder + File.separator + filename))) {
+            board = (GamingBoard) in.readObject();
+            System.out.println("Game loaded successfully.");
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return board;
     }
 }

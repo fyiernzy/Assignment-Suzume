@@ -1,8 +1,9 @@
 package com.assignment.suzume.tictactoe.board;
 
+import java.io.Serializable;
 import java.util.*;
 
-public abstract class Board {
+public abstract class Board implements Serializable {
     protected int size;
     protected char[][] board;
 
@@ -76,7 +77,7 @@ public abstract class Board {
         return (row >= 0 && row < size) && (col >= 0 && col < size);
     }
 
-    char getCellAt(int row, int col) {
+    public char getCellAt(int row, int col) {
         return board[row][col];
     }
 
