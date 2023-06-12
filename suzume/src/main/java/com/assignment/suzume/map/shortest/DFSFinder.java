@@ -50,6 +50,8 @@ public class DFSFinder extends ShortestPathFinder {
         currentPath.add(new int[] { row, col });
 
         if (isDestination(row, col)) {
+            if(numOfStationVisited != numOfStationRequired)
+                return;
             if (currentPath.size() < shortestDistance) {
                 shortestDistance = currentPath.size();
                 shortestPaths = null; // Helps GC

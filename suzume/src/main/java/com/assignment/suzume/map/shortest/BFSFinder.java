@@ -1,9 +1,9 @@
 package com.assignment.suzume.map.shortest;
 
+import static com.assignment.suzume.map.utils.MapUtils.getCombinedMap;
 import static com.assignment.suzume.map.utils.PathUtils.convertListVectorToName;
 
 import java.util.*;
-
 import com.assignment.suzume.map.PixelMap;
 
 public class BFSFinder extends ShortestPathFinder {
@@ -42,6 +42,9 @@ public class BFSFinder extends ShortestPathFinder {
             }
 
             if (isDestination(current.row, current.col)) {
+                if(current.numOfStation != numOfStation)
+                    continue;
+
                 if (current.distance < shortestDistance) {
                     shortestPaths = null; // Helps GC and thereby reduce memory usage
                     shortestPaths = new ArrayList<>();
@@ -57,7 +60,7 @@ public class BFSFinder extends ShortestPathFinder {
                 Collections.reverse(path);
                 shortestPaths.add(path);
                 continue;
-            }
+            } 
 
             for (int i = 0; i < DIRECTIONS.length; i++) {
                 int newRow = current.row + DIRECTIONS[i][0];
@@ -92,5 +95,10 @@ public class BFSFinder extends ShortestPathFinder {
             this.visited = visited;
             this.parent = parent;
         }
+    }
+
+    public static void main(String[] args) {
+        PixelMap combinedMap = getCombinedMap();
+        System.out.println(new BFSFinder(combinedMap).findAllShortestPaths(4).size());
     }
 }
