@@ -1,7 +1,6 @@
 package com.assignment.suzume.connecting.account.data;
 
 import java.io.File;
-import java.util.Scanner;
 
 import com.assignment.suzume.connecting.account.InputHandler;
 import com.assignment.suzume.connecting.account.User;
@@ -52,7 +51,7 @@ public class GameFileManager {
         String username = User.getInstance().getName();
         String subfolder = "replay";
         String parentFolder = String.format(parentFolderFormat, Configuration.getGameFolderURL(), username, subfolder);
-        String fileName = getValidFileName(parentFolder);
+        String fileName = getValidReplayFileName(parentFolder);
         return new String[] { parentFolder, fileName };
     }
 
@@ -64,18 +63,21 @@ public class GameFileManager {
         return new String[] { parentFolder, fileName };
     }
 
-    private String getValidFileName(String parentFolder) {
+    public String getValidFileName(String parentFolder) {
         String fileName = null;
         while (true) {
             System.out.print("Enter the filename: ");
             fileName = InputHandler.getStringInput();
+            if(isFolderEmpty(parentFolder, fileName)){
+                break;
+            }
             if(isFileExist(parentFolder, fileName)) {
                 System.out.println("File already exists. Do you want to overwrite it? (y/n)");
                 if(InputHandler.getStringInput().equalsIgnoreCase("y")){
-                    break;
+                    continue;
                 }
             }
-            if(!isFileExist(parentFolder, fileName) || fileName == null) {
+            if(!isFileExist(parentFolder, fileName)) {
                 System.out.println("File does not exist. Enter another file name. ");
                 continue;
             }
@@ -87,12 +89,43 @@ public class GameFileManager {
         return fileName;
     }
 
-    static boolean isFileExist(String parentFolder, String fileName) {
+    public String getValidReplayFileName(String parentFolder) {
+        String fileName = null;
+        while (true) {
+            System.out.print("Enter the filename: ");
+            fileName = InputHandler.getStringInput();
+            if(isFolderEmpty(parentFolder, fileName)){
+                break;
+            }
+
+            if(!isFileExist(parentFolder, fileName)) {
+                System.out.println("File does not exist. Enter another file name. ");
+                continue;
+            }
+            if (!fileName.isBlank() && isFileNameValid(fileName)) {
+                break;
+            }
+            System.out.println("Invalid filename.");
+        }
+        return fileName;
+    }
+
+    public static boolean isFolderEmpty(String parentFolder, String fileName) {
+        File folder = new File(parentFolder + File.separator + fileName);
+        if (folder.exists() && folder.isDirectory()) {
+            File[] files = folder.listFiles();
+            return files != null && files.length == 0;
+        }
+        return false;
+    }
+
+
+    public static boolean isFileExist(String parentFolder, String fileName) {
         File file = new File(parentFolder + File.separator + fileName);
         return file.exists();
     }
 
-    private static boolean isFileNameValid(String fileName) {
+    public static boolean isFileNameValid(String fileName) {
         return fileName.matches("[\\w-]+");
     }
 

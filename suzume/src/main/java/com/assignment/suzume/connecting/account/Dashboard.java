@@ -31,9 +31,10 @@ public class Dashboard {
 
     public void showDashboard() {
         System.out.println("Welcome back, " + user.getName());
-        System.out.println("What do you want to do?");
 
         loop: while (true) {
+            System.out.println();
+            System.out.println("What do you want to do?");
             System.out.println(" --> [1] Check account analysis");
             System.out.println(" --> [2] Start challenge the Suzume's Adventure");
             System.out.println(" --> [3] Show leaderboard");
@@ -73,4 +74,6 @@ public class Dashboard {
         }
 
     }
+
+
 }
