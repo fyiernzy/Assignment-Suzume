@@ -2,6 +2,8 @@ package com.assignment.suzume.connecting.account.data;
 
 import java.io.File;
 import java.util.Scanner;
+
+import com.assignment.suzume.connecting.account.InputHandler;
 import com.assignment.suzume.connecting.account.User;
 import com.assignment.suzume.tictactoe.board.GamingBoard;
 import com.assignment.suzume.connecting.game.BoardGameRunner;
@@ -9,13 +11,11 @@ import com.assignment.suzume.connecting.configuration.Configuration;
 
 public class GameFileManager {
     private static GameFileManager instance; // Singleton
-    private Scanner scanner;
     private String parentFolderFormat = "%s" + File.separator + "%s" + File.separator
             + "save_game" + File.separator + "%s";
     private GameDataManager gameDataManager;
 
     private GameFileManager() {
-        this.scanner = new Scanner(System.in);
         this.gameDataManager = GameDataManager.getInstance();
     }
 
@@ -68,14 +68,18 @@ public class GameFileManager {
         String fileName = null;
         while (true) {
             System.out.print("Enter the filename: ");
-            fileName = scanner.nextLine();
+            fileName = InputHandler.getStringInput();
             if(isFileExist(parentFolder, fileName)) {
                 System.out.println("File already exists. Do you want to overwrite it? (y/n)");
-                if(scanner.nextLine().equalsIgnoreCase("y")){
+                if(InputHandler.getStringInput().equalsIgnoreCase("y")){
                     break;
                 }
             }
-            if (!fileName.isBlank() && isFileNameValid(fileName)) {
+            if(!isFileExist(parentFolder, fileName) || fileName == null) {
+                System.out.println("File does not exist. Enter another file name. ");
+                continue;
+            }
+                if (!fileName.isBlank() && isFileNameValid(fileName)) {
                 break;
             }
             System.out.println("Invalid filename.");
@@ -83,7 +87,7 @@ public class GameFileManager {
         return fileName;
     }
 
-    boolean isFileExist(String parentFolder, String fileName) {
+    static boolean isFileExist(String parentFolder, String fileName) {
         File file = new File(parentFolder + File.separator + fileName);
         return file.exists();
     }
@@ -113,6 +117,7 @@ public class GameFileManager {
     }
 
     public static void main(String[] args) {
+
         GameDataInitializer.getInstance().checkGameFolder();
         System.out.println(GameFileManager.getInstance().generateGameFolderPaths(1)[0]);
     }
