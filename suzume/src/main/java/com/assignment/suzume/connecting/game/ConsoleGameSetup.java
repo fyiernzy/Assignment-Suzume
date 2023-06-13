@@ -114,7 +114,7 @@ public class ConsoleGameSetup {
                 case 2:
                     return new MediumEngine(mark);
                 case 3:
-                    return new HardVariantEngine(mark);
+                    return new HardEngine(mark);
                 default:
                     System.out.println("Invalid choice. Please try again.");
             }
