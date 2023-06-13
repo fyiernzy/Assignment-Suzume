@@ -1,18 +1,15 @@
 package com.assignment.suzume.connecting.account;
 
 import java.io.File;
-import java.util.Scanner;
 import com.assignment.suzume.connecting.account.data.*;
 import com.assignment.suzume.connecting.configuration.Configuration;
 
 
 public class SignUpManager {
-    private Scanner scanner;
     private DatabaseManager databaseManager;
     private GameDataInitializer gameDataManager;
 
     SignUpManager() {
-        this.scanner = new Scanner(System.in);
         this.databaseManager = DatabaseManager.getInstance();
         this.gameDataManager = GameDataInitializer.getInstance();
     }
@@ -21,7 +18,7 @@ public class SignUpManager {
         String username, password;
 
         System.out.print("Enter your username: ");
-        username = scanner.nextLine();
+        username = InputHandler.getStringInput();
 
         if(databaseManager.checkIfUserExists(username)) {
             System.out.println("User already exist!");
@@ -29,7 +26,7 @@ public class SignUpManager {
         }
 
         System.out.print("Enter your password: ");
-        password = scanner.nextLine();
+        password = InputHandler.getStringInput();
 
         String folderPath = String.format("%s/%s", Configuration.getGameFolderURL(), username);
         File folder = new File(folderPath);

@@ -1,15 +1,12 @@
 package com.assignment.suzume.connecting.account;
 
-import java.util.Scanner;
 
 import com.assignment.suzume.connecting.account.data.DatabaseManager;
 
 public class SignInManager {
-    private Scanner scanner;
     private DatabaseManager databaseManager;
 
     SignInManager() {
-        this.scanner = new Scanner(System.in);
         this.databaseManager = DatabaseManager.getInstance();
     }
 
@@ -17,9 +14,9 @@ public class SignInManager {
         String username, password;
 
         System.out.print("Enter your username: ");
-        username = scanner.nextLine();
+        username = InputHandler.getStringInput();
         System.out.print("Enter your password: ");
-        password = scanner.nextLine();
+        password = InputHandler.getStringInput();
 
         if (!databaseManager.checkIfUserExists(username)) {
             System.out.println("User does not exist!");

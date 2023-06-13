@@ -1,9 +1,10 @@
 package com.assignment.suzume.connecting.game;
 
-import java.util.Scanner;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.Serializable;
+
+import com.assignment.suzume.connecting.account.InputHandler;
 import com.assignment.suzume.tictactoe.player.Gamer;
 import com.assignment.suzume.tictactoe.board.GamingBoard;
 import com.assignment.suzume.connecting.account.data.GameFileManager;
@@ -14,11 +15,9 @@ public class UserActionHandler implements Serializable {
     private BoardGameRunner runner;
 
     transient private GameFileManager gameFileManager;
-    transient private Scanner scanner;
 
     UserActionHandler(int gameMode, GamingBoard board, BoardGameRunner runner) {
         this.gameMode = gameMode;
-        this.scanner = new Scanner(System.in);
         this.board = board;
         this.runner = runner;
         this.gameFileManager = GameFileManager.getInstance();
@@ -27,7 +26,7 @@ public class UserActionHandler implements Serializable {
     public void showSaveReplayMenu() {
         while(true) {
             System.out.println("Do you want to save the game replay? (Y/N)");
-            String choice = scanner.nextLine();
+            String choice = InputHandler.getStringInput();
             
             if(choice.toUpperCase().startsWith("Y")) {
                 saveGameReplay();
@@ -48,7 +47,7 @@ public class UserActionHandler implements Serializable {
             System.out.println(" --> [3] Save game");
             System.out.println(" --> [4] Exit game");
 
-            int choice = scanner.nextInt();
+            int choice = InputHandler.getIntInput();
 
             switch (choice) {
                 case 1:
@@ -88,6 +87,5 @@ public class UserActionHandler implements Serializable {
     
     private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
         in.defaultReadObject();
-        this.scanner = new Scanner(System.in);
     }
 }
