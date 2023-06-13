@@ -111,3 +111,96 @@ However, using a `HashSet` consumes a significant amount of space, and its mecha
      In this example, we set the bit at index 3 to 1 and then retrieve its value using the `get` method. The output will be `true` because the bit is set to 1.
 
 Both the `set` and `get` operations in `BitSet` work efficiently with constant time complexity, making them suitable for scenarios where bit-level manipulation is required.
+
+## Conditions
+
+To ensure the discovery of the shortest paths passing through exactly four stations, certain constraints must be imposed on the nodes. Nodes that fail to meet these criteria will be disregarded in the code. The implementation appears as follows:
+
+```java
+Node currentNode = nodeQueue.poll();
+if (currentNode.distance > shortestDistance) {
+    continue;
+}
+
+if (currentNode.numOfStation > numOfStationRequired) {
+    continue;
+}
+```
+
+By bypassing these nodes, we not only satisfy the requirements of the problem, but also optimize the algorithm's performance.
+
+## Source code
+
+Consequently, the final code can be refined as follows:
+
+```java
+public List<List<String>> findAllShortestPaths(int numOfStation) {
+    List<List<int[]>> shortestPaths = new ArrayList<>();
+    Queue<Node> queue = new LinkedList<>();
+    BitSet visited = new BitSet();
+    visited.set(getKey(0, 0));
+    queue.offer(new Node(0, 0, 0, 0, visited, null));
+
+    int shortestDistance = Integer.MAX_VALUE;
+
+    while (!queue.isEmpty()) {
+        Node current = queue.poll();
+
+        if (current.distance > shortestDistance) {
+            continue;
+        }
+
+        if (current.numOfStation > numOfStation) {
+            continue;
+        }
+
+        if (isDestination(current.row, current.col)) {
+            // Implement the logic for handling the destination node
+        } 
+
+        for (int i = 0; i < DIRECTIONS.length; i++) {
+            int newRow = current.row + DIRECTIONS[i][0];
+            int newCol = current.col + DIRECTIONS[i][1];
+            int key = getKey(newRow, newCol);
+
+            if (isValidLocation(newRow, newCol) && !current.visited.get(key)) {
+                BitSet newVisited = (BitSet) current.visited.clone();
+                newVisited.set(key);
+                queue.offer(new Node(newRow, newCol, current.distance + 1,
+                        current.numOfStation + (isStation(newRow, newCol) ? 1 : 0), newVisited, current));
+            }
+        }
+    }
+
+    return convertListVectorToName(shortestPaths);
+}
+```
+
+It is worth noting that the `convertListVectorToName` method is defined in the `PathUtils` class. It is designed to convert the vector representation of a location into the corresponding direction name. For instance, if the vector is represented as $<1, 0>$, it will be converted to *Down*.
+
+The logic for handling the destination node is implemented as follows:
+
+```java
+if (isDestination(current.row, current.col)) {
+    if (current.numOfStation != numOfStation)
+        continue;
+
+    if (current.distance < shortestDistance) {
+        shortestPaths = null; // Facilitates garbage collection, reducing memory usage
+        shortestPaths = new ArrayList<>();
+        shortestDistance = current.distance;
+    }
+
+    List<int[]> path = new ArrayList<>();
+
+    for (Node node = current; node != null; node = node.parent) {
+        path.add(new int[] { node.row, node.col });
+    }
+
+    Collections.reverse(path);
+    shortestPaths.add(path);
+    continue;
+} 
+```
+
+The code is self-explanatory.
