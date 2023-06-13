@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.util.Properties;
 
 public class Configuration {
-    public static final String PARENT_PATH = "src/main/java/com/assignment/suzume/connecting/configuration/";
+    public static final String PARENT_PATH = "./src/main/java/com/assignment/suzume/connecting/configuration/";
     public static final String CONFIG_FILE = PARENT_PATH + "config.properties";
 
     public static final Properties properties = loadProperties();
