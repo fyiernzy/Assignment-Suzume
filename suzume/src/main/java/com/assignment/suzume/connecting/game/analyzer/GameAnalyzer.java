@@ -52,7 +52,7 @@ public abstract class GameAnalyzer implements Serializable {
         int winMove = 0;
 
         // Check the rows
-        for (int row = 0; row < gamingBoard.getSize(); row++) {
+        for (int row = 0; row < 3; row++) {
             score = getLineScore(mark, new char[] {
                     gamingBoard.getCellAt(topLeftRow + row, topLeftCol),
                     gamingBoard.getCellAt(topLeftRow + row, topLeftCol + 1),
@@ -63,7 +63,7 @@ public abstract class GameAnalyzer implements Serializable {
         }
 
         // Checks the cols
-        for (int col = 0; col < gamingBoard.getSize(); col++) {
+        for (int col = 0; col < 3; col++) {
             score = getLineScore(mark, new char[] {
                     gamingBoard.getCellAt(topLeftRow, topLeftCol + col),
                     gamingBoard.getCellAt(topLeftRow + 1, topLeftCol + col),
