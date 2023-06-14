@@ -48,9 +48,9 @@ public abstract class Board implements Serializable {
 
     public List<int[]> getEmptyCells() {
         List<int[]> emptyCells = new ArrayList<>();
-        for (int i = 0; i < size; i++) 
+        for (int i = 0; i < size; i++)
             for (int j = 0; j < size; j++)
-                if(board[i][j] == ' ')
+                if (board[i][j] == ' ')
                     emptyCells.add(new int[] { i, j });
         return emptyCells;
     }
@@ -80,4 +80,7 @@ public abstract class Board implements Serializable {
     public char getCellAt(int row, int col) {
         return board[row][col];
     }
+
+    
+
 }

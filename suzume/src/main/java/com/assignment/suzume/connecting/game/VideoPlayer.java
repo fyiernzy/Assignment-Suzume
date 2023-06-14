@@ -1,19 +1,18 @@
 package com.assignment.suzume.connecting.game;
 
-import java.util.Scanner;
 import java.util.Stack;
+
+import com.assignment.suzume.connecting.account.InputHandler;
 import com.assignment.suzume.connecting.game.analyzer.*;
 import com.assignment.suzume.tictactoe.board.*;
 
 public class VideoPlayer {
-    private Scanner scanner;
     private GamingBoard board;
     private GameAnalyzer analyzer;
     private Stack<int[]> sequentialMoveHistory;
     private Stack<double[]> moveEvaluation;
 
     public VideoPlayer(GamingBoard board, GameAnalyzer analyzer) {
-        this.scanner = new Scanner(System.in);
         this.board = board;
         this.analyzer = analyzer;
         this.sequentialMoveHistory = new Stack<>();
@@ -51,7 +50,7 @@ public class VideoPlayer {
                 System.out.println("Current win probability : " + currentEvaluation[0]);
                 System.out.println("The win probability changes : " + winProbabilityChange);
                 System.out.println("Press ENTER to continue...");
-                scanner.nextLine();
+                InputHandler.next();
             }
         }
     }

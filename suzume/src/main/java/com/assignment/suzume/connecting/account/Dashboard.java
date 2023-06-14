@@ -1,6 +1,5 @@
 package com.assignment.suzume.connecting.account;
 
-import java.util.Scanner;
 import com.assignment.suzume.map.utils.MapUtils;
 import com.assignment.suzume.tictactoe.board.GamingBoard;
 import com.assignment.suzume.connecting.game.ConsoleGame;
@@ -11,11 +10,9 @@ import com.assignment.suzume.connecting.account.data.GameFileManager;
 
 public class Dashboard {
     private User user;
-    private Scanner scanner;
 
     Dashboard(User user) {
         this.user = user;
-        this.scanner = new Scanner(System.in);
     }
 
     public void checkAccountAnalysis() {
@@ -44,8 +41,10 @@ public class Dashboard {
             System.out.println(" --> [5] Logout");
 
             ConsolePrinter.printDecorator();
-            int choice = scanner.nextInt();
-            scanner.nextLine();
+
+
+            int choice = InputHandler.getIntInput();
+
 
             switch (choice) {
                 case 1 -> checkAccountAnalysis();

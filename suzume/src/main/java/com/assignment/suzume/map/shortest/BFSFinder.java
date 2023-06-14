@@ -96,9 +96,4 @@ public class BFSFinder extends ShortestPathFinder {
             this.parent = parent;
         }
     }
-
-    public static void main(String[] args) {
-        PixelMap combinedMap = getCombinedMap();
-        System.out.println(new BFSFinder(combinedMap).findAllShortestPaths(4).size());
-    }
 }

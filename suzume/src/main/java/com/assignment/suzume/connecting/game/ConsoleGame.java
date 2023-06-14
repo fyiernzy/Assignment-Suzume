@@ -2,6 +2,8 @@ package com.assignment.suzume.connecting.game;
 
 import java.util.*;
 import java.util.concurrent.TimeUnit;
+
+import com.assignment.suzume.connecting.account.InputHandler;
 import com.assignment.suzume.map.utils.*;
 import com.assignment.suzume.map.PixelMap;
 import com.assignment.suzume.map.MapVisualizer;
@@ -12,7 +14,6 @@ import com.google.common.util.concurrent.Uninterruptibles;
 public class ConsoleGame {
     private User user;
     private int[][] grid;
-    private Scanner scanner;
     private GameFileManager gameFileManager;
     private ConsoleGameStatus status;
     private ConsoleGameSetup setup;
@@ -23,7 +24,6 @@ public class ConsoleGame {
         this.user = User.getInstance();
         this.grid = map.getPixelMap();
         this.gameFileManager = GameFileManager.getInstance();
-        this.scanner = new Scanner(System.in);
         this.status = new ConsoleGameStatus(MapUtils.transformMap(grid));
         this.setup = new ConsoleGameSetup();
         this.visualizer = new MapVisualizer(status.currentMap);
@@ -96,9 +96,8 @@ public class ConsoleGame {
             System.out.println("Do you want to load the previous game or start a new one?");
             System.out.println(" --> [1] Load previous game");
             System.out.println(" --> [2] Start a new game");
-            int choice = scanner.nextInt();
+            int choice = InputHandler.getIntInput();
 
-            scanner.nextLine();
             switch (choice) {
                 case 1:
                     return gameFileManager.loadGame(setup.getModeChoice());

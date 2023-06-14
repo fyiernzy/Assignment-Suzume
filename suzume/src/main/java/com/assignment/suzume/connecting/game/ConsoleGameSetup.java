@@ -1,6 +1,7 @@
 package com.assignment.suzume.connecting.game;
 
-import java.util.Scanner;
+
+import com.assignment.suzume.connecting.account.InputHandler;
 import com.assignment.suzume.tictactoe.board.*;
 import com.assignment.suzume.tictactoe.player.*;
 import com.assignment.suzume.connecting.account.User;
@@ -14,7 +15,6 @@ public class ConsoleGameSetup {
     private static final char P1_MARK = 'X';
     private static final char P2_MARK = 'O';
 
-    private Scanner scanner;
     private Player p1;
     private Player p2;
     private Rule rule;
@@ -22,7 +22,6 @@ public class ConsoleGameSetup {
     private int boardChoice;
 
     ConsoleGameSetup() {
-        scanner = new Scanner(System.in);
         initializeConfiguration();
     }
 
@@ -64,7 +63,7 @@ public class ConsoleGameSetup {
 
     Gamer chooseGamer(char mark) {
         System.out.print("Enter name: ");
-        String name = scanner.nextLine();
+        String name = InputHandler.getStringInput();
         return new Gamer(name, mark);
     }
 
@@ -74,8 +73,7 @@ public class ConsoleGameSetup {
             System.out.println("  [1] Player vs Player");
             System.out.println("  [2] Player vs Engine");
             System.out.println("  [3] Engine vs Engine");
-            int choice = scanner.nextInt();
-            scanner.nextLine();
+            int choice = InputHandler.getIntInput();
 
             if (choice >= 1 && choice <= 3) {
                 modeChoice = choice;
@@ -92,8 +90,7 @@ public class ConsoleGameSetup {
             for (int i = 0; i < BOARD_TYPE.length; i++) {
                 System.out.printf("  [%d] %s Board\n", i + 1, BOARD_TYPE[i]);
             }
-            int choice = scanner.nextInt();
-            scanner.nextLine();
+            int choice = InputHandler.getIntInput();
 
             if (choice >= 1 && choice <= 3) {
                 boardChoice = choice;
@@ -109,8 +106,7 @@ public class ConsoleGameSetup {
             for (int i = 0; i < ENGINE_DIFFICULTY.length; i++) {
                 System.out.printf("  [%d] %s\n", i + 1, ENGINE_DIFFICULTY[i]);
             }
-            int engineChoice = scanner.nextInt();
-            scanner.nextLine();
+            int engineChoice = InputHandler.getIntInput();
 
             switch (engineChoice) {
                 case 1:
@@ -118,7 +114,7 @@ public class ConsoleGameSetup {
                 case 2:
                     return new MediumEngine(mark);
                 case 3:
-                    return new HardVariantEngine(mark);
+                    return new HardEngine(mark);
                 default:
                     System.out.println("Invalid choice. Please try again.");
             }
