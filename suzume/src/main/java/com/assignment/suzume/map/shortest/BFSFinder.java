@@ -1,11 +1,8 @@
 package com.assignment.suzume.map.shortest;
 
-import static com.assignment.suzume.map.utils.MapUtils.getCombinedMap;
-import static com.assignment.suzume.map.utils.PathUtils.convertListVectorToName;
-
 import java.util.*;
 import com.assignment.suzume.map.PixelMap;
-
+import com.assignment.suzume.utils.PathUtils;
 public class BFSFinder extends ShortestPathFinder {
 
     public BFSFinder(int[][] map) {
@@ -76,7 +73,7 @@ public class BFSFinder extends ShortestPathFinder {
             }
         }
 
-        return convertListVectorToName(shortestPaths);
+        return PathUtils.convertListVectorToName(shortestPaths);
     }
 
     static class Node {

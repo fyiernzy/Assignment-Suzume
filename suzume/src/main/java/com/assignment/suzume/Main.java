@@ -1,6 +1,6 @@
 package com.assignment.suzume;
 
-import com.assignment.suzume.connecting.account.LoginManager;
+import com.assignment.suzume.authentication.LoginManager;
 
 public class Main {
     public static void main(String[] args) {

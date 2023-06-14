@@ -1,10 +1,8 @@
 package com.assignment.suzume.map.shortest;
 
-import static com.assignment.suzume.map.utils.PathUtils.convertListVectorToName;
-
 import java.util.*;
-
 import com.assignment.suzume.map.PixelMap;
+import com.assignment.suzume.utils.PathUtils;
 
 public class DFSFinder extends ShortestPathFinder {
     private int shortestDistance = Integer.MAX_VALUE;
@@ -20,13 +18,12 @@ public class DFSFinder extends ShortestPathFinder {
 
     @Override
     public List<List<String>> findAllShortestPaths() {
-        pathFinderHelper(0, 0, 0, 4, new ArrayList<>(), new BitSet());
-        return convertListVectorToName(shortestPaths);
+        return findAllShortestPaths(4);
     }
 
     public List<List<String>> findAllShortestPaths(int numOfStationRequired) {
         pathFinderHelper(0, 0, 0, numOfStationRequired, new ArrayList<>(), new BitSet());
-        return convertListVectorToName(shortestPaths);
+        return PathUtils.convertListVectorToName(shortestPaths);
     }
 
     private void pathFinderHelper(int row, int col, int numOfStationVisited, int numOfStationRequired,

@@ -3,7 +3,7 @@ package com.assignment.suzume.example;
 import java.util.*;
 
 import com.assignment.suzume.map.PixelMap;
-import com.assignment.suzume.map.utils.MapUtils;
+import com.assignment.suzume.utils.MapUtils;
 
 public class PixelMapTester {
     public static void main(String[] args) {
