@@ -38,7 +38,6 @@ public class SignUpManager {
             }
 
             databaseManager.createNewUser(username, password);
-            System.out.println("User created successfully!");
         } else {
             System.out.println("Sign-up canceled!");
         }
