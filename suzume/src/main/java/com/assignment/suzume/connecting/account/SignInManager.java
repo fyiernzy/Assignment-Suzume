@@ -17,6 +17,7 @@ public class SignInManager {
         username = InputHandler.getStringInput();
         System.out.print("Enter your password: ");
         password = InputHandler.getStringInput();
+        password = PasswordEncoder.hashPassword(password);
 
         if (!databaseManager.checkIfUserExists(username)) {
             System.out.println("User does not exist!");

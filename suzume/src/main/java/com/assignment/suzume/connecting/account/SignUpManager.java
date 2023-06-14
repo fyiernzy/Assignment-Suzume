@@ -1,6 +1,10 @@
 package com.assignment.suzume.connecting.account;
 
 import java.io.File;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
 import com.assignment.suzume.connecting.account.data.*;
 import com.assignment.suzume.connecting.configuration.Configuration;
 
@@ -13,6 +17,8 @@ public class SignUpManager {
         this.databaseManager = DatabaseManager.getInstance();
         this.gameDataManager = GameDataInitializer.getInstance();
     }
+
+
 
     public void run() {
         String username, password;
@@ -27,6 +33,7 @@ public class SignUpManager {
 
         System.out.print("Enter your password: ");
         password = InputHandler.getStringInput();
+        password = PasswordEncoder.hashPassword(password);
 
         String folderPath = String.format("%s/%s", Configuration.getGameFolderURL(), username);
         File folder = new File(folderPath);
