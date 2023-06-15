@@ -36,7 +36,7 @@ public class PathUtils {
             int[] step = getDirectionVector(direction);
             int newRow = result.get(result.size() - 1)[0] + step[0];
             int newCol = result.get(result.size() - 1)[1] + step[1];
-            result.add(new int[]{newRow, newCol});
+            result.add(new int[] { newRow, newCol });
         }
         return result;
     }
@@ -69,4 +69,12 @@ public class PathUtils {
                 return new int[] { 0, 0 };
         }
     }
+
+    // simyi editted
+    public static List<String> getShortestPath(int pathIndex) {
+        BFSFinder finder = new BFSFinder(MapUtils.getCombinedMap());
+        List<List<String>> allPaths = finder.findAllShortestPaths();
+        return allPaths.get(pathIndex);
+    }
+
 }

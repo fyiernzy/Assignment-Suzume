@@ -1,9 +1,8 @@
 package com.assignment.suzume.tictactoe.board;
 
-import java.io.Serializable;
 import java.util.*;
 
-public abstract class Board implements Serializable {
+public abstract class Board {
     protected int size;
     protected char[][] board;
 
@@ -24,17 +23,45 @@ public abstract class Board implements Serializable {
         }
     }
 
-    // Print the current board (may be replaced by GUI implementation later)
-    public void printBoard() {
-        System.out.println("----".repeat(size) + "-");
+    // public void initializeBoard() {
+    // int cellNumber = 1;
+    // for (int i = 0; i < size; i++) {
+    // for (int j = 0; j < size; j++) {
+    // board[i][j] = String.valueOf(cellNumber).charAt(0);
+    // cellNumber++;
+    // }
+    // }
+    // }
 
+    // Print the current board (may be replaced by GUI implementation later)
+    // public void printBoard() {
+    // System.out.println("----".repeat(size) + "-");
+
+    // for (int i = 0; i < size; i++) {
+    // System.out.print("| ");
+    // for (int j = 0; j < size; j++) {
+    // System.out.print(board[i][j] + " | ");
+    // }
+    // System.out.println();
+    // System.out.println("----".repeat(size) + "-");
+    // }
+    // }
+
+    public void printBoard() {
+        System.out.println("-".repeat(26));
         for (int i = 0; i < size; i++) {
-            System.out.print("| ");
             for (int j = 0; j < size; j++) {
-                System.out.print(board[i][j] + " | ");
+                int cellNumber = i * size + j + 1;
+                char mark = board[i][j];
+                if (cellNumber<10) {
+                    System.out.print("| " + (mark == ' ' ? String.valueOf(cellNumber) : mark) + "  ");
+                } else {
+                    System.out.print("| " + (mark == ' ' ? String.valueOf(cellNumber) : mark)+ " ");
+                }
             }
-            System.out.println();
-            System.out.println("----".repeat(size) + "-");
+            System.out.println("|");
+            System.out.println("-".repeat(26));
+            // System.out.println("----".repeat(size) + "-");
         }
     }
 
@@ -80,7 +107,5 @@ public abstract class Board implements Serializable {
     public char getCellAt(int row, int col) {
         return board[row][col];
     }
-
-    
 
 }

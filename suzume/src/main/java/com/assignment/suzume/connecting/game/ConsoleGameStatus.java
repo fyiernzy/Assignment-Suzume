@@ -1,5 +1,6 @@
 package com.assignment.suzume.connecting.game;
 
+import java.util.List;
 import java.util.Stack;
 import com.assignment.suzume.map.utils.MapUtils;
 
@@ -7,13 +8,16 @@ public class ConsoleGameStatus {
     String user;
     int currentRow;
     int currentCol;
-    int currentStep;
+    public int currentStep;
     char[][] currentMap;
-    boolean isContinueJourney;
+    public boolean isContinueJourney;
     Stack<int[]> stationHistory; // format: [row, col, step]
     Stack<char[][]> mapHistory;
+    private List<String> path;
+    private int startingRow = 0; // Added startingRow variable
+    private int startingCol = 0;
 
-    ConsoleGameStatus(char[][] map) {
+    public ConsoleGameStatus(char[][] map) {
         this.currentRow = 0;
         this.currentCol = 0;
         this.currentMap = map;
@@ -24,13 +28,29 @@ public class ConsoleGameStatus {
     }
 
     public void updatePosition(String direction) {
+        int newRow = currentRow;
+        int newCol = currentCol;
+
         switch (direction) {
-            case "Up" -> currentRow--;
-            case "Down" -> currentRow++;
-            case "Left" -> currentCol--;
-            case "Right" -> currentCol++;
+            case "Up" -> newRow--;
+            case "Down" -> newRow++;
+            case "Left" -> newCol--;
+            case "Right" -> newCol++;
         }
-        currentMap[currentRow][currentCol] = '*';
+
+        // Check if the new position is within the valid range of the map
+        if (isValidPosition(newRow, newCol)) {
+            currentRow = newRow;
+            currentCol = newCol;
+            currentMap[currentRow][currentCol] = '*';
+
+            // Save the updated map
+            mapHistory.push(MapUtils.getClonedMap(currentMap));
+        }
+    }
+
+    private boolean isValidPosition(int row, int col) {
+        return row >= 0 && row < currentMap.length && col >= 0 && col < currentMap[0].length;
     }
 
     public void backToPreviousStation() {
@@ -45,4 +65,43 @@ public class ConsoleGameStatus {
         stationHistory.push(new int[] { currentRow, currentCol, currentStep });
         mapHistory.push(MapUtils.getClonedMap(currentMap));
     }
+
+    // simyi editted
+    public int getCurrentRow() {
+        return currentRow;
+    }
+
+    // simyi editted
+    public int getCurrentCol() {
+        return currentCol;
+    }
+
+    public boolean isContinueJourney() {
+        return isContinueJourney;
+    }
+
+    public int getCurrentStep() {
+        return currentStep;
+    }
+
+    public void setPath(List<String> path) {
+        this.path = path;
+    }
+
+    public List<String> getPath() {
+        return path;
+    }
+
+    public void setCurrentStep(int i) {
+        currentStep = i;
+    }
+
+    public void resetPosition(int[][] map) {
+        currentRow = startingRow;
+        currentCol = startingCol;
+        currentStep = 0;
+        currentMap = MapUtils.transformMap(map);
+        currentMap[currentRow][currentCol] = '*';
+    }
+
 }

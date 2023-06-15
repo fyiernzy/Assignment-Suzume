@@ -13,23 +13,43 @@ public class Gamer extends Player {
           this.scanner = new Scanner(System.in);
      }
 
+     // @Override
+     // public int[] makeMove(GamingBoard board) {
+     //      int[] move = new int[2];
+     //      while (true) {
+     //           System.out.println("Enter your move (row column): ");
+     //           move[0] = scanner.nextInt();
+     //           move[1] = scanner.nextInt();
+     //           System.out.println("Your move is: " + move[0] + " " + move[1]);
+
+     //           if (!board.isValidMove(move[0], move[1])) {
+     //                System.out.println("Invalid move. Please try again.");
+     //                continue;
+     //           }
+     //           break;
+     //      }
+     //      board.placeMark(move[0], move[1], this.mark);
+     //      return move;
+     // }
+
      @Override
      public int[] makeMove(GamingBoard board) {
-          int[] move = new int[2];
           while (true) {
-               System.out.println("Enter your move (row column): ");
-               move[0] = scanner.nextInt();
-               move[1] = scanner.nextInt();
-               System.out.println("Your move is: " + move[0] + " " + move[1]);
+               System.out.println("Enter the cell number for your move: ");
+               int cellNumber = scanner.nextInt();
+               System.out.println("Your move is: " + cellNumber);
 
-               if (!board.isValidMove(move[0], move[1])) {
+               int row = (cellNumber - 1) / board.getSize();
+               int col = (cellNumber - 1) % board.getSize();
+
+               if (!board.isValidMove(row, col)) {
                     System.out.println("Invalid move. Please try again.");
                     continue;
                }
-               break;
+
+               board.placeMark(cellNumber, this.mark);
+               return new int[] { row, col };
           }
-          board.placeMark(move[0], move[1], this.mark);
-          return move;
      }
 
      public String getName() {
@@ -42,7 +62,7 @@ public class Gamer extends Player {
      }
 
      private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
-        in.defaultReadObject();
-        this.scanner = new Scanner(System.in);
-    }
+          in.defaultReadObject();
+          this.scanner = new Scanner(System.in);
+     }
 }
