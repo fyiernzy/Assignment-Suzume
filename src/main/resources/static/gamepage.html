@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Suzume's Adventure</title>
+    <link rel="icon" type="image/x-icon" href="/images/daijin.png" />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="game.css" />
+  </head>
+  <body>
+    <section class="header">
+      <nav>
+        <a href="homepage.html"><img src="images/logofinal.png" /></a>
+        <div class="nav-links">
+          <ul>
+            <li><a href="homepage.html">HOME</a></li>
+            <li><a href="gamepage.html">PLAY NOW</a></li>
+            <li><a href="loginpage.html">LOG IN</a></li>
+          </ul>
+        </div>
+      </nav>
+    </section>
+
+    <section class="gamemode">
+      <button class="mbuttons">
+        <span class="button-text">3 x 3</span>
+      </button>
+      <button class="mbuttons">
+        <span class="button-text">4 x 4</span>
+      </button>
+      <button class="mbuttons">
+        <span class="button-text">5 x 5</span>
+      </button>
+    </section>
+
+    <section class="difficulty">
+      <button class="dbuttons">
+        <span class="button-text">Easy</span>
+        <img src="images/easy.png" alt="Easy" />
+      </button>
+      <button class="dbuttons">
+        <span class="button-text">Medium</span>
+        <img src="images/medium.png" alt="Medium" />
+      </button>
+      <button class="dbuttons">
+        <span class="button-text">Hard</span>
+        <img src="images/hard.png" alt="Hard" />
+      </button>
+    </section>
+
+    <script>
+      // Game mode buttons
+      const mbuttons = document.querySelectorAll(".mbuttons");
+      mbuttons.forEach((button) => {
+        button.addEventListener("click", () => {
+          const isSelected = button.classList.toggle("chosen");
+          // Remove the 'chosen' class from all other buttons except the clicked one
+          mbuttons.forEach((btn) => {
+            if (btn !== button) {
+              btn.classList.remove("chosen");
+            }
+          });
+          // Retrieve the selected game mode
+          const selectedGameMode = isSelected ? button.textContent : "";
+          console.log(`Selected Game Mode: ${selectedGameMode}`);
+        });
+      });
+
+      // Difficulty buttons
+      const dbuttons = document.querySelectorAll(".dbuttons");
+      dbuttons.forEach((button) => {
+        button.addEventListener("click", () => {
+          const isSelected = button.classList.toggle("chosen");
+          // Remove the 'chosen' class from all other buttons except the clicked one
+          dbuttons.forEach((btn) => {
+            if (btn !== button) {
+              btn.classList.remove("chosen");
+            }
+          });
+          // Retrieve the selected difficulty
+          const selectedDifficulty = isSelected
+            ? button.querySelector(".button-text").textContent
+            : "";
+          console.log(`Selected Difficulty: ${selectedDifficulty}`);
+        });
+      });
+    </script>
+
+    <footer class="footer">
+      <div class="footerContainer">
+        <p class="copyright">
+          Copyright &copy2023. Designed by DS 之 玲芽の旅.
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>
