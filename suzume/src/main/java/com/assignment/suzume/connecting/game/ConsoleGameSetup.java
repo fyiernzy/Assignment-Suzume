@@ -1,6 +1,8 @@
 package com.assignment.suzume.connecting.game;
 
 import java.util.Scanner;
+
+import com.assignment.suzume.connecting.account.Dashboard;
 import com.assignment.suzume.tictactoe.board.*;
 import com.assignment.suzume.tictactoe.player.*;
 import com.assignment.suzume.connecting.account.User;
@@ -21,7 +23,7 @@ public class ConsoleGameSetup {
     private int modeChoice;
     private int boardChoice;
 
-    ConsoleGameSetup() {
+    ConsoleGameSetup() throws InterruptedException {
         scanner = new Scanner(System.in);
         initializeConfiguration();
     }
@@ -40,7 +42,7 @@ public class ConsoleGameSetup {
         return rule;
     }
 
-    void initializeConfiguration() {
+    void initializeConfiguration() throws InterruptedException {
         chooseGameMode();
 
         switch (modeChoice) {
@@ -56,6 +58,10 @@ public class ConsoleGameSetup {
                 p1 = chooseEngineDifficulty(P1_MARK);
                 p2 = chooseEngineDifficulty(P2_MARK);
             }
+            case 4 -> {
+                Dashboard.showDashboard();
+            }
+            default -> System.out.println("Invalid choice.\n");
         }
 
         chooseBoardType();
@@ -74,15 +80,16 @@ public class ConsoleGameSetup {
             System.out.println("  [1] Player vs Player");
             System.out.println("  [2] Player vs Engine");
             System.out.println("  [3] Engine vs Engine");
+            System.out.println("  [4] Back");
             int choice = scanner.nextInt();
             scanner.nextLine();
 
-            if (choice >= 1 && choice <= 3) {
+            if (choice >= 1 && choice <= 4) {
                 modeChoice = choice;
                 return;
             }
 
-            System.out.println("Invalid choice. Please try again.");
+            System.out.println("Invalid choice. Please try again.\n");
         }
     }
 
@@ -99,7 +106,7 @@ public class ConsoleGameSetup {
                 boardChoice = choice;
                 return;
             }
-            System.out.println("Invalid choice. Please try again.");
+            System.out.println("Invalid choice. Please try again.\n");
         }
     }
 
@@ -120,7 +127,7 @@ public class ConsoleGameSetup {
                 case 3:
                     return new HardVariantEngine(mark);
                 default:
-                    System.out.println("Invalid choice. Please try again.");
+                    System.out.println("Invalid choice. Please try again.\n");
             }
         }
     }
@@ -134,7 +141,7 @@ public class ConsoleGameSetup {
             case 3:
                 return new VariantBoard();
             default:
-                System.out.println("Invalid board choice. Default board is used.");
+                System.out.println("Invalid board choice. Default board is used.\n");
                 return new VariantBoard();
         }
     }

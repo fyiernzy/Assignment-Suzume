@@ -1,0 +1,11 @@
+Misère/Reverse Tic-Tac-Toe:
+
+Game board: A 3x3 square grid.
+Players: One player is designated as "X," and the other player is designated as "O."
+Turn Order: The system randomly determines which player (X or O) goes first.
+Turns: Players take turns placing their respective shapes (X or O) on any empty cell of the grid.
+Losing Condition: The first player to place 3 of their shapes in a horizontal, vertical, or diagonal row loses the game (giving the win to the other player).
+Difficulty Levels for the Engine: The game engine should provide three difficulty levels: Easy, Medium, and Hard.
+Easy: The engine plays less optimal moves, allowing for easier gameplay.
+Medium: The engine plays slightly optimal moves, providing a moderate challenge.
+Hard: The engine plays mostly optimal moves, providing a strong challenge.

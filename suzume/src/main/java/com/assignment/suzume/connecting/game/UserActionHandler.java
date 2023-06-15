@@ -4,6 +4,8 @@ import java.util.Scanner;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.Serializable;
+
+import com.assignment.suzume.connecting.account.Dashboard;
 import com.assignment.suzume.tictactoe.player.Gamer;
 import com.assignment.suzume.tictactoe.board.GamingBoard;
 import com.assignment.suzume.connecting.account.data.GameFileManager;
@@ -24,19 +26,31 @@ public class UserActionHandler implements Serializable {
         this.gameFileManager = GameFileManager.getInstance();
     }
 
-    public void showSaveReplayMenu() {
+    public void showSaveReplayMenu() throws InterruptedException {
+        String choice;
         while(true) {
             System.out.println("Do you want to save the game replay? (Y/N)");
-            String choice = scanner.nextLine();
+            choice = scanner.nextLine();
             
             if(choice.toUpperCase().startsWith("Y")) {
-                saveGameReplay();
+                GameFileManager replay = new GameFileManager();
+                String[] folders = replay.saveReplayGame();
+                if (folders != null) {
+                    replay.createFolderIfNotExists(folders[0]);
+                    replay.gameDataManager.saveGameReplay(folders[0], folders[1], board);
+                }
                 break;
             } else if(choice.toUpperCase().startsWith("N")) {
                 break;
             } else {
                 System.out.println("Invalid option!");
             }
+        }
+        System.out.println(" --> [1] Continue Game\n --> [2] Exit Game");
+        choice = scanner.nextLine();
+
+        if (choice.equals("2")) {
+            Dashboard.showDashboard();
         }
     }
 

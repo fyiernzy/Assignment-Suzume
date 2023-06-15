@@ -3,9 +3,9 @@ package com.assignment.suzume.tictactoe.board.rules;
 import java.io.*;
 
 public enum Rule {
-    VARIANT("../board/rules/VariantBoard.txt"),
-    REGULAR("../board/rules/RegularBoard.txt"),
-    REVERSE("../board/rules/ReverseBoard.txt");
+    VARIANT("src/main/java/com/assignment/suzume/tictactoe/board/rules/VariantBoard.txt"),
+    REGULAR("src/main/java/com/assignment/suzume/tictactoe/board/rules/RegularBoard.txt"),
+    REVERSE("src/main/java/com/assignment/suzume/tictactoe/board/rules/ReverseBoard.txt");
 
     private String url;
     private String content;
@@ -24,7 +24,9 @@ public enum Rule {
                 sb.append(buff, 0, byteRead);
             }
             this.content = sb.toString();
-        } catch (IOException e) {} 
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public String getContent() {

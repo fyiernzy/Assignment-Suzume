@@ -17,14 +17,14 @@ public class SignUpManager {
         this.gameDataManager = GameDataInitializer.getInstance();
     }
 
-    public void run() {
+    public void run() throws InterruptedException {
         String username, password;
 
         System.out.print("Enter your username: ");
         username = scanner.nextLine();
 
         if(databaseManager.checkIfUserExists(username)) {
-            System.out.println("User already exist!");
+            System.out.println("User already exist!\n");
             return;
         }
 
@@ -37,6 +37,17 @@ public class SignUpManager {
             folder.mkdir();
         }
 
+        System.out.println("\u001B[1;34mSigning up...");
+        for(int i = 0; i < 3; i++) {
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            System.out.print(".");
+        }
+        Thread.sleep(500);
+        System.out.println("\u001B[1;35m");
         databaseManager.createNewUser(username, password);
         gameDataManager.createUserFolder(username);
     }

@@ -22,7 +22,7 @@ public class BoardGameRunner implements Serializable {
         this.userActionHandler = new UserActionHandler(gameMode, board, this);
     }
 
-    public int play() {
+    public int play() throws InterruptedException {
         Player winner = null;
         Player currentPlayer = null;
         boolean hasWon = false;

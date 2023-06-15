@@ -1,11 +1,12 @@
 package com.assignment.suzume.connecting.configuration;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
 
 public class Configuration {
-    public static final String PARENT_PATH = "src/main/java/com/assignment/suzume/connecting/configuration/";
+    public static final String PARENT_PATH = "./src/main/java/com/assignment/suzume/connecting/configuration/";
     public static final String CONFIG_FILE = PARENT_PATH + "config.properties";
 
     public static final Properties properties = loadProperties();
@@ -14,7 +15,7 @@ public class Configuration {
     private static String gameFolderURL = properties.getProperty("game_folder_url");
     private static String decorator = properties.getProperty("input_prefix");
 
-    public static Properties loadProperties() {
+    public static Properties loadProperties(){
         Properties properties = new Properties();
         try (FileInputStream fileInputStream = new FileInputStream(CONFIG_FILE)) {
             properties.load(fileInputStream);

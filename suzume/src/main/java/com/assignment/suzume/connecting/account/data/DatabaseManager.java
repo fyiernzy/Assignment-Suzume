@@ -43,7 +43,7 @@ public class DatabaseManager {
                     String storedPassword = resultSet.getString("password");
                     return storedPassword.equals(password);
                 } else {
-                    System.out.println("User not found.");
+                    System.out.println("User not found.\n");
                     return false;
                 }
             }
@@ -64,10 +64,10 @@ public class DatabaseManager {
             preparedStatement.setString(5, user.getName());
             int rowsAffected = preparedStatement.executeUpdate();
 
-            System.out.println(rowsAffected > 0 ? "Game status updated successfully." : "User not found.");
+            System.out.println(rowsAffected > 0 ? "Game status updated successfully.\n" : "User not found.\n");
             return rowsAffected > 0;
         } catch (SQLException e) {
-            System.out.println("Failed to create user. Duplicate name.");
+            System.out.println("Failed to create user. Duplicate name.\n");
             return false;
         }
     }
@@ -80,10 +80,10 @@ public class DatabaseManager {
             preparedStatement.setString(2, password);
             int rowsAffected = preparedStatement.executeUpdate();
 
-            System.out.println(rowsAffected > 0 ? "User created successfully." : "Failed to create user.");
+            System.out.println(rowsAffected > 0 ? "User created successfully.\n" : "Failed to create user.\n");
             return rowsAffected > 0;
         } catch (SQLiteException e) {
-            System.out.println("Failed to create user. Duplicate name.");
+            System.out.println("Failed to create user. Duplicate name.\n");
             return false;
         } catch (SQLException e) {
             return false;
@@ -98,7 +98,7 @@ public class DatabaseManager {
             preparedStatement.setString(2, username);
             int rowsAffected = preparedStatement.executeUpdate();
 
-            System.out.println(rowsAffected > 0 ? "Password updated successfully." : "User not found.");
+            System.out.println(rowsAffected > 0 ? "Password updated successfully.\n" : "User not found.\n");
             return rowsAffected > 0;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -113,7 +113,7 @@ public class DatabaseManager {
             preparedStatement.setString(1, username);
             int rowsAffected = preparedStatement.executeUpdate();
 
-            System.out.println(rowsAffected > 0 ? "User removed successfully." : "User not found.");
+            System.out.println(rowsAffected > 0 ? "User removed successfully.\n" : "User not found.\n");
             return rowsAffected > 0;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -170,7 +170,9 @@ public class DatabaseManager {
 
             // Print the table
             table.sortTable("score", true);
-            System.out.println(table.toString());
+            System.out.println("\033[1;93mLeaderboard");
+            System.out.println("\u001B[1;36m" + table.toString());
+            System.out.println("\u001B[1;35m");
         } catch (SQLException e) {
             e.printStackTrace();
         }

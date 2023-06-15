@@ -1,5 +1,7 @@
 package com.assignment.suzume.map;
 
+import java.io.IOException;
+
 public class MapVisualizer {
     private static final int MAP_SIZE = 2;
     char[][] grid;

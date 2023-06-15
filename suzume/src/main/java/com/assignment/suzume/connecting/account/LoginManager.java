@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 import com.assignment.suzume.connecting.account.data.GameDataInitializer;
 import com.assignment.suzume.connecting.game.ConsolePrinter;
+import com.assignment.suzume.connecting.game.GameConstant;
 
 public class LoginManager {
     private static LoginManager instance; // Singleton
@@ -25,9 +26,10 @@ public class LoginManager {
         return instance;
     }
 
-    public void login() {
+    public void login() throws InterruptedException {
         ConsolePrinter.printBanner();
         ConsolePrinter.printWelcomeMessage();
+        System.out.println("HERE WE GO!");
 
         while(true) {
             System.out.println(" --> [1] Sign in");
@@ -35,14 +37,27 @@ public class LoginManager {
             System.out.println(" --> [3] Exit");
             
             ConsolePrinter.printDecorator();
-            int choice = scanner.nextInt();
-            scanner.nextLine();
+            String choice = scanner.nextLine();
 
             switch(choice) {
-                case 1 -> signInManager.run();
-                case 2 -> signUpManager.run();
-                case 3 -> System.exit(0);
-                default -> System.out.println("Invalid choice.");
+                case "1" -> signInManager.run();
+                case "2" -> signUpManager.run();
+                case "3" -> {
+                    Dashboard.showDashboard();
+                    System.out.println("\u001B[1;34mExiting... ");
+                    for(int i = 0; i < 3; i++) {
+                        try {
+                            Thread.sleep(500);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                        System.out.print(".");
+                    }
+                    Thread.sleep(500);
+                    System.exit(0);
+                    System.out.println("\u001B[1;35m");
+                }
+                default -> System.out.println("Invalid choice.\n");
             }
         }
     }

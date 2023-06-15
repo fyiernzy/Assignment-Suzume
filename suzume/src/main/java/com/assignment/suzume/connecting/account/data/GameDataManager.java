@@ -40,7 +40,7 @@ public class GameDataManager {
         try (ObjectOutputStream out = new ObjectOutputStream(
                 new FileOutputStream(parentFolder + File.separator + filename))) {
             out.writeObject(board);
-            System.out.println("Game Replay saved successfully.");
+            System.out.println("Game replay saved successfully.");
         } catch (IOException e) {
             e.printStackTrace();
         }
