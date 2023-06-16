@@ -91,7 +91,6 @@ public class ConsoleGameSetup {
                 System.out.printf("  [%d] %s Board\n", i + 1, BOARD_TYPE[i]);
             }
             int choice = InputHandler.getIntInput();
-
             if (choice >= 1 && choice <= 3) {
                 boardChoice = choice;
                 return;
