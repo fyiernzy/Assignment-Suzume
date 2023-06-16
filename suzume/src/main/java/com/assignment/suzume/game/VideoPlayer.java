@@ -97,7 +97,7 @@ public class VideoPlayer {
                 System.out.println("+--------------------------------+");
                 System.out.format("| Previous Win Probability: %.2f |%n", previousEvaluation[0]);
                 System.out.format("| Current Win Probability : %.2f |%n", currentEvaluation[0]);
-                System.out.format("| Win Probability Change  : %.2f |%n", winProbabilityChange);
+                System.out.format("| Win Probability Change  : %.2f |%n", Math.abs(winProbabilityChange));
                 System.out.println("+--------------------------------+");
                 System.out.println("\nPress ENTER to continue...");
                 InputHandler.next();

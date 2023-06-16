@@ -120,7 +120,6 @@ public abstract class GameAnalyzer implements Serializable {
         return hasWinningMove(board, playerTwo);
     }
 
-
     protected char getOpponentMark(char playerMark) {
         return playerMark == 'X' ? 'O' : 'X';
     }
