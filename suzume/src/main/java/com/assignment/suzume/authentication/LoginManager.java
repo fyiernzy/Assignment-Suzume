@@ -1,6 +1,8 @@
 package com.assignment.suzume.authentication;
 
+import com.assignment.suzume.constants.FontStyle;
 import com.assignment.suzume.utils.InputHandler;
+import com.assignment.suzume.utils.Timer;
 import com.assignment.suzume.utils.ConsolePrinter;
 import com.assignment.suzume.data.GameFolderInitializer;
 
@@ -25,19 +27,28 @@ public class LoginManager {
     public void login() {
         ConsolePrinter.printBanner();
         ConsolePrinter.printWelcomeMessage();
+        System.out.println("HERE WE GO!");
 
         while(true) {
             System.out.println(" --> [1] Sign in");
             System.out.println(" --> [2] Sign up");
             System.out.println(" --> [3] Exit");
             
-            ConsolePrinter.printDecorator();
             int choice = InputHandler.getIntInput();
 
             switch(choice) {
                 case 1 -> signInManager.run();
                 case 2 -> signUpManager.run();
-                case 3 -> System.exit(0);
+                case 3 -> {
+                    System.out.println(FontStyle.BLUE + "Exiting... ");
+                    for(int i = 0; i < 3; i++) {
+                        Timer.waitInMilliseconds(500);
+                        System.out.print(".");
+                    }
+
+                    Timer.waitInMilliseconds(500);
+                    System.exit(0);
+                }
                 default -> System.out.println("Invalid choice.");
             }
         }

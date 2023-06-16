@@ -22,6 +22,8 @@ public class SignInManager {
         JFrame frame = createFrame(panel);
         setIconImage(frame, "src/main/resources/static/images/daijin.png");
 
+        frame.setComponentZOrder(panel, 0);
+
         int option = showSignInDialog(frame, panel);
 
         if (option == JOptionPane.OK_OPTION) {
