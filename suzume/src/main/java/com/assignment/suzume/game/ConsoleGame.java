@@ -116,7 +116,6 @@ public class ConsoleGame {
             System.out.println(" --> [2] Start a new game");
 
             int choice = InputHandler.getIntInput();
-
             switch (choice) {
                 case 1:
                     BoardGameRunner runner = GameFileInputHandler.getInstance().handleLoadGame(setup.getModeChoice());
