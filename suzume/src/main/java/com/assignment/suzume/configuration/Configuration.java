@@ -10,6 +10,7 @@ public class Configuration {
 
     public static final Properties properties = loadProperties();
     public static final String BANNER_URL = properties.getProperty("banner_url");
+    public static final String MASCOT_URL = properties.getProperty("mascot_url");
     public static final String WELCOME_MESSAGE_URL = properties.getProperty("welcome_message_url");
     private static String gameFolderURL = properties.getProperty("game_folder_url");
     private static String decorator = properties.getProperty("input_prefix");
