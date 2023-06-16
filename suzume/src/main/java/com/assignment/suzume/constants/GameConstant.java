@@ -16,4 +16,5 @@ public class GameConstant {
     // Status code
     public static final int EXIT = 404;
     public static final int MOVE = 200;
+    public static final int CONTINUE = 201;
 }
