@@ -69,4 +69,10 @@ public class PathUtils {
                 return new int[] { 0, 0 };
         }
     }
+
+    public static List<String> getShortestPath(int pathIndex) {
+        BFSFinder finder = new BFSFinder(MapUtils.getCombinedMap());
+        List<List<String>> allPaths = finder.findAllShortestPaths();
+        return allPaths.get(pathIndex);
+    }
 }

@@ -108,15 +108,28 @@ public class ConsoleGameSetup {
             }
             int engineChoice = InputHandler.getIntInput();
 
-            switch (engineChoice) {
-                case 1:
-                    return new EasyEngine(mark);
-                case 2:
-                    return new MediumEngine(mark);
-                case 3:
-                    return new HardEngine(mark);
-                default:
-                    System.out.println("Invalid choice. Please try again.");
+            if (boardChoice == 2) {
+                switch (engineChoice) {
+                    case 1:
+                        return new EasyEngine(mark);
+                    case 2:
+                        return new MediumEngine(mark);
+                    case 3:
+                        return new HardEngine(mark);
+                    default:
+                        System.out.println("Invalid choice. Please try again.");
+                }
+            } else {
+                switch (engineChoice) {
+                    case 1:
+                        return new EasyEngine(mark);
+                    case 2:
+                        return new MediumEngine(mark);
+                    case 3:
+                        return new HardEngine(mark);
+                    default:
+                        System.out.println("Invalid choice. Please try again.");
+                }
             }
         }
     }

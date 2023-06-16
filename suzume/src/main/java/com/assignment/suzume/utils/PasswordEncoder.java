@@ -6,25 +6,28 @@ import java.security.NoSuchAlgorithmException;
 
 public class PasswordEncoder {
 
+    private static final String HASH_ALGORITHM = "SHA-256";
+
+    public static String hashPassword(String password) {
+        try {
+            MessageDigest digest = MessageDigest.getInstance(HASH_ALGORITHM);
+            byte[] encodedHash = digest.digest(password.getBytes(StandardCharsets.UTF_8));
+            return bytesToHex(encodedHash);
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException("Failed to get " + HASH_ALGORITHM + " MessageDigest", e);
+        }
+    }
+
     private static String bytesToHex(byte[] hash) {
-        StringBuilder hexString = new StringBuilder(2 * hash.length);
-        for (int i = 0; i < hash.length; i++) {
-            String hex = Integer.toHexString(0xff & hash[i]);
-            if (hex.length() == 1)
-                hexString.append('0');
+        StringBuilder hexString = new StringBuilder(hash.length * 2);
+        for (byte b : hash) {
+            String hex = String.format("%02x", b);
             hexString.append(hex);
         }
         return hexString.toString();
     }
 
-    public static String hashPassword(String password) {
-        MessageDigest digest;
-        try {
-            digest = MessageDigest.getInstance("SHA-256");
-        } catch (NoSuchAlgorithmException e) {
-            throw new RuntimeException("Failed to get SHA-256 MessageDigest", e);
+        public static void main(String[] args) {
+            System.out.println(hashPassword("password"));
         }
-        byte[] encodedhash = digest.digest(password.getBytes(StandardCharsets.UTF_8));
-        return bytesToHex(encodedhash);
-    }
 }
