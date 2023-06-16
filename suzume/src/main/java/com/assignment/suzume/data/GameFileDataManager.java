@@ -2,7 +2,6 @@ package com.assignment.suzume.data;
 
 import java.io.*;
 import com.assignment.suzume.profile.User;
-import com.assignment.suzume.utils.InputHandler;
 import com.assignment.suzume.game.BoardGameRunner;
 import com.assignment.suzume.configuration.Configuration;
 import com.assignment.suzume.tictactoe.board.GamingBoard;
@@ -12,8 +11,8 @@ public class GameFileDataManager {
     private static final String REPLAY = "replay";
 
     private static GameFileDataManager instance; // Singleton
-    private String parentFolderPathFormat = "%s" + File.separator + "%s" + File.separator
-            + "save_game" + File.separator + "%s";
+    private static String parentFolderPathFormat = "%s" + File.separator + "%s" + File.separator
+            + "%s" + File.separator + "%s";
 
     private GameFileDataManager() {
     }
@@ -23,32 +22,6 @@ public class GameFileDataManager {
             instance = new GameFileDataManager();
         }
         return instance;
-    }
-
-    public void saveGame(BoardGameRunner runner, int gameMode) {
-        String parentFolderPath = getParentFolderPath(getGameModeSubfolder(gameMode));
-        createFolderIfNotExists(parentFolderPath);
-        String filename = getSaveFileName(parentFolderPath);
-        saveGame(parentFolderPath, filename, runner);
-    }
-
-    public BoardGameRunner loadGame(int gameMode) {
-        String parentFolderPath = getParentFolderPath(getGameModeSubfolder(gameMode));
-        String filename = getSaveFileName(parentFolderPath);
-        return loadGame(parentFolderPath, filename);
-    }
-
-    public void saveGameReplay(GamingBoard board) {
-        String parentFolderPath = getParentFolderPath(REPLAY);
-        createFolderIfNotExists(parentFolderPath);
-        String filename = getSaveFileName(parentFolderPath);
-        saveGameReplay(parentFolderPath, filename, board);
-    }
-
-    public GamingBoard loadGameReplay() {
-        String parentFolderPath = getParentFolderPath(REPLAY);
-        String filename = getLoadFileName(parentFolderPath);
-        return loadGameReplay(parentFolderPath, filename);
     }
 
     public boolean isFolderEmpty(String parentFolderPath, String fileName) {
@@ -69,99 +42,61 @@ public class GameFileDataManager {
         return fileName.matches("[\\w-]+");
     }
 
-    private void saveGame(String parentFolderPath, String filename, BoardGameRunner runner) {
+    public void saveGame(String parentFolderPath, String filename, BoardGameRunner runner) {
         try (ObjectOutputStream out = new ObjectOutputStream(
                 new FileOutputStream(parentFolderPath + File.separator + filename))) {
             out.writeObject(runner);
-            System.out.println("Game saved successfully.");
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    private BoardGameRunner loadGame(String parentFolderPath, String filename) {
+    public BoardGameRunner loadGame(String parentFolderPath, String filename) {
         BoardGameRunner runner = null;
         try (ObjectInputStream in = new ObjectInputStream(
                 new FileInputStream(parentFolderPath + File.separator + filename))) {
             runner = (BoardGameRunner) in.readObject();
-            System.out.println("Game loaded successfully.");
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
         return runner;
     }
 
-    private void saveGameReplay(String parentFolderPath, String filename, GamingBoard board) {
+    public void saveGameReplay(String parentFolderPath, String filename, GamingBoard board) {
         try (ObjectOutputStream out = new ObjectOutputStream(
                 new FileOutputStream(parentFolderPath + File.separator + filename))) {
             out.writeObject(board);
-            System.out.println("Game Replay saved successfully.");
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    private GamingBoard loadGameReplay(String parentFolderPath, String filename) {
+    public GamingBoard loadGameReplay(String parentFolderPath, String filename) {
         GamingBoard board = null;
         try (ObjectInputStream in = new ObjectInputStream(
                 new FileInputStream(parentFolderPath + File.separator + filename))) {
             board = (GamingBoard) in.readObject();
-            System.out.println("Game loaded successfully.");
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
         return board;
     }
-
-    public String getSaveFileName(String parentFolderPath) {
-        String fileName = null;
-
-        while (true) {
-            System.out.print("Enter the filename: ");
-            fileName = InputHandler.getStringInput();
-
-            if (isFileExist(parentFolderPath, fileName)) {
-                System.out.println("File already exists. Do you want to overwrite it? (y/n)");
-                if (!InputHandler.getStringInput().equalsIgnoreCase("y")) {
-                    continue;
-                }
-            }
-
-            if (fileName.isBlank() || !isFileNameValid(fileName)) {
-                System.out.println("Invalid filename.");
-                continue;
-            }
-
-            break;
-        }
-
-        return fileName;
+    
+    public File[] getFileList(String parentFolder) {
+        return new File(parentFolder).listFiles();
     }
 
-    public String getLoadFileName(String parentFolderPath) {
-        String fileName = null;
-        while (true) {
-            System.out.print("Enter the filename: ");
-            fileName = InputHandler.getStringInput();
-
-            if (!isFileExist(parentFolderPath, fileName)) {
-                System.out.println("File does not exist. Enter another file name. ");
-                continue;
-            }
-
-            if (fileName.isBlank() && !isFileNameValid(fileName)) {
-                System.out.println("Invalid filename.");
-                continue;
-            }
-
-            break;
-        }
-        return fileName;
+    public String getSaveReplayParentFolderPath() {
+        return getParentFolderPath(REPLAY, "");
     }
 
-    private String getParentFolderPath(String subfolder) {
+    public String getSaveGameParentFolderPath(int gameMode) {
+        return getParentFolderPath(SAVE_GAME, getGameModeSubfolder(gameMode));
+    }
+
+    private String getParentFolderPath(String folder, String subfolder) {
         String username = User.getInstance().getName();
-        String parentFolderPath = String.format(parentFolderPathFormat, Configuration.getGameFolderURL(), username, subfolder);
+        String parentFolderPath = String.format(parentFolderPathFormat, Configuration.getGameFolderURL(), username, folder, subfolder);
         return parentFolderPath;
     }
 
@@ -176,7 +111,7 @@ public class GameFileDataManager {
         return SAVE_GAME + File.separator + subfolder;
     }
 
-    private void createFolderIfNotExists(String folderPath) {
+    public void createFolderIfNotExists(String folderPath) {
         File folder = new File(folderPath);
         if (!folder.exists()) {
             folder.mkdirs();
