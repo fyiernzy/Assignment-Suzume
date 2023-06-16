@@ -1,6 +1,7 @@
 package com.assignment.suzume.tictactoe.board;
 
 import java.util.Stack;
+import org.apache.commons.lang3.StringUtils;
 
 public abstract class GamingBoard extends Board {
     private Stack<int[]> moveHistory;
@@ -21,8 +22,8 @@ public abstract class GamingBoard extends Board {
     }
 
     public boolean takeBackMove() {
-        if(moveHistory.size() >= 2) {
-            for(int i = 0; i < 2; i++) {
+        if (moveHistory.size() >= 2) {
+            for (int i = 0; i < 2; i++) {
                 int[] move = moveHistory.pop();
                 removeMark(move[0], move[1]);
             }
@@ -41,5 +42,20 @@ public abstract class GamingBoard extends Board {
 
     public boolean isValidMove(int row, int col) {
         return !isFull() && isCellWithinBoard(row, col) && isCellEmpty(row, col);
+    }
+
+    public void printBoard() {
+        System.out.println("-".repeat(6 * size + 1));
+
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
+                int cellNumber = i * size + j + 1;
+                char mark = board[i][j];
+                String val = String.valueOf(mark == ' ' ? cellNumber : String.valueOf(mark));
+                System.out.printf("| %s ", StringUtils.center(val, 3));
+            }
+            System.out.println("|");
+            System.out.println("-".repeat(6 * size + 1));
+        }
     }
 }
