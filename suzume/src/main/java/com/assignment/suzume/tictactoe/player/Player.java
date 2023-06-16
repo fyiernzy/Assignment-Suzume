@@ -22,4 +22,12 @@ public abstract class Player implements Serializable {
     public char getOpponentMark() {
         return mark == 'X' ? 'O' : 'X';
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public String toString() {
+        return name;
+    }
 }
