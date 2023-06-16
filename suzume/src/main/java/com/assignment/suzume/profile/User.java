@@ -37,7 +37,7 @@ public class User {
 
     public void updateResult(int result) {
         this.win += Math.max(result, 0);
-        this.lose += Math.max(-1 * result, 0);
+        this.lose += Math.max(~(result) + 1, 0);
         this.draw += Math.max(1 - Math.abs(result), 0);
         this.score = 5 * win + 2 * draw - 3 * lose;
     }
