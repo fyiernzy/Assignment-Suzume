@@ -142,7 +142,7 @@ A `winMove` indicates how many winning moves a player can potentially make. In a
 
 Moving on, the `.get3X3Score()` method examines every line,  checks their respective `winMove` and `score`, and accumulates them to return an integer array consisting of the mentioned values.
 
-## `.getWinProbability()`
+### `.getWinProbability()`
 
 The algorithm behind the `.getWinProbability()` method is quite sophisticated, as it leverages mathematical concepts for generalization and abstraction purposes. Let's delve into the source code:
 
