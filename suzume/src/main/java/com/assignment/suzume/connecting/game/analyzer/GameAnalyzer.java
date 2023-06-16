@@ -1,5 +1,6 @@
 package com.assignment.suzume.connecting.game.analyzer;
 
+import java.util.List;
 import java.io.Serializable;
 import com.assignment.suzume.tictactoe.board.GamingBoard;
 
@@ -94,4 +95,33 @@ public abstract class GameAnalyzer implements Serializable {
         return new int[] { totalScore, winMove };
     }
 
+    public boolean hasWinningMove(GamingBoard board, char mark) {
+        List<int[]> emptyCells = board.getEmptyCells();
+
+        for (int[] cell : emptyCells) {
+            int row = cell[0];
+            int col = cell[1];
+            board.placeMark(row, col, mark);
+
+            if (board.checkForWin(row, col, mark)) {
+                board.removeMark(row, col);
+                return true;
+            }
+            board.removeMark(row, col);
+        }
+        return false;
+    }
+
+    public boolean hasPlayerWinningMove(GamingBoard board) {
+        return hasWinningMove(board, playerOne);
+    }
+
+    public boolean hasOpponentWinningMove(GamingBoard board) {
+        return hasWinningMove(board, playerTwo);
+    }
+
+
+    protected char getOpponentMark(char playerMark) {
+        return playerMark == 'X' ? 'O' : 'X';
+    }
 }
