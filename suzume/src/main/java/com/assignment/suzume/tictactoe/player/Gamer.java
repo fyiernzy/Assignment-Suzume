@@ -1,35 +1,39 @@
 package com.assignment.suzume.tictactoe.player;
 
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.util.*;
+import com.assignment.suzume.utils.InputHandler;
 import com.assignment.suzume.tictactoe.board.GamingBoard;
 
 public class Gamer extends Player {
-     transient private Scanner scanner;
 
      public Gamer(String name, char mark) {
           super(name, mark);
-          this.scanner = new Scanner(System.in);
      }
 
      @Override
      public int[] makeMove(GamingBoard board) {
           int[] move = new int[2];
+          String message = "Enter your move (cell number OR row column): ";
+          int row = -1, col = -1;
           while (true) {
-               System.out.println("Enter your move (row column): ");
-               move[0] = scanner.nextInt();
-               move[1] = scanner.nextInt();
-               System.out.println("Your move is: " + move[0] + " " + move[1]);
+               move = InputHandler.readOneOrTwoIntegers(message);
 
-               if (!board.isValidMove(move[0], move[1])) {
+               if(move[1] == -1) { // If the user entered the cell number
+                    row = (move[0] - 1) / board.getSize();
+                    col = (move[0] - 1) % board.getSize();
+               } else {
+                    row = move[0];
+                    col = move[1];
+               }
+               System.out.println("Your move is: " + row + " " + col);
+
+               if (!board.isValidMove(row, col)) {
                     System.out.println("Invalid move. Please try again.");
                     continue;
                }
                break;
           }
-          board.placeMark(move[0], move[1], this.mark);
-          return move;
+          board.placeMark(row, col, this.mark);
+          return new int[] {row, col};
      }
 
      public String getName() {
@@ -40,9 +44,4 @@ public class Gamer extends Player {
      public String toString() {
           return getName();
      }
-
-     private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
-        in.defaultReadObject();
-        this.scanner = new Scanner(System.in);
-    }
 }

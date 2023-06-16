@@ -4,7 +4,7 @@ import java.io.*;
 import com.assignment.suzume.utils.InputHandler;
 import com.assignment.suzume.tictactoe.player.Gamer;
 import com.assignment.suzume.constants.GameConstant;
-import com.assignment.suzume.data.GameFileDataManager;
+import com.assignment.suzume.data.GameFileInputHandler;
 import com.assignment.suzume.tictactoe.board.GamingBoard;
 
 public class UserActionHandler implements Serializable {
@@ -12,13 +12,13 @@ public class UserActionHandler implements Serializable {
     private GamingBoard board;
     private BoardGameRunner runner;
 
-    transient private GameFileDataManager gameFileManager;
+    transient private GameFileInputHandler gameFileInputHandler;
 
     UserActionHandler(int gameMode, GamingBoard board, BoardGameRunner runner) {
         this.gameMode = gameMode;
         this.board = board;
         this.runner = runner;
-        this.gameFileManager = GameFileDataManager.getInstance();
+        this.gameFileInputHandler = GameFileInputHandler.getInstance();
     }
 
     public void showSaveReplayMenu() {
@@ -50,6 +50,7 @@ public class UserActionHandler implements Serializable {
             switch (choice) {
                 case 1:
                     handleUndoMove();
+                    board.printBoard();
                     break;
                 case 2:
                     int[] move = gamer.makeMove(board);
@@ -66,8 +67,7 @@ public class UserActionHandler implements Serializable {
     }
 
     private void saveGameReplay() {
-        gameFileManager.saveGameReplay(board);
-        System.out.println("Game replay saved successfully!");
+        gameFileInputHandler.handleSaveReplay(board);
     }
 
     private void handleUndoMove() {
@@ -79,11 +79,6 @@ public class UserActionHandler implements Serializable {
     }
 
     private void saveGame() {
-        gameFileManager.saveGame(runner, gameMode);
-        System.out.println("Game saved successfully!");
-    }
-    
-    private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
-        in.defaultReadObject();
+        gameFileInputHandler.handleSaveGame(runner, gameMode);
     }
 }

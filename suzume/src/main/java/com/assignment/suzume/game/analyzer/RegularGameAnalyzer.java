@@ -2,13 +2,13 @@ package com.assignment.suzume.game.analyzer;
 
 import com.assignment.suzume.tictactoe.board.GamingBoard;
 
-public class RegularGameAnalyzer extends GameAnalyzer{
+public class RegularGameAnalyzer extends GameAnalyzer {
     public RegularGameAnalyzer(char playerOne, char playerTwo, GamingBoard gamingBoard) {
         super(playerOne, playerTwo, gamingBoard);
     }
 
     @Override
-    public int getScore(char mark) {
+    public int[] getScore(char mark) {
         int totalScore = 0;
         int winMove = 0;
 
@@ -19,7 +19,6 @@ public class RegularGameAnalyzer extends GameAnalyzer{
                 winMove += scores[1];
             }
         }
-
-        return winMove >= 2 ? winMove * WIN_SCORE : totalScore;
+        return new int[] { winMove >= 2 ? winMove * WIN_SCORE : totalScore, winMove };
     }
 }

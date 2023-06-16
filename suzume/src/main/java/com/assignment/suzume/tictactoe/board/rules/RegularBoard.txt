@@ -1,0 +1,13 @@
+Regular Tic-Tac-Toe
+
+Game board:
+|----> A 5x5 square grid.
+
+Turn Order: 
+|----> The system randomly determines which player (X or O) goes first.
+
+Turns: 
+|----> Players take turns placing their respective shapes (X or O) on any empty cell of the grid.
+
+Winning Condition: 
+|----> The first player to place 3 of their shapes in a horizontal, vertical, or diagonal row wins the game.
