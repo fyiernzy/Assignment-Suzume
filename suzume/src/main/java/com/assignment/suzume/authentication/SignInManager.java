@@ -3,6 +3,7 @@ package com.assignment.suzume.authentication;
 import java.awt.*;
 import javax.swing.*;
 import com.assignment.suzume.profile.User;
+import java.awt.image.BufferedImage;
 import com.assignment.suzume.profile.Dashboard;
 import com.assignment.suzume.database.DatabaseManager;
 
@@ -98,6 +99,7 @@ public class SignInManager {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setContentPane(panel);
         frame.setTitle("Sign In");
+        frame.setAlwaysOnTop(true);
         frame.pack();
         frame.setLocationRelativeTo(null);
         return frame;
@@ -115,8 +117,33 @@ public class SignInManager {
         return new ImageIcon(resizedImage);
     }
 
+    private ImageIcon addMarginToImageIcon(ImageIcon originalIcon, int horizontalMargin, int verticalMargin) {
+        int width = originalIcon.getIconWidth();
+        int height = originalIcon.getIconHeight();
+
+        int newWidth = width + horizontalMargin;
+        int newHeight = height + verticalMargin;
+
+        BufferedImage image = new BufferedImage(newWidth, newHeight, BufferedImage.TYPE_INT_ARGB);
+        Graphics2D graphics = image.createGraphics();
+
+        // Set the background color of the image to transparent
+        graphics.setComposite(AlphaComposite.Clear);
+        graphics.fillRect(0, 0, newWidth, newHeight);
+        graphics.setComposite(AlphaComposite.Src);
+
+        // Draw the original image with margins
+
+        graphics.drawImage(originalIcon.getImage(), 15, 20, width, height, null);
+        graphics.dispose();
+
+        return new ImageIcon(image);
+    }
+
     private int showSignInDialog(JFrame frame, JPanel panel) {
-        ImageIcon icon = resizeIconImage("src/main/resources/static/images/sadaijin.png", 64, 64);
+        ImageIcon icon = addMarginToImageIcon(
+                resizeIconImage("src/main/resources/static/images/sadaijin.png", 90, 113), 5, 20);
+
         return JOptionPane.showOptionDialog(frame, panel, "Sign In", JOptionPane.OK_CANCEL_OPTION,
                 JOptionPane.PLAIN_MESSAGE, icon, null, null);
     }

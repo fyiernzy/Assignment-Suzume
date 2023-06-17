@@ -1,5 +1,6 @@
 package com.assignment.suzume.authentication;
 
+import java.awt.image.BufferedImage;
 import javax.swing.*;
 import java.awt.*;
 import com.assignment.suzume.database.DatabaseManager;
@@ -18,6 +19,7 @@ public class SignUpManager {
         addComponentsToPanel(panel);
 
         JFrame frame = createFrame(panel);
+        frame.setAlwaysOnTop(true);
         setIconImage(frame, "src/main/resources/static/images/daijin.png");
 
         int option = showSignUpDialog(frame, panel);
@@ -52,6 +54,7 @@ public class SignUpManager {
     private JPanel createPanel() {
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+        panel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
         return panel;
     }
 
@@ -96,6 +99,29 @@ public class SignUpManager {
         frame.setIconImage(icon.getImage());
     }
 
+    private ImageIcon addMarginToImageIcon(ImageIcon originalIcon, int horizontalMargin, int verticalMargin) {
+        int width = originalIcon.getIconWidth();
+        int height = originalIcon.getIconHeight();
+
+        int newWidth = width + horizontalMargin;
+        int newHeight = height + verticalMargin;
+
+        BufferedImage image = new BufferedImage(newWidth, newHeight, BufferedImage.TYPE_INT_ARGB);
+        Graphics2D graphics = image.createGraphics();
+
+        // Set the background color of the image to transparent
+        graphics.setComposite(AlphaComposite.Clear);
+        graphics.fillRect(0, 0, newWidth, newHeight);
+        graphics.setComposite(AlphaComposite.Src);
+
+        // Draw the original image with margins
+
+        graphics.drawImage(originalIcon.getImage(), 15, 20, width, height, null);
+        graphics.dispose();
+
+        return new ImageIcon(image);
+    }
+
     private ImageIcon resizeIconImage(String imagePath, int width, int height) {
         ImageIcon originalIcon = new ImageIcon(imagePath);
         Image originalImage = originalIcon.getImage();
@@ -104,7 +130,8 @@ public class SignUpManager {
     }
 
     private int showSignUpDialog(JFrame frame, JPanel panel) {
-        ImageIcon icon = resizeIconImage("src/main/resources/static/images/daijin.png", 64, 64);
+        ImageIcon icon = addMarginToImageIcon(
+                resizeIconImage("src/main/resources/static/images/daijin.png", 90, 113), 5, 20);
         return JOptionPane.showOptionDialog(frame, panel, "Sign Up", JOptionPane.OK_CANCEL_OPTION,
                 JOptionPane.PLAIN_MESSAGE, icon, null, null);
     }

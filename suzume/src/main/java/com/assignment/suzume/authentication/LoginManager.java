@@ -1,8 +1,14 @@
 package com.assignment.suzume.authentication;
 
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
+
 import com.assignment.suzume.constants.FontStyle;
 import com.assignment.suzume.utils.InputHandler;
 import com.assignment.suzume.utils.Timer;
+
+import mdlaf.MaterialLookAndFeel;
+
 import com.assignment.suzume.utils.ConsolePrinter;
 import com.assignment.suzume.data.GameFolderInitializer;
 
@@ -25,6 +31,12 @@ public class LoginManager {
     }
 
     public void login() {
+        try {
+            UIManager.setLookAndFeel(new MaterialLookAndFeel());
+        } catch (UnsupportedLookAndFeelException e) {
+            e.printStackTrace();
+        }
+
         ConsolePrinter.printBanner();
         ConsolePrinter.printWelcomeMessage();
         System.out.println("HERE WE GO!");
