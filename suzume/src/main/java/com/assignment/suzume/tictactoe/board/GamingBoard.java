@@ -1,6 +1,8 @@
 package com.assignment.suzume.tictactoe.board;
 
 import java.util.Stack;
+
+import com.assignment.suzume.constants.FontStyle;
 import org.apache.commons.lang3.StringUtils;
 
 public abstract class GamingBoard extends Board {
@@ -51,11 +53,28 @@ public abstract class GamingBoard extends Board {
             for (int j = 0; j < size; j++) {
                 int cellNumber = i * size + j + 1;
                 char mark = board[i][j];
-                String val = String.valueOf(mark == ' ' ? cellNumber : String.valueOf(mark));
+                String val;
+                if (mark == ' ') {
+                    val = String.valueOf(cellNumber);
+                } else {
+                    String markString = String.valueOf(mark);
+                    int markLength = markString.length();
+                    int padding = (3 - markLength) / 2;
+                    String formattedMark;
+                    if (mark == 'O') {
+                        formattedMark = FontStyle.RED_BOLD + mark + FontStyle.YELLOW_BOLD_BRIGHT;
+                    } else {
+                        formattedMark = FontStyle.BLUE_BOLD + mark + FontStyle.YELLOW_BOLD_BRIGHT;
+                    }
+                    val = " ".repeat(padding) + formattedMark + " ".repeat(3 - padding - markLength);
+                }
                 System.out.printf("| %s ", StringUtils.center(val, 3));
             }
             System.out.println("|");
             System.out.println("-".repeat(6 * size + 1));
         }
     }
+
+
+
 }
