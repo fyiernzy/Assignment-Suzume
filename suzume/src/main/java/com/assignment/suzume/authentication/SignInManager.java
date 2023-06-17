@@ -22,9 +22,6 @@ public class SignInManager {
 
         JFrame frame = createFrame(panel);
         setIconImage(frame, "src/main/resources/static/images/daijin.png");
-
-        frame.setComponentZOrder(panel, 0);
-
         int option = showSignInDialog(frame, panel);
 
         if (option == JOptionPane.OK_OPTION) {
@@ -70,7 +67,9 @@ public class SignInManager {
 
     private void addComponentsToPanel(JPanel panel) {
         panel.add(createLabel("Username:"));
-        panel.add(createTextField(20));
+        JTextField usernameField = createTextField(20);
+        usernameField.requestFocusInWindow();
+        panel.add(usernameField);
         panel.add(Box.createVerticalStrut(10));
         panel.add(createLabel("Password:"));
         panel.add(createPasswordField(20));

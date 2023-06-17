@@ -26,11 +26,12 @@ public class Dashboard {
         String format = FontStyle.CYAN_BOLD 
                         + "|" + " ".repeat(LEFT_MARGIN)
                         + "%-" + FIELD_SIZE + "s"
-                        + "| " + " ".repeat(LEFT_MARGIN)
+                        + "|" + " ".repeat(LEFT_MARGIN)
                         + "%-" + VALUE_SIZE + "s"
                         + "|\n";
 
-        String border = "+" 
+        String border = FontStyle.CYAN_BOLD 
+                        + "+" 
                         + "-".repeat(FIELD_SIZE + LEFT_MARGIN) 
                         + "+" 
                         + "-".repeat(VALUE_SIZE + LEFT_MARGIN) 
