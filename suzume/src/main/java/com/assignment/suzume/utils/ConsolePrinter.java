@@ -34,9 +34,10 @@ public class ConsolePrinter {
     }
 
     public static void printRule(Rule rule) {
-        System.out.println(FontStyle.YELLOW_BOLD + "=".repeat(165));
-        System.out.println(FontStyle.ITALIC + FontStyle.CYAN_BOLD + rule.getContent());
-        System.out.println(FontStyle.YELLOW_BOLD + "=".repeat(165));
+        System.out.println(FontStyle.YELLOW_BOLD_BRIGHT + "=".repeat(165));
+        System.out.println(FontStyle.ITALIC + FontStyle.RED_BOLD_BRIGHT + rule.getContent());
+        System.out.println(FontStyle.YELLOW_BOLD_BRIGHT + "=".repeat(165));
+        System.out.println(FontStyle.RESET + FontStyle.YELLOW_BOLD_BRIGHT + "Tic-Tac-Toe Starts!");
     }
 
     public static void printMascot() {
@@ -68,6 +69,7 @@ public class ConsolePrinter {
             banner = getContentFromFile(Configuration.BANNER_URL);
         }
         printContentWithGradient(banner, new String[] {
+                FontStyle.BOLD,
             FontStyle.PURPLE,
             FontStyle.PURPLE,
             FontStyle.CYAN,
@@ -76,6 +78,7 @@ public class ConsolePrinter {
             FontStyle.YELLOW,
             FontStyle.BLUE,
             FontStyle.BLUE,
+                FontStyle.BLUE, FontStyle.BLUE
         }, 200);
     }
 
@@ -102,14 +105,15 @@ public class ConsolePrinter {
             for(String line : tmpContent.split("\n")) {
                 content.append(FontStyle.RESET)
                        .append('|')
-                       .append(FontStyle.BOLD + FontStyle.ITALIC + FontStyle.CYAN)
+                        .append(FontStyle.ITALIC)
+                        .append(FontStyle.CYAN_BOLD)
                        .append(StringUtils.center(line, size, ' '))
                        .append(FontStyle.RESET)
                        .append('|')
                        .append('\n');
             }
 
-            content.append(FontStyle.BOLD + FontStyle.PURPLE);
+            content.append(FontStyle.MAGNETA_BOLD);
 
             content.append('|')
                    .append(" ".repeat(size))

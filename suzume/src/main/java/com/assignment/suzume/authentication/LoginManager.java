@@ -40,7 +40,7 @@ public class LoginManager {
                 case 1 -> signInManager.run();
                 case 2 -> signUpManager.run();
                 case 3 -> {
-                    System.out.println(FontStyle.BLUE + "Exiting... ");
+                    System.out.println(FontStyle.BLUE_BOLD + "Exiting... ");
                     for(int i = 0; i < 3; i++) {
                         Timer.waitInMilliseconds(500);
                         System.out.print(".");
@@ -49,7 +49,7 @@ public class LoginManager {
                     Timer.waitInMilliseconds(500);
                     System.exit(0);
                 }
-                default -> System.out.println("Invalid choice.");
+                default -> System.out.println("Invalid choice.\n");
             }
         }
     }

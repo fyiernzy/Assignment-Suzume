@@ -27,18 +27,18 @@ public class SignUpManager {
             String password = getPasswordField(panel);
 
             if (username.isEmpty() || password.isEmpty()) {
-                System.out.println("The username and password field should not be empty!");
+                System.out.println("The username and password field should not be empty!\n");
                 return;
             }
 
             if (databaseManager.checkIfUserExists(username)) {
-                System.out.println("User already exists!");
+                System.out.println("User already exists!\n");
                 return;
             }
 
             databaseManager.createNewUser(username, password);
         } else {
-            System.out.println("Sign-up canceled!");
+            System.out.println("Sign-up canceled!\n");
         }
     }
 

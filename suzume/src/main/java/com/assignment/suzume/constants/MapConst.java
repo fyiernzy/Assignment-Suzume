@@ -10,7 +10,6 @@ public enum MapConst {
     MapConst(int val) {
         this.VALUE = val;
     }
-
     public boolean is(int val) {
         return this.VALUE == val;
     }

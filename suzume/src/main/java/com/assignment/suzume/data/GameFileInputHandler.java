@@ -61,7 +61,7 @@ public class GameFileInputHandler {
                 }
             } else {
                 if (confirmCancellation(processName)) {
-                    System.out.println(processName + " is cancelled.");
+                    System.out.println(processName + " is cancelled.\n");
                 }
             }
             return null;
@@ -75,7 +75,7 @@ public class GameFileInputHandler {
     private boolean showFileLists(String parentFolder, int limit) {
         File[] files = manager.getFileList(parentFolder);
         if (files == null || files.length == 0) {
-            System.out.println("No files found.");
+            System.out.println("No files found.\n");
             return false;
         } else {
             for (int i = 0; i < Math.min(files.length, limit); i++) {
@@ -103,20 +103,20 @@ public class GameFileInputHandler {
         if (isLoadProcess) {
             if (gameMode != null) {
                 Object obj = manager.loadGame(parentFolderPath, filename);
-                System.out.println("Game loaded successfully.");
+                System.out.println("Game loaded successfully.\n");
                 return Optional.of(obj);
             } else {
                 Object obj = manager.loadGameReplay(parentFolderPath, filename);
-                System.out.println("Game replay loaded successfully.");
+                System.out.println("Game replay loaded successfully.\n");
                 return Optional.of(obj);
             }
         } else {
             if (gameMode != null) {
                 manager.saveGame(parentFolderPath, filename, (BoardGameRunner) object);
-                System.out.println("Game saved successfully.");
+                System.out.println("Game saved successfully.\n");
             } else {
                 manager.saveGameReplay(parentFolderPath, filename, (GamingBoard) object);
-                System.out.println("Game Replay saved successfully.");
+                System.out.println("Game Replay saved successfully.\n");
             }
             return Optional.empty();
         }
@@ -146,7 +146,7 @@ public class GameFileInputHandler {
             }
 
             if (fileName.isBlank() || !manager.isFileNameValid(fileName)) {
-                System.out.println("Invalid filename.");
+                System.out.println("Invalid filename.\n");
                 continue;
             }
 
@@ -167,12 +167,12 @@ public class GameFileInputHandler {
             }
 
             if (fileName.isBlank() && !manager.isFileNameValid(fileName)) {
-                System.out.println("Invalid filename.");
+                System.out.println("Invalid filename.\n");
                 continue;
             }
 
             if (!manager.isFileExist(parentFolderPath, fileName)) {
-                System.out.println("File does not exist. Enter another file name. ");
+                System.out.println("File does not exist. Enter another file name.\n");
                 continue;
             }
 

@@ -1,6 +1,8 @@
 package com.assignment.suzume.game;
 
 import java.util.List;
+
+import com.assignment.suzume.constants.FontStyle;
 import com.assignment.suzume.utils.*;
 import com.assignment.suzume.map.PixelMap;
 import com.assignment.suzume.profile.User;
@@ -36,7 +38,7 @@ public class ConsoleGame {
         while (status.getCurrentStep() < totalStep && status.isContinueJourney()) {
             handleNextStep(steps);
             if (status.isCurrentPositionDestination()) {
-                System.out.println("Congratulations, you reached the end!");
+                System.out.println("Congratulations, you reached the end!\n");
                 break;
             }
         }
@@ -47,7 +49,8 @@ public class ConsoleGame {
     }
 
     private void printStartingPoint() {
-        System.out.printf("Suzume is at the starting point (%d, %d).\n", status.getCurrentRow(),
+        System.out.println("");
+        System.out.printf(FontStyle.PURPLE_BOLD_BRIGHT + "\nSuzume is at the starting point (%d, %d).\n", status.getCurrentRow(),
                 status.getCurrentCol());
     }
 
@@ -68,7 +71,7 @@ public class ConsoleGame {
         int result = getBoardGameRunner().play();
 
         if (result == GameConstant.EXIT) {
-            System.out.println("Suzume has chosen to exit the game.");
+            System.out.println("Suzume has chosen to exit the game.\n");
             status.setContinueJourney(false);
             return;
         }
@@ -84,7 +87,7 @@ public class ConsoleGame {
         } else if (result == GameConstant.WIN) {
             handleBoardGameWin();
         } else if (result == GameConstant.DRAW) {
-            System.out.println("It's a tie!");
+            System.out.println("It's a tie!\n");
         }
 
         boolean isContinueJourney = promptForGameContinuationChoice();
@@ -92,20 +95,20 @@ public class ConsoleGame {
     }
 
     private void handleBoardGameLoss() {
-        System.out.println("Alas! Suzume has been defeated in the station game.");        
+        System.out.println(FontStyle.PURPLE_BOLD_BRIGHT + "Alas! Suzume has been defeated in the station game.");
 
         boolean isBackToPreviousStation = status.backToPreviousStation();
         if (!isBackToPreviousStation) {
             System.out.println(
-                    "Oh no! Suzume has failed at the very first station. Her journey comes to an unfortunate end.");
+                    "Oh no! Suzume has failed at the very first station. Her journey comes to an unfortunate end.\n");
             status.setContinueJourney(false);
         } else {
-            System.out.println("But fear not! Suzume bravely falls back to the previous station.");
+            System.out.println("But fear not! Suzume bravely falls back to the previous station.\n");
         }
     }
 
     private void handleBoardGameWin() {
-        System.out.println("Hooray! Suzume emerges victorious in the station game.");
+        System.out.println(FontStyle.PURPLE_BOLD_BRIGHT + "Hooray! Suzume emerges victorious in the station game.");
         status.saveCurrentStation();
     }
 
@@ -123,14 +126,14 @@ public class ConsoleGame {
                 case 2:
                     return setup.getBoardGameRunner();
                 default:
-                    System.out.println("Invalid choice. Please try again.");
+                    System.out.println("Invalid choice. Please try again.\n");
             }
         }
     }
 
     private boolean promptForGameContinuationChoice() {
         while (true) {
-            System.out.println("Would you like to continue the game?");
+            System.out.println(FontStyle.PURPLE_BOLD_BRIGHT + "Would you like to continue the game?");
             System.out.println("  [1] Yes, let's continue!");
             System.out.println("  [2] No, I want to exit the game.");
 
@@ -141,7 +144,7 @@ public class ConsoleGame {
                 case 2:
                     return false;
                 default:
-                    System.out.println("Oops! Invalid input. Please try again...");
+                    System.out.println("Oops! Invalid input. Please try again...\n");
             }
         }
     }

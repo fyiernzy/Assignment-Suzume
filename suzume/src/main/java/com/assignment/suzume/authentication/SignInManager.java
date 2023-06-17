@@ -31,17 +31,17 @@ public class SignInManager {
             String password = getPasswordField(panel);
 
             if (username.isEmpty() || password.isEmpty()) {
-                System.out.println("The username and password field should not be empty!");
+                System.out.println("The username and password field should not be empty!\n");
                 return;
             }
 
             if (!databaseManager.checkIfUserExists(username)) {
-                System.out.println("User does not exist!");
+                System.out.println("User does not exist!\n");
                 return;
             }
 
             if (!databaseManager.checkIfPasswordMatch(username, password)) {
-                System.out.println("Password does not match!");
+                System.out.println("Password does not match!\n");
                 return;
             }
 
@@ -49,7 +49,7 @@ public class SignInManager {
             Dashboard dashboard = new Dashboard(User.getInstance());
             dashboard.showDashboard();
         } else {
-            System.out.println("Sign-in canceled!");
+            System.out.println("Sign-in canceled!\n");
         }
     }
 
