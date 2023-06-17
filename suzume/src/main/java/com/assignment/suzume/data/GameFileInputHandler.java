@@ -21,58 +21,132 @@ public class GameFileInputHandler {
         return instance;
     }
 
+    /**
+     * Handles the saving of the game data.
+     *
+     * @param runner   The BoardGameRunner instance representing the current game
+     *                 state.
+     * @param gameMode The game mode.
+     */
     public void handleSaveGame(BoardGameRunner runner, int gameMode) {
         handleSaveProcess(runner, gameMode, "Save Game");
     }
 
+    /**
+     * Handles the saving of the game replay data.
+     *
+     * @param board The GamingBoard instance representing the game board.
+     */
     public void handleSaveReplay(GamingBoard board) {
         handleSaveProcess(board, null, "Save Game Replay");
     }
 
-    private void handleSaveProcess(Object object, Integer gameMode, String processName) {
-        handleProcess(object, gameMode, processName, false);
+    /**
+     * Handles the loading of the game data.
+     *
+     * @param gameMode The game mode.
+     * @return An Optional containing the loaded BoardGameRunner instance if
+     *         successful, or an empty Optional otherwise.
+     */
+    public Optional<BoardGameRunner> handleLoadGame(int gameMode) {
+        Optional<Object> obj = handleLoadProcess(gameMode, "Load Game");
+        return obj.isPresent() ? Optional.of((BoardGameRunner) obj.get()) : Optional.empty();
     }
 
-    public BoardGameRunner handleLoadGame(int gameMode) {
-        return (BoardGameRunner) handleLoadProcess(gameMode, "Load Game");
+    /**
+     * Handles the loading of the game replay data.
+     *
+     * @return An Optional containing the loaded GamingBoard instance if successful,
+     *         or an empty Optional otherwise.
+     */
+    public Optional<GamingBoard> handleLoadReplay() {
+        Optional<Object> obj = handleLoadProcess(null, "Load Game Replay");
+        return obj.isPresent() ? Optional.of((GamingBoard) obj.get()) : Optional.empty();
     }
 
-    public GamingBoard handleLoadReplay() {
-        return (GamingBoard) handleLoadProcess(null, "Load Game Replay");
-    }
+    /**
+     * Handles the process of loading a game.
+     *
+     * @param gameMode    The game mode.
+     * @param processName The name of the loading process.
+     * @return An Optional containing the loaded object if successful, or an empty
+     *         Optional otherwise.
+     */
+    private Optional<Object> handleLoadProcess(Integer gameMode, String processName) {
+        String parentFolderPath = getParentFolderPath(gameMode);
+        manager.createFolderIfNotExists(parentFolderPath);
 
-    private Object handleLoadProcess(Integer gameMode, String processName) {
-        return handleProcess(null, gameMode, processName, true);
-    }
+        if (!computeIfFileExists(parentFolderPath)) {
+            return Optional.empty();
+        }
 
-    private Object handleProcess(Object object, Integer gameMode, String processName, boolean isLoadProcess) {
         while (true) {
-            String parentFolderPath = getParentFolderPath(gameMode, isLoadProcess);
-            manager.createFolderIfNotExists(parentFolderPath);
-            if(!showFileLists(parentFolderPath)) {
-                return null;
-            }
-            String filename = getFileName(parentFolderPath, isLoadProcess);
+            Optional<String> filename = getLoadFileName(parentFolderPath);
 
-            if (filename != null) {
-                Optional<Object> obj = performSaveOrLoad(object, gameMode, isLoadProcess, parentFolderPath, filename);
-                if(obj.isPresent()) {
-                    return obj.get();
-                }
-            } else {
-                if (confirmCancellation(processName)) {
-                    System.out.println(processName + " is cancelled.");
-                }
+            if (filename.isPresent()) {
+                Optional<Object> obj = performLoad(gameMode, parentFolderPath, filename.get());
+                return obj;
             }
-            return null;
+
+            if (confirmCancellation(processName)) {
+                System.out.println(processName + " is cancelled.");
+                return Optional.empty();
+            }
         }
     }
 
-    private boolean showFileLists(String parentFolder) {
-        return showFileLists(parentFolder, 5);
+    /**
+     * Handles the saving process for game data.
+     *
+     * @param object      The object to be saved (either BoardGameRunner or
+     *                    GamingBoard).
+     * @param gameMode    The game mode.
+     * @param processName The name of the save process.
+     * @return An Optional containing the saved object if successful, or an empty
+     *         Optional otherwise.
+     */
+    private Optional<Object> handleSaveProcess(Object object, Integer gameMode, String processName) {
+        String parentFolderPath = getParentFolderPath(gameMode);
+        manager.createFolderIfNotExists(parentFolderPath);
+
+        if (!computeIfFileExists(parentFolderPath)) {
+            return Optional.empty();
+        }
+
+        while (true) {
+            Optional<String> filename = getSaveFileName(parentFolderPath);
+
+            if (filename.isPresent()) {
+                Optional<Object> obj = performSave(object, gameMode, parentFolderPath, filename.get());
+                return obj;
+            }
+
+            if (confirmCancellation(processName)) {
+                System.out.println(processName + " is cancelled.");
+                return Optional.empty();
+            }
+        }
     }
 
-    private boolean showFileLists(String parentFolder, int limit) {
+    /**
+     * Checks if files exist in the specified parent folder.
+     *
+     * @param parentFolder The parent folder path.
+     * @return True if files exist, false otherwise.
+     */
+    private boolean computeIfFileExists(String parentFolder) {
+        return computeIfFileExists(parentFolder, 5);
+    }
+
+    /**
+     * Checks if files exist in the specified parent folder, up to the specified
+     * limit.
+     *
+     * @param parentFolder The parent folder path.
+     * @param limit        The maximum number of files to display.
+     * @return True if files exist, false otherwise.
+     */
+    private boolean computeIfFileExists(String parentFolder, int limit) {
         File[] files = manager.getFileList(parentFolder);
         if (files == null || files.length == 0) {
             System.out.println("No files found.");
@@ -85,49 +159,80 @@ public class GameFileInputHandler {
         }
     }
 
-    private String getParentFolderPath(Integer gameMode, boolean isLoadProcess) {
-        return isLoadProcess ? getLoadParentFolderPath(gameMode) : manager.getSaveReplayParentFolderPath();
-    }
-
-    private String getLoadParentFolderPath(Integer gameMode) {
-        return (gameMode != null) ? manager.getSaveGameParentFolderPath(gameMode)
+    /**
+     * Retrieves the parent folder path based on the game mode.
+     *
+     * @param gameMode The game mode.
+     * @return The parent folder path.
+     */
+    private String getParentFolderPath(Integer gameMode) {
+        return (gameMode != null)
+                ? manager.getSaveGameParentFolderPath(gameMode)
                 : manager.getSaveReplayParentFolderPath();
     }
 
-    private String getFileName(String parentFolderPath, boolean isLoadProcess) {
-        return isLoadProcess ? getLoadFileName(parentFolderPath) : getSaveFileName(parentFolderPath);
-    }
-
-    private Optional<Object> performSaveOrLoad(Object object, Integer gameMode, boolean isLoadProcess, String parentFolderPath,
-            String filename) {
-        if (isLoadProcess) {
-            if (gameMode != null) {
-                Object obj = manager.loadGame(parentFolderPath, filename);
-                System.out.println("Game loaded successfully.");
-                return Optional.of(obj);
-            } else {
-                Object obj = manager.loadGameReplay(parentFolderPath, filename);
-                System.out.println("Game replay loaded successfully.");
-                return Optional.of(obj);
-            }
+    /**
+     * Performs the load process for game data.
+     *
+     * @param gameMode         The game mode.
+     * @param parentFolderPath The parent folder path.
+     * @param filename         The name of the file to load.
+     * @return An Optional containing the loaded object if successful, or an empty
+     *         Optional otherwise.
+     */
+    private Optional<Object> performLoad(Integer gameMode, String parentFolderPath, String filename) {
+        if (gameMode != null) {
+            Object obj = manager.loadGame(parentFolderPath, filename);
+            System.out.println("Game loaded successfully.");
+            return Optional.ofNullable(obj);
         } else {
-            if (gameMode != null) {
-                manager.saveGame(parentFolderPath, filename, (BoardGameRunner) object);
-                System.out.println("Game saved successfully.");
-            } else {
-                manager.saveGameReplay(parentFolderPath, filename, (GamingBoard) object);
-                System.out.println("Game Replay saved successfully.");
-            }
-            return Optional.empty();
+            Object obj = manager.loadGameReplay(parentFolderPath, filename);
+            System.out.println("Game Replay loaded successfully.");
+            return Optional.ofNullable(obj);
         }
     }
 
+    /**
+     * Performs the save process for game data.
+     *
+     * @param object           The object to be saved (either BoardGameRunner or
+     *                         GamingBoard).
+     * @param gameMode         The game mode.
+     * @param parentFolderPath The parent folder path.
+     * @param filename         The name of the file to save.
+     * @return An Optional containing the saved object if successful, or an empty
+     *         Optional otherwise.
+     */
+    private Optional<Object> performSave(Object object, Integer gameMode, String parentFolderPath, String filename) {
+        if (gameMode != null) {
+            manager.saveGame(parentFolderPath, filename, (BoardGameRunner) object);
+            System.out.println("Game saved successfully.");
+        } else {
+            manager.saveGameReplay(parentFolderPath, filename, (GamingBoard) object);
+            System.out.println("Game Replay saved successfully.");
+        }
+        return Optional.empty();
+    }
+
+    /**
+     * Asks the user to confirm the cancellation of a process.
+     *
+     * @param processName The name of the process to cancel.
+     * @return True if the user confirms the cancellation, false otherwise.
+     */
     private boolean confirmCancellation(String processName) {
         System.out.println("Are you sure you want to quit the " + processName.toLowerCase() + " process? (y/n)");
         return InputHandler.getYesNoInput();
     }
 
-    private String getSaveFileName(String parentFolderPath) {
+    /**
+     * Gets the filename for saving a game.
+     *
+     * @param parentFolderPath The parent folder path.
+     * @return An Optional containing the filename if provided, or an empty Optional
+     *         if the user cancels the process.
+     */
+    private Optional<String> getSaveFileName(String parentFolderPath) {
         String fileName = null;
 
         while (true) {
@@ -135,7 +240,7 @@ public class GameFileInputHandler {
             fileName = InputHandler.getStringInput();
 
             if (fileName.equals("~q")) {
-                return null;
+                return Optional.empty();
             }
 
             if (manager.isFileExist(parentFolderPath, fileName)) {
@@ -153,17 +258,24 @@ public class GameFileInputHandler {
             break;
         }
 
-        return fileName;
+        return Optional.of(fileName);
     }
 
-    private String getLoadFileName(String parentFolderPath) {
+    /**
+     * Gets the filename for loading a game.
+     *
+     * @param parentFolderPath The parent folder path.
+     * @return An Optional containing the filename if provided, or an empty Optional
+     *         if the user cancels the process.
+     */
+    private Optional<String> getLoadFileName(String parentFolderPath) {
         String fileName = null;
         while (true) {
             System.out.print("Enter the filename (enter ~q to quit): ");
             fileName = InputHandler.getStringInput();
 
             if (fileName.equals("~q")) {
-                return null;
+                return Optional.empty();
             }
 
             if (fileName.isBlank() && !manager.isFileNameValid(fileName)) {
@@ -178,6 +290,7 @@ public class GameFileInputHandler {
 
             break;
         }
-        return fileName;
+
+        return Optional.of(fileName);
     }
 }

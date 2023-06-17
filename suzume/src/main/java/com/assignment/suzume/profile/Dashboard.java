@@ -1,9 +1,10 @@
 package com.assignment.suzume.profile;
 
-import com.assignment.suzume.constants.FontStyle;
+import java.util.Optional;
 import com.assignment.suzume.game.*;
 import com.assignment.suzume.data.*;
 import com.assignment.suzume.utils.*;
+import com.assignment.suzume.constants.FontStyle;
 import com.assignment.suzume.database.DatabaseManager;
 import com.assignment.suzume.tictactoe.board.GamingBoard;
 
@@ -62,9 +63,9 @@ public class Dashboard {
                 case 2 -> new ConsoleGame(MapUtils.getCombinedMap()).play();
                 case 3 -> DatabaseManager.getInstance().showDatabase();
                 case 4 -> {
-                    GamingBoard board = GameFileInputHandler.getInstance().handleLoadReplay();
-                    if (board != null) {
-                        VideoPlayer player = VideoPlayer.getSuitableVideoPlayer((GamingBoard) board);
+                    Optional<GamingBoard> board = GameFileInputHandler.getInstance().handleLoadReplay();
+                    if (board.isPresent()) {
+                        VideoPlayer player = VideoPlayer.getSuitableVideoPlayer((GamingBoard) board.get());
                         player.replay();
                     }
                 }

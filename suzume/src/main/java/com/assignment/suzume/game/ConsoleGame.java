@@ -1,6 +1,7 @@
 package com.assignment.suzume.game;
 
 import java.util.List;
+import java.util.Optional;
 import com.assignment.suzume.utils.*;
 import com.assignment.suzume.map.PixelMap;
 import com.assignment.suzume.profile.User;
@@ -118,9 +119,9 @@ public class ConsoleGame {
             int choice = InputHandler.getIntInput();
             switch (choice) {
                 case 1:
-                    BoardGameRunner runner = GameFileInputHandler.getInstance().handleLoadGame(setup.getModeChoice());
-                    if(runner != null) {
-                        return runner;
+                    Optional<BoardGameRunner> runner = GameFileInputHandler.getInstance().handleLoadGame(setup.getModeChoice());
+                    if(runner.isPresent()) {
+                        return runner.get();
                     }
                     continue;
                 case 2:
