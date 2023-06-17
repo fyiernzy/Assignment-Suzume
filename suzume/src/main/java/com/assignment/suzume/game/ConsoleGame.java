@@ -119,7 +119,10 @@ public class ConsoleGame {
             switch (choice) {
                 case 1:
                     BoardGameRunner runner = GameFileInputHandler.getInstance().handleLoadGame(setup.getModeChoice());
-                    return runner;
+                    if(runner != null) {
+                        return runner;
+                    }
+                    continue;
                 case 2:
                     return setup.getBoardGameRunner();
                 default:
