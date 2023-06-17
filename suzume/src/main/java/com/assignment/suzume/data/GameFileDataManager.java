@@ -86,6 +86,10 @@ public class GameFileDataManager {
         return new File(parentFolder).listFiles();
     }
 
+    public boolean hasFiles(String parentFolder) {
+        return getFileList(parentFolder).length > 0;
+    }
+
     public String getSaveReplayParentFolderPath() {
         return getParentFolderPath(REPLAY, "");
     }

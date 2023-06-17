@@ -38,8 +38,6 @@ public class GameFolderInitializer {
         createGameFolder();
     }
 
-    // ...
-
     private void configureGameFolderURL() {
         // Set the Material Design look and feel
         try {
