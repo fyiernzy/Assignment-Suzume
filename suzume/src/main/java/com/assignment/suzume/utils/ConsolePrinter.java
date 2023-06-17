@@ -40,6 +40,11 @@ public class ConsolePrinter {
         System.out.println(FontStyle.RESET + FontStyle.YELLOW_BOLD_BRIGHT + "Tic-Tac-Toe Starts!");
     }
 
+    public static void clearScreen() {
+        System.out.print("\033[H\033[2J"); // Clear console screen
+        System.out.flush();
+    }
+
     public static void printMascot() {
         if(mascot == null) {
             mascot = getContentFromFile(Configuration.MASCOT_URL);
@@ -68,6 +73,7 @@ public class ConsolePrinter {
         if (banner == null) { 
             banner = getContentFromFile(Configuration.BANNER_URL);
         }
+        clearScreen();
         printContentWithGradient(banner, new String[] {
                 FontStyle.BOLD,
             FontStyle.PURPLE,

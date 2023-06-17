@@ -1,5 +1,6 @@
 package com.assignment.suzume.profile;
 
+import java.text.DecimalFormat;
 import java.util.Optional;
 import com.assignment.suzume.game.*;
 import com.assignment.suzume.data.*;
@@ -16,32 +17,38 @@ public class Dashboard {
     }
 
     public void checkAccountAnalysis() {
-        final int formatSize = 20;
-        String format = "\u001B[1;36m|" + padRight("\u001B[1;36m%-" + (formatSize - 1) + "s", formatSize)
-                + "\u001B[1;36m| %s|\n";
-        String border = "\u001B[1;36m+" + repeat("-", formatSize + 7) + "+------------------+\n"; // Border design
+        final int FORMAT_SIZE = 20;
+        final int FIELD_SIZE = FORMAT_SIZE - 1;
+        final int VALUE_SIZE = FORMAT_SIZE - 3;
+        final int LEFT_MARGIN = 2;
+        final DecimalFormat DF = new DecimalFormat("#.00");
 
-        System.out.println("\033[1;93mAccount Analysis");
-        System.out.print(border);
-        System.out.printf(format, " Name", padRight(user.getName(), formatSize - 3));
-        System.out.print(border);
-        System.out.printf(format, " Win", padRight(Integer.toString(user.getWin()), formatSize - 3));
-        System.out.printf(format, " Lose", padRight(Integer.toString(user.getLose()), formatSize - 3));
-        System.out.printf(format, " Draw", padRight(Integer.toString(user.getDraw()), formatSize - 3));
-        System.out.printf(format, " Win Rate", padRight(user.getWinRate() + "%", formatSize - 3));
-        System.out.printf(format, " Lose Rate", padRight(user.getLoseRate() + "%", formatSize - 3));
-        System.out.printf(format, " Draw Rate", padRight(user.getDrawRate() + "%", formatSize - 3));
-        System.out.printf(format, " Score", padRight(Integer.toString(user.getScore()), formatSize - 3));
-        System.out.print(border);
-        System.out.println("\u001B[1;35m");
-    }
+        String format = FontStyle.CYAN_BOLD 
+                        + "|" + " ".repeat(LEFT_MARGIN)
+                        + "%-" + FIELD_SIZE + "s"
+                        + "| " + " ".repeat(LEFT_MARGIN)
+                        + "%-" + VALUE_SIZE + "s"
+                        + "|\n";
 
-    private static String repeat(String str, int times) {
-        return new String(new char[times]).replace('\0', str.charAt(0));
-    }
+        String border = "+" 
+                        + "-".repeat(FIELD_SIZE + LEFT_MARGIN) 
+                        + "+" 
+                        + "-".repeat(VALUE_SIZE + LEFT_MARGIN) 
+                        + "+\n"; // Border design
 
-    private static String padRight(String text, int size) {
-        return String.format("%-" + size + "s", text);
+        System.out.println(FontStyle.YELLOW_BOLD_BRIGHT + "Account Analysis");
+        System.out.print(border);
+        System.out.printf(format, "Name", user.getName());
+        System.out.print(border);
+        System.out.printf(format, "Win", Integer.toString(user.getWin()));
+        System.out.printf(format, "Lose", Integer.toString(user.getLose()));
+        System.out.printf(format, "Draw", Integer.toString(user.getDraw()));
+        System.out.printf(format, "Win Rate", DF.format(user.getWinRate()) + "%");
+        System.out.printf(format, "Lose Rate", DF.format(user.getLoseRate()) + "%");
+        System.out.printf(format, "Draw Rate", DF.format(user.getDrawRate()) + "%");
+        System.out.printf(format, "Score", Integer.toString(user.getScore()));
+        System.out.print(border);
+        System.out.println(FontStyle.MAGNETA_BOLD);
     }
 
     public void showDashboard() {
@@ -86,4 +93,8 @@ public class Dashboard {
 
     }
 
+    public static void main(String[] args) {
+        DecimalFormat decimalFormat = new DecimalFormat("#.00");
+        System.out.println(decimalFormat.format(0.125456789));
+    }
 }

@@ -42,16 +42,16 @@ public class User {
         this.score = 5 * win + 2 * draw - 3 * lose;
     }
 
-    public int getWinRate() {
-        return (win + lose + draw) == 0 ? -1 : (win * 100) / (win + lose + draw);
+    public double getWinRate() {
+        return (win + lose + draw) == 0 ? -1 : (win * 100) / (double) (win + lose + draw);
     }
 
-    public int getLoseRate() {
-        return (win + lose + draw) == 0 ? -1 : (lose * 100) / (win + lose + draw);
+    public double getLoseRate() {
+        return (win + lose + draw) == 0 ? -1 : (lose * 100) / (double) (win + lose + draw);
     }
 
-    public int getDrawRate() {
-        return (win + lose + draw) == 0 ? -1 : (draw * 100) / (win + lose + draw);
+    public double getDrawRate() {
+        return (win + lose + draw) == 0 ? -1 : (draw * 100) / (double) (win + lose + draw);
     }
 
     public int getWin() {
