@@ -22,32 +22,6 @@ public abstract class Board {
             }
         }
     }
-
-<<<<<<< HEAD
-    // public void initializeBoard() {
-    // int cellNumber = 1;
-    // for (int i = 0; i < size; i++) {
-    // for (int j = 0; j < size; j++) {
-    // board[i][j] = String.valueOf(cellNumber).charAt(0);
-    // cellNumber++;
-    // }
-    // }
-    // }
-
-    // Print the current board (may be replaced by GUI implementation later)
-    // public void printBoard() {
-    // System.out.println("----".repeat(size) + "-");
-
-    // for (int i = 0; i < size; i++) {
-    // System.out.print("| ");
-    // for (int j = 0; j < size; j++) {
-    // System.out.print(board[i][j] + " | ");
-    // }
-    // System.out.println();
-    // System.out.println("----".repeat(size) + "-");
-    // }
-    // }
-
     public void printBoard() {
         System.out.println("-".repeat(26));
         for (int i = 0; i < size; i++) {
@@ -62,12 +36,8 @@ public abstract class Board {
             }
             System.out.println("|");
             System.out.println("-".repeat(26));
-            // System.out.println("----".repeat(size) + "-");
         }
     }
-
-=======
->>>>>>> ed1b6a03c152c25ac67b33f616396b078475ed5a
     public int getSize() {
         return this.size;
     }

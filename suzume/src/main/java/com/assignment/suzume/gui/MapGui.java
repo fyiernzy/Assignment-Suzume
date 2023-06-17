@@ -2,17 +2,10 @@ package com.assignment.suzume.gui;
 
 import java.util.List;
 
-<<<<<<< HEAD
-import com.assignment.suzume.connecting.game.ConsoleGameStatus;
-import com.assignment.suzume.map.PixelMap;
-import com.assignment.suzume.map.utils.MapUtils;
-import com.assignment.suzume.map.utils.PathUtils;
-=======
 import com.assignment.suzume.game.ConsoleGameStatus;
 import com.assignment.suzume.map.PixelMap;
 import com.assignment.suzume.utils.MapUtils;
 import com.assignment.suzume.utils.PathUtils;
->>>>>>> ed1b6a03c152c25ac67b33f616396b078475ed5a
 
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
@@ -32,8 +25,8 @@ import javafx.scene.control.RadioMenuItem;
 import javafx.scene.control.ToggleGroup;
 
 public class MapGui extends Application {
-    private static final double MAP_WIDTH = Screen.getPrimary().getVisualBounds().getWidth()/4;
-    private static final double MAP_HEIGHT = Screen.getPrimary().getVisualBounds().getHeight()-16;
+    private static final double MAP_WIDTH = Screen.getPrimary().getVisualBounds().getWidth() / 4;
+    private static final double MAP_HEIGHT = Screen.getPrimary().getVisualBounds().getHeight() - 16;
 
     private ConsoleGameStatus status;
     private int[][] map;
@@ -155,11 +148,7 @@ public class MapGui extends Application {
         // Check if there are steps available for the NPC to move
         if (status.getCurrentStep() < totalSteps && status.isContinueJourney()) {
             // Update the NPC's position based on the next step
-<<<<<<< HEAD
-            status.updatePosition(chosenPath.get(status.currentStep++));
-=======
             status.updatePosition(chosenPath.get(status.getCurrentStep()));
->>>>>>> ed1b6a03c152c25ac67b33f616396b078475ed5a
 
             // Update the NPC's position variables
             npcRow = status.getCurrentRow();
@@ -172,15 +161,13 @@ public class MapGui extends Application {
 
     private void handleButtonPress(int pathIndex) {
         List<String> chosenPath = PathUtils.getShortestPath(pathIndex);
-<<<<<<< HEAD
-        status.setPath(chosenPath);
-        status.resetPosition(map); // Reset NPC's position to the starting point
-=======
 
-        status = new ConsoleGameStatus(MapUtils.transformMap(MapUtils.getCombinedMap().getPixelMap())); // Reset NPC's position to the starting point
->>>>>>> ed1b6a03c152c25ac67b33f616396b078475ed5a
+        status = new ConsoleGameStatus(MapUtils.transformMap(MapUtils.getCombinedMap().getPixelMap())); // Reset NPC's
+                                                                                                        // position to
+                                                                                                        // the starting
+                                                                                                        // point
 
-        if(animationTimer != null){
+        if (animationTimer != null) {
             animationTimer.stop();
         }
 
@@ -199,8 +186,4 @@ public class MapGui extends Application {
         animationTimer.start();
     }
 
-<<<<<<< HEAD
 }
-=======
-} 
->>>>>>> ed1b6a03c152c25ac67b33f616396b078475ed5a

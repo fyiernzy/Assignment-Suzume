@@ -107,25 +107,14 @@ public class ConsoleGameSetup {
             }
             int engineChoice = InputHandler.getIntInput();
 
-<<<<<<< HEAD:suzume/src/main/java/com/assignment/suzume/connecting/game/ConsoleGameSetup.java
-            switch (engineChoice) {
-                case 1:
-                    return new EasyEngine(mark);
-                case 2:
-                    return new MediumEngine(mark);
-                case 3:
-                    return new HardEngine(mark);
-                default:
-                    System.out.println("Invalid choice. Please try again.");
-=======
             if (boardChoice == 2) {
                 switch (engineChoice) {
                     case 1:
                         return new EasyEngine(mark);
                     case 2:
-                        return new MediumEngine(mark);
+                        return new reverseMediumEngine(mark);
                     case 3:
-                        return new HardEngine(mark);
+                        return new reverseHardEngine(mark);
                     default:
                         System.out.println("Invalid choice. Please try again.");
                 }
@@ -140,7 +129,6 @@ public class ConsoleGameSetup {
                     default:
                         System.out.println("Invalid choice. Please try again.");
                 }
->>>>>>> ed1b6a03c152c25ac67b33f616396b078475ed5a:suzume/src/main/java/com/assignment/suzume/game/ConsoleGameSetup.java
             }
         }
     }

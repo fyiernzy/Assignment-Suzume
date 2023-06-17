@@ -36,25 +36,9 @@ public abstract class GamingBoard extends Board {
         board[row][col] = mark;
     }
 
-    public void placeMark(int cellNumber, char mark) {
-        int row = (cellNumber - 1) / size;
-        int col = (cellNumber - 1) % size;
-
-        if (isValidMove(row, col)) {
-            board[row][col] = mark;
-        }
-    }
-
     public void removeMark(int row, int col) {
         board[row][col] = ' ';
     }
-
-    // public void removeMark(int cellNumber) {
-    // int row = (cellNumber - 1) / size;
-    // int col = (cellNumber - 1) % size;
-
-    // board[row][col] = ' ';
-    // }
 
     public boolean isValidMove(int row, int col) {
         return !isFull() && isCellWithinBoard(row, col) && isCellEmpty(row, col);

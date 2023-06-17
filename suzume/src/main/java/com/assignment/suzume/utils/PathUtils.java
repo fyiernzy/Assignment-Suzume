@@ -70,17 +70,9 @@ public class PathUtils {
         }
     }
 
-<<<<<<< HEAD:suzume/src/main/java/com/assignment/suzume/map/utils/PathUtils.java
-    // simyi editted
-=======
->>>>>>> ed1b6a03c152c25ac67b33f616396b078475ed5a:suzume/src/main/java/com/assignment/suzume/utils/PathUtils.java
     public static List<String> getShortestPath(int pathIndex) {
         BFSFinder finder = new BFSFinder(MapUtils.getCombinedMap());
         List<List<String>> allPaths = finder.findAllShortestPaths();
         return allPaths.get(pathIndex);
     }
-<<<<<<< HEAD:suzume/src/main/java/com/assignment/suzume/map/utils/PathUtils.java
-
-=======
->>>>>>> ed1b6a03c152c25ac67b33f616396b078475ed5a:suzume/src/main/java/com/assignment/suzume/utils/PathUtils.java
 }
