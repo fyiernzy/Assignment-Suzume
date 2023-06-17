@@ -83,6 +83,7 @@ public class GameFileInputHandler {
         while (true) {
             Optional<String> filename = getLoadFileName(parentFolderPath);
 
+<<<<<<< HEAD
             if (filename.isPresent()) {
                 Optional<Object> obj = performLoad(gameMode, parentFolderPath, filename.get());
                 return obj;
@@ -91,6 +92,17 @@ public class GameFileInputHandler {
             if (confirmCancellation(processName)) {
                 System.out.println(processName + " is cancelled.");
                 return Optional.empty();
+=======
+            if (filename != null) {
+                Optional<Object> obj = performSaveOrLoad(object, gameMode, isLoadProcess, parentFolderPath, filename);
+                if(obj.isPresent()) {
+                    return obj.get();
+                }
+            } else {
+                if (confirmCancellation(processName)) {
+                    System.out.println(processName + " is cancelled.\n");
+                }
+>>>>>>> 33aeeaf39d58d54fec39a2e6ad5034fe9a85633b
             }
         }
     }
@@ -149,7 +161,7 @@ public class GameFileInputHandler {
     private boolean computeIfFileExists(String parentFolder, int limit) {
         File[] files = manager.getFileList(parentFolder);
         if (files == null || files.length == 0) {
-            System.out.println("No files found.");
+            System.out.println("No files found.\n");
             return false;
         } else {
             for (int i = 0; i < Math.min(files.length, limit); i++) {
@@ -171,6 +183,7 @@ public class GameFileInputHandler {
                 : manager.getSaveReplayParentFolderPath();
     }
 
+<<<<<<< HEAD
     /**
      * Performs the load process for game data.
      *
@@ -189,6 +202,33 @@ public class GameFileInputHandler {
             Object obj = manager.loadGameReplay(parentFolderPath, filename);
             System.out.println("Game Replay loaded successfully.");
             return Optional.ofNullable(obj);
+=======
+    private String getFileName(String parentFolderPath, boolean isLoadProcess) {
+        return isLoadProcess ? getLoadFileName(parentFolderPath) : getSaveFileName(parentFolderPath);
+    }
+
+    private Optional<Object> performSaveOrLoad(Object object, Integer gameMode, boolean isLoadProcess, String parentFolderPath,
+            String filename) {
+        if (isLoadProcess) {
+            if (gameMode != null) {
+                Object obj = manager.loadGame(parentFolderPath, filename);
+                System.out.println("Game loaded successfully.\n");
+                return Optional.of(obj);
+            } else {
+                Object obj = manager.loadGameReplay(parentFolderPath, filename);
+                System.out.println("Game replay loaded successfully.\n");
+                return Optional.of(obj);
+            }
+        } else {
+            if (gameMode != null) {
+                manager.saveGame(parentFolderPath, filename, (BoardGameRunner) object);
+                System.out.println("Game saved successfully.\n");
+            } else {
+                manager.saveGameReplay(parentFolderPath, filename, (GamingBoard) object);
+                System.out.println("Game Replay saved successfully.\n");
+            }
+            return Optional.empty();
+>>>>>>> 33aeeaf39d58d54fec39a2e6ad5034fe9a85633b
         }
     }
 
@@ -251,7 +291,7 @@ public class GameFileInputHandler {
             }
 
             if (fileName.isBlank() || !manager.isFileNameValid(fileName)) {
-                System.out.println("Invalid filename.");
+                System.out.println("Invalid filename.\n");
                 continue;
             }
 
@@ -279,12 +319,12 @@ public class GameFileInputHandler {
             }
 
             if (fileName.isBlank() && !manager.isFileNameValid(fileName)) {
-                System.out.println("Invalid filename.");
+                System.out.println("Invalid filename.\n");
                 continue;
             }
 
             if (!manager.isFileExist(parentFolderPath, fileName)) {
-                System.out.println("File does not exist. Enter another file name. ");
+                System.out.println("File does not exist. Enter another file name.\n");
                 continue;
             }
 
