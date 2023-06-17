@@ -198,6 +198,120 @@ private void createFolderIfNotExists(String folderPath) {
 <br>
 <br>
 
+## **GameFileInputHandler Java Class**
+
+This Java class named GameFileInputHandler handles the saving and loading of game data for a Tic-Tac-Toe game. Here are some important methods of this Java class.
+
+<br>
+
+### **1. handleSaveGame()() method**
+
+```java
+public void handleSaveGame(BoardGameRunner runner, int gameMode) {
+        handleSaveProcess(runner, gameMode, "Save Game");
+    }
+```
+
+- Handles the saving of the game data.
+- It takes a **BoardGameRunner** instance representing the current game state and the game mode as parameters.
+
+<br>
+
+### **2. handleSaveReplay() method**
+
+```java
+    public void handleSaveReplay(GamingBoard board) {
+        handleSaveProcess(board, null, "Save Game Replay");
+    }
+```
+
+- Handles the saving of the game replay data.
+- It takes a GamingBoard instance representing the game board as a parameter.
+
+<br>
+
+### **3. handleLoadGame() method**
+
+```java
+    public Optional<BoardGameRunner> handleLoadGame(int gameMode) {
+        Optional<Object> obj = handleLoadProcess(gameMode, "Load Game");
+        return obj.isPresent() ? Optional.of((BoardGameRunner) obj.get()) : Optional.empty();
+    }
+```
+
+- Handles the loading of the game data.
+- It takes the game mode as a parameter and returns an **Optional<BoardGameRunner>** containing the loaded **BoardGameRunner** instance if successful, or an empty **Optional** otherwise.
+
+<br>
+
+### **4. handleLoadReplay() method**
+
+```java
+    public Optional<GamingBoard> handleLoadReplay() {
+        Optional<Object> obj = handleLoadProcess(null, "Load Game Replay");
+        return obj.isPresent() ? Optional.of((GamingBoard) obj.get()) : Optional.empty();
+    }
+```
+
+- Handles the loading of the game replay data.
+- It returns an **Optional<GamingBoard>** containing the loaded **GamingBoard** instance if successful, or an empty **Optional** otherwise.
+
+<br>
+
+### **5. computeIfFileExists() method**
+
+```java
+    private boolean computeIfFileExists(String parentFolder) {
+        return computeIfFileExists(parentFolder, 5);
+    }
+```
+
+- Checks if files exist in the specified parent folder and returns true if files exist, false otherwise.
+
+<br>
+
+### **6. performLoad() method**
+
+```java
+    private Optional<Object> performLoad(Integer gameMode, String parentFolderPath, String filename) {
+        if (gameMode != null) {
+            Object obj = manager.loadGame(parentFolderPath, filename);
+            System.out.println("Game loaded successfully.");
+            return Optional.ofNullable(obj);
+        } else {
+            Object obj = manager.loadGameReplay(parentFolderPath, filename);
+            System.out.println("Game Replay loaded successfully.");
+            return Optional.ofNullable(obj);
+        }
+    }
+```
+
+- Performs the load process for game data.
+- It takes the game mode, parent folder path, and filename as parameters and returns an **Optional<Object>** containing the loaded object if successful, or an empty **Optional** otherwise.
+
+<br>
+
+### **7. performSave() method**
+
+```java
+    private Optional<Object> performSave(Object object, Integer gameMode, String parentFolderPath, String filename) {
+        if (gameMode != null) {
+            manager.saveGame(parentFolderPath, filename, (BoardGameRunner) object);
+            System.out.println("Game saved successfully.");
+        } else {
+            manager.saveGameReplay(parentFolderPath, filename, (GamingBoard) object);
+            System.out.println("Game Replay saved successfully.");
+        }
+        return Optional.empty();
+    }
+```
+
+- Performs the save process for game data.
+- It takes the object to be saved, game mode, parent folder path, and filename as parameters and returns an **Optional<Object>** containing the saved object if successful, or an empty **Optional** otherwise.
+
+<br>
+<br>
+
 ## **GameFolderInitializer Java Class**
 
 This class is responsible for initializing and managing the game folder and user-specific folders in a game application. There is a total of 7 methods that are important in this Java class.
