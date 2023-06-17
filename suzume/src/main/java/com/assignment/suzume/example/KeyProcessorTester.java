@@ -1,5 +1,6 @@
 package com.assignment.suzume.example;
 
+import com.assignment.suzume.utils.KeyProcessor;
 public class KeyProcessorTester {
     public static void main(String[] args) {
         KeyProcessor processor = new KeyProcessor();

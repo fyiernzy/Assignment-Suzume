@@ -48,4 +48,19 @@ public abstract class Engine extends Player {
     protected int[] makeBlockingMove(GamingBoard board) {
         return makeBestMove(board, this.getOpponentMark());
     }
+
+    protected char[][] copyBoard(char[][] original, int size) {
+        char[][] copy = new char[size][size];
+    
+        for (int row = 0; row < size; row++) {
+            for (int col = 0; col < size; col++) {
+                copy[row][col] = original[row][col];
+            }
+        }
+    
+        return copy;
+    }
+    
+   
+    
 }

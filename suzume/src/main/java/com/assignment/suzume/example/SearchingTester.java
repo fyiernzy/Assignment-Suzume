@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.assignment.suzume.map.PixelMap;
 import com.assignment.suzume.map.searching.*;
-import com.assignment.suzume.map.utils.MapUtils;
+import com.assignment.suzume.utils.MapUtils;
 
 public class SearchingTester {
     public static void main(String[] args) {

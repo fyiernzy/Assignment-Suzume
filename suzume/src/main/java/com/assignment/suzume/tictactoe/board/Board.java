@@ -1,8 +1,9 @@
 package com.assignment.suzume.tictactoe.board;
 
+import java.io.Serializable;
 import java.util.*;
 
-public abstract class Board {
+public abstract class Board implements Serializable {
     protected int size;
     protected char[][] board;
 
@@ -23,20 +24,6 @@ public abstract class Board {
         }
     }
 
-    // Print the current board (may be replaced by GUI implementation later)
-    public void printBoard() {
-        System.out.println("----".repeat(size) + "-");
-
-        for (int i = 0; i < size; i++) {
-            System.out.print("| ");
-            for (int j = 0; j < size; j++) {
-                System.out.print(board[i][j] + " | ");
-            }
-            System.out.println();
-            System.out.println("----".repeat(size) + "-");
-        }
-    }
-
     public int getSize() {
         return this.size;
     }
@@ -47,9 +34,9 @@ public abstract class Board {
 
     public List<int[]> getEmptyCells() {
         List<int[]> emptyCells = new ArrayList<>();
-        for (int i = 0; i < size; i++) 
+        for (int i = 0; i < size; i++)
             for (int j = 0; j < size; j++)
-                if(board[i][j] == ' ')
+                if (board[i][j] == ' ')
                     emptyCells.add(new int[] { i, j });
         return emptyCells;
     }
@@ -76,7 +63,10 @@ public abstract class Board {
         return (row >= 0 && row < size) && (col >= 0 && col < size);
     }
 
-    char getCellAt(int row, int col) {
+    public char getCellAt(int row, int col) {
         return board[row][col];
     }
+
+    
+
 }

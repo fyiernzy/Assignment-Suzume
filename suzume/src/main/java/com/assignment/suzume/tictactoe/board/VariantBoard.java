@@ -1,10 +1,8 @@
 package com.assignment.suzume.tictactoe.board;
 
-import com.assignment.suzume.tictactoe.board.rules.Rule;
-
 public class VariantBoard extends GamingBoard {
     public VariantBoard() {
-        super(3, Rule.VARIANT);
+        super(3);
     }
 
     public boolean checkForWin(int row, int col, char mark) {

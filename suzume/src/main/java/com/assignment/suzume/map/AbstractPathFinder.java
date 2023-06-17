@@ -1,6 +1,6 @@
 package com.assignment.suzume.map;
 
-import static com.assignment.suzume.map.MapConst.*;
+import static com.assignment.suzume.constants.MapConst.*;
 
 /**
  * The {@code AbstractPathFinder} class is an abstract base class for

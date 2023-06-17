@@ -45,9 +45,9 @@ public class MapProcessor {
         }
 
         List<PixelMap> list = new ArrayList<>();
-        for(int row = 0; row < numRows; row++) {
-            for(int col = 0; col < numCols; col++) {
-                list.add(map.get(sequences[row][col]));
+        for (int[] sequence : sequences) {
+            for (int col = 0; col < numCols; col++) {
+                list.add(map.get(sequence[col]));
             }
         }
 
