@@ -23,6 +23,7 @@ public abstract class Board {
         }
     }
 
+<<<<<<< HEAD
     // public void initializeBoard() {
     // int cellNumber = 1;
     // for (int i = 0; i < size; i++) {
@@ -65,6 +66,8 @@ public abstract class Board {
         }
     }
 
+=======
+>>>>>>> ed1b6a03c152c25ac67b33f616396b078475ed5a
     public int getSize() {
         return this.size;
     }

@@ -2,7 +2,7 @@ package com.assignment.suzume.example;
 
 import com.assignment.suzume.map.PixelMap;
 import com.assignment.suzume.map.shortest.*;
-import com.assignment.suzume.map.utils.MapUtils;
+import com.assignment.suzume.utils.MapUtils;
 import com.assignment.suzume.example.monitor.PerformanceEvaluator;
 
 public class MonitorTester {

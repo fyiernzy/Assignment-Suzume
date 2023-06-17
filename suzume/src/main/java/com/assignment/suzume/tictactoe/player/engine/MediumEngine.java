@@ -1,8 +1,5 @@
 package com.assignment.suzume.tictactoe.player.engine;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.assignment.suzume.tictactoe.board.GamingBoard;
 
 public class MediumEngine extends Engine {
