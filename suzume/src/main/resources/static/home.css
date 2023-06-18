@@ -1,0 +1,24 @@
+#story{
+    font-family: Georgia;
+    font-weight: 20;
+    color: #fff;
+    display: inline-block;
+    padding-top: 1%;
+    padding-left: 7%;
+    padding-right: 7%;
+    word-spacing: 3px;
+    line-height: 25px;
+
+}
+
+#nav-story{
+    color: #fff;
+}
+
+.videocontainer{
+    top: 63%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    position: absolute;
+    
+}

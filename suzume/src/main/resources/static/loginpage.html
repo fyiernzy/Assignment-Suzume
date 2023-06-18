@@ -6,6 +6,7 @@
     <title>Suzume's Adventure</title>
     <link rel="icon" type="image/x-icon" href="/images/daijin.png" />
     <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="login.css" />
   </head>
   <body>
     <section class="header">
@@ -14,7 +15,7 @@
         <div class="nav-links">
           <ul>
             <li><a href="homepage.html">HOME</a></li>
-            <li><a href="gamepage.html">PLAY NOW</a></li>
+            <li><a href="gamepage1.html">PLAY NOW</a></li>
             <li><a href="loginpage.html">LOG IN</a></li>
           </ul>
         </div>
@@ -24,7 +25,11 @@
     <section class="box">
       <div class="content"></div>
       <div class="text">Login</div>
-      <form action="#">
+      <form
+        action="/gamer/login"
+        method="POST"
+        onsubmit="return checkUsername(event)"
+      >
         <div class="field">
           <input type="text" placeholder="Username" id="username" required />
         </div>
@@ -32,15 +37,59 @@
           <input type="password" placeholder="Password" id="password" />
         </div>
       </form>
-      <button id="loginbutton">Log in</button>
+      <button class="lbutton" id="loginbutton">Log in</button>
       <div class="or">or</div>
 
-      <button id="signupbutton">Sign Up</button>
+      <button class="lbutton" id="signupbutton">Sign Up</button>
 
       <script type="text/javascript">
         document.getElementById("signupbutton").onclick = function () {
           location.href = "signuppage.html";
         };
+
+        document.getElementById("loginbutton").onclick = function () {
+          checkUsername(event);
+        };
+
+        function checkUsername(event) {
+          var username = document.getElementById("username").value;
+          var password = document.getElementById("password").value;
+
+          // Send an AJAX request to the server to check if the username exists
+          var xhr = new XMLHttpRequest();
+          xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+              var response = JSON.parse(xhr.responseText);
+              if (response.exists) {
+                checkPassword(username, password);
+              } else {
+                alert("Username does not exist. Please sign up before login.");
+                window.location.href = "signuppage.html";
+                // event.preventDefault();
+              }
+            }
+          };
+          xhr.open("GET", "/gamer/checkUsername?username=" + username, true);
+          xhr.send();
+        }
+
+        function checkPassword(username, password) {
+          var xhr = new XMLHttpRequest();
+          xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+              var response = JSON.parse(xhr.responseText);
+              if (response.correct) {
+                alert("Successfully logged in!");
+                window.location.href = "homepage.html";
+              } else {
+                alert("Incorrect password.");
+              }
+            }
+          };
+          xhr.open("POST", "/gamer/checkPassword", true);
+          xhr.setRequestHeader("Content-Type", "application/json");
+          xhr.send(JSON.stringify({ username: username, password: password }));
+        }
       </script>
     </section>
 

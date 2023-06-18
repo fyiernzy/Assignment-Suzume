@@ -1,72 +1,81 @@
 package com.assignment.suzume.tictactoe.board;
 
-import com.assignment.suzume.tictactoe.board.rules.Rule;
+import java.util.Stack;
+import com.assignment.suzume.constants.FontStyle;
+import org.apache.commons.lang3.StringUtils;
+
 public abstract class GamingBoard extends Board {
-    protected char currentPlayerMark;
-    private Rule rule;
+    private Stack<int[]> moveHistory;
 
-    GamingBoard(int size, Rule rule) {
+    public GamingBoard(int size) {
         super(size);
-        this.currentPlayerMark = 'X';
-        this.rule = rule;
+        this.moveHistory = new Stack<>();
     }
 
-    public abstract boolean checkForWin(int row, int col);
+    public abstract boolean checkForWin(int row, int col, char mark);
 
-    // Changes player mark each turn.
-    public void changePlayer() {
-        currentPlayerMark = currentPlayerMark == 'X' ? 'O' : 'X';
-    }   
+    public Stack<int[]> getMoveHistory() {
+        return moveHistory;
+    }
 
-    // Loop through all cells of the board and if one is found to be empty (contains
-    // char '-') then return false.
-    // Otherwise the board is full.
-    public boolean isBoardFull() {
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
-                if (board[i][j] == ' ') {
-                    return false;
-                }
+    public void recordMove(int[] move) {
+        moveHistory.push(move);
+    }
+
+    public boolean takeBackMove() {
+        if (moveHistory.size() >= 2) {
+            for (int i = 0; i < 2; i++) {
+                int[] move = moveHistory.pop();
+                removeMark(move[0], move[1]);
             }
-        }
-        return true;
-    }
-
-    // Places a mark at the cell specified by row and col with the mark of the
-    // current player.
-    public boolean placeMark(int row, int col) {
-        if (isValidMove(row, col)) {
-            board[row][col] = currentPlayerMark;
-            emptyCells.removeIf(cell -> cell[0] == row && cell[1] == col); 
             return true;
         }
-
         return false;
     }
 
-    public boolean isValidMove(int row, int col) {
-        return !isBoardFull()
-                && (row >= 0 && row < size) && (col >= 0 && col < size)
-                && isEmpty(row, col);
-    }
-
-    public char getCurrentPlayerMark() {
-        return currentPlayerMark;
-    }
-
-    public char getNextPlayerMark() {
-        return currentPlayerMark == 'X' ? 'O' : 'X';
+    public void placeMark(int row, int col, char mark) {
+        board[row][col] = mark;
     }
 
     public void removeMark(int row, int col) {
         board[row][col] = ' ';
     }
 
-    public String getRule() {
-        return rule.getContent();
+    public boolean isValidMove(int row, int col) {
+        return !isFull() && isCellWithinBoard(row, col) && isCellEmpty(row, col);
     }
 
-    protected void setRule(Rule rule) {
-        this.rule = rule;
+
+    public void printBoard() {
+        System.out.println("-".repeat(6 * size + 1));
+
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
+                int cellNumber = i * size + j + 1;
+                char mark = board[i][j];
+                String val;
+                if (mark == ' ') {
+                    val = String.valueOf(cellNumber);
+                } else {
+                    String markString = String.valueOf(mark);
+                    int markLength = markString.length();
+                    int padding = (3 - markLength) / 2;
+                    String formattedMark;
+                    if (mark == 'O') {
+                        formattedMark = FontStyle.RED_BOLD + mark + FontStyle.YELLOW_BOLD_BRIGHT;
+                    } else {
+                        formattedMark = FontStyle.BLUE_BOLD + mark + FontStyle.YELLOW_BOLD_BRIGHT;
+                    }
+                    val = " ".repeat(padding) + formattedMark + " ".repeat(3 - padding - markLength);
+                }
+                System.out.printf("| %s ", StringUtils.center(val, 3));
+            }
+            System.out.println("|");
+            System.out.println("-".repeat(6 * size + 1));
+        }
     }
+
+
+
+
 }

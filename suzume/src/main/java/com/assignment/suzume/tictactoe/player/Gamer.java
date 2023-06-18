@@ -1,73 +1,47 @@
 package com.assignment.suzume.tictactoe.player;
 
-import java.util.*;
+import com.assignment.suzume.utils.InputHandler;
 import com.assignment.suzume.tictactoe.board.GamingBoard;
-import com.assignment.suzume.tictactoe.board.VariantBoard;
 
 public class Gamer extends Player {
-     // private int id;
-     private String name;
-     private int win, lose, draw;
-     private int score;
 
-     public Gamer(String name) {
-          this.name = name;
-     }
-
-     public static void main(String[] args) {
-          Gamer gamer = new Gamer("Player 1");
-          gamer.makeMove(new VariantBoard());
+     public Gamer(String name, char mark) {
+          super(name, mark);
      }
 
      @Override
      public int[] makeMove(GamingBoard board) {
-          Scanner scanner = new Scanner(System.in);
           int[] move = new int[2];
+          String message = "Enter your move (cell number OR row column): ";
+          int row = -1, col = -1;
           while (true) {
-               System.out.println("Enter your move: ");
-               move[0] = scanner.nextInt();
-               move[1] = scanner.nextInt();
-               System.out.println("Your move is: " + move[0] + " " + move[1]);
-               if (!board.isValidMove(move[0], move[1])) {
-                    System.out.print("Invalid move. ");
+               move = InputHandler.readOneOrTwoIntegers(message);
+
+               if(move[1] == -1) { // If the user entered the cell number
+                    row = (move[0] - 1) / board.getSize();
+                    col = (move[0] - 1) % board.getSize();
+               } else {
+                    row = move[0];
+                    col = move[1];
+               }
+               System.out.println("Your move is: " + row + " " + col);
+
+               if (!board.isValidMove(row, col)) {
+                    System.out.println("Invalid move. Please try again.");
                     continue;
                }
                break;
           }
-          scanner.close();
-          board.placeMark(move[0], move[1]);
-          return move;
-     }
-
-     public int getWin() {
-          return this.win;
-     }
-
-     public int getLose() {
-          return this.lose;
-     }
-
-     public int getDraw() {
-          return this.draw;
-     }
-
-     public int getWinPercentage() {
-          return (win / (win + lose + draw)) * 100;
-     }
-
-     public int getLosePercentage() {
-          return (lose / (win + lose + draw)) * 100;
-     }
-
-     public int getDrawPercentage() {
-          return (draw / (win + lose + draw)) * 100;
-     }
-
-     public int getScore() {
-          return this.score;
+          board.placeMark(row, col, this.mark);
+          return new int[] {row, col};
      }
 
      public String getName() {
           return name;
+     }
+
+     @Override
+     public String toString() {
+          return getName();
      }
 }

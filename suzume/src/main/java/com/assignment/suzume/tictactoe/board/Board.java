@@ -1,17 +1,16 @@
 package com.assignment.suzume.tictactoe.board;
 
+import java.io.Serializable;
 import java.util.*;
 
-public abstract class Board {
+public abstract class Board implements Serializable {
     protected int size;
     protected char[][] board;
-    protected List<int[]> emptyCells;
 
     public Board(int size) {
         this.size = size;
         board = new char[size][size];
         initializeBoard();
-        initializeEmptyCells();
     }
 
     // Set/Reset the board back to all empty values.
@@ -25,20 +24,6 @@ public abstract class Board {
         }
     }
 
-    // Print the current board (may be replaced by GUI implementation later)
-    public void printBoard() {
-        System.out.println("----".repeat(size) + "-");
-
-        for (int i = 0; i < size; i++) {
-            System.out.print("| ");
-            for (int j = 0; j < size; j++) {
-                System.out.print(board[i][j] + " | ");
-            }
-            System.out.println();
-            System.out.println("----".repeat(size) + "-");
-        }
-    }
-
     public int getSize() {
         return this.size;
     }
@@ -47,18 +32,41 @@ public abstract class Board {
         return this.board;
     }
 
-    private void initializeEmptyCells() {
-        this.emptyCells = new ArrayList<>();
-        for (int i = 0; i < size; i++) 
-            for (int j = 0; j < size; j++) 
-                emptyCells.add(new int[] { i, j });
-    }
-
     public List<int[]> getEmptyCells() {
+        List<int[]> emptyCells = new ArrayList<>();
+        for (int i = 0; i < size; i++)
+            for (int j = 0; j < size; j++)
+                if (board[i][j] == ' ')
+                    emptyCells.add(new int[] { i, j });
         return emptyCells;
     }
 
-    public boolean isEmpty(int row, int col) {
+    public boolean isCellEmpty(int row, int col) {
         return board[row][col] == ' ';
     }
+
+    // Loop through all cells of the board and if one is found to be empty (contains
+    // char '-') then return false.
+    // Otherwise the board is full.
+    public boolean isFull() {
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                if (board[i][j] == ' ') {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    boolean isCellWithinBoard(int row, int col) {
+        return (row >= 0 && row < size) && (col >= 0 && col < size);
+    }
+
+    public char getCellAt(int row, int col) {
+        return board[row][col];
+    }
+
+    
+
 }

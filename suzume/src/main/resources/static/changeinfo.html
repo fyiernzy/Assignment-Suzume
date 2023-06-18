@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Suzume's Adventure</title>
+    <link rel="icon" type="image/x-icon" href="/images/daijin.png" />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="login.css" />
+  </head>
+  <body>
+    <section class="header">
+      <nav>
+        <a href="homepage.html"><img src="images/logofinal.png" /></a>
+        <div class="nav-links">
+          <ul>
+            <li><a href="homepage.html">HOME</a></li>
+            <li><a href="gamepage1.html">PLAY NOW</a></li>
+            <li><a href="loginpage.html">LOG IN</a></li>
+          </ul>
+        </div>
+      </nav>
+    </section>
+
+    <section class="box">
+      <div class="content"></div>
+      <div class="text">Change Password</div>
+      <form
+        action="/gamer/changepassword"
+        method="POST"
+        onsubmit="return validatePassword(event)"
+      >
+        <div class="field">
+          <input
+            type="text"
+            placeholder="Username"
+            id="username"
+            name="username"
+            maxlength="20"
+            required
+          />
+        </div>
+        <div class="field">
+          <input
+            type="password"
+            placeholder="Old Password"
+            name="oldpassword"
+            id="oldpassword"
+            required
+          />
+        </div>
+        <div class="field">
+          <input
+            type="password"
+            placeholder="New Password"
+            name="newpassword"
+            id="newpassword"
+            required
+          />
+        </div>
+        <div class="field">
+          <input
+            type="password"
+            placeholder="Confirm New Password"
+            name="confirmnewpassword"
+            id="confirmnewpassword"
+            required
+          />
+        </div>
+        <button class="lbutton" type="submit">Change Password</button>
+      </form>
+
+      <div class="or">or</div>
+
+      <button class="lbutton" id="loginbutton">Log in</button>
+
+      <script type="text/javascript">
+        document.getElementById("loginbutton").onclick = function () {
+          location.href = "loginpage.html";
+        };
+      </script>
+    </section>
+
+    <footer class="footer">
+      <div class="footerContainer">
+        <p class="copyright">
+          Copyright &copy2023. Designed by DS 之 玲芽の旅.
+        </p>
+      </div>
+    </footer>
+
+    <script type="text/javascript">
+      function validatePassword(event) {
+        var username = document.getElementById("username").value;
+        var oldPassword = document.getElementById("oldpassword").value;
+        var newPassword = document.getElementById("newpassword").value;
+        var confirmNewPassword =
+          document.getElementById("confirmnewpassword").value;
+
+        // Perform additional validation, such as checking password strength, if required
+
+        if (newPassword !== confirmNewPassword) {
+          alert("New passwords do not match");
+          event.preventDefault();
+        } else {
+          // Send an AJAX request to the server to validate the old password and update the database
+          var xhr = new XMLHttpRequest();
+          xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4) {
+              if (xhr.status === 200) {
+                alert("Password changed successfully");
+                // Redirect to a success page or perform any additional actions
+              } else {
+                alert("Failed to change password. Please try again.");
+                // Handle the failure case, display an error message, etc.
+              }
+            }
+          };
+          xhr.open("POST", "/gamer/changepassword", true);
+          xhr.setRequestHeader(
+            "Content-Type",
+            "application/x-www-form-urlencoded"
+          );
+          xhr.send(
+            "username=" +
+              encodeURIComponent(username) +
+              "&oldpassword=" +
+              encodeURIComponent(oldPassword) +
+              "&newpassword=" +
+              encodeURIComponent(newPassword)
+          );
+        }
+      }
+    </script>
+  </body>
+</html>

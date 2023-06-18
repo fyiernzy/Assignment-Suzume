@@ -3,18 +3,20 @@ package com.assignment.suzume.tictactoe.player.engine;
 import com.assignment.suzume.tictactoe.board.GamingBoard;
 
 public class MediumEngine extends Engine {
+    public MediumEngine(char mark) {
+        super(mark);
+    }
 
     @Override
     public int[] makeMove(GamingBoard board) {
-        // Check if there is a winning move for the AI player
         int[] move;
-        
-        if((move = makeBestMove(board, board.getCurrentPlayerMark())) != null || 
-            (move = makeBestMove(board, board.getNextPlayerMark())) != null) {
+        if ((move = makeWinningMove(board)) != null)
             return move;
-        }
 
-        // If no winning move found, select a random empty cell
+        if ((move = makeBlockingMove(board)) != null)
+            return move;
+
         return makeRandomMove(board);
     }
+
 }
