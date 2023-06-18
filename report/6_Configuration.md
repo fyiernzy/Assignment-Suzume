@@ -1,4 +1,4 @@
-# **Configuration**
+# **6. Configuration**
 
 This package contains 4 items, which include a Java class file, a properties file, and 2 txt files. The Java class is named Configuration, the properties file is named config.properties, and the txt files are named banner.txt and welcome_message respectively;
 

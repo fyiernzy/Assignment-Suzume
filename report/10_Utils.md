@@ -1,4 +1,4 @@
-# Utils
+# **10. Utils**
 
 Utils, short for "Utilities," is a package named `com.assignment.suzume.utils` that encompasses various helpful classes with methods designed to simplify tasks in our project.
 
@@ -10,7 +10,7 @@ The `InputHandler` class effectively manages the following scenarios:
 
 1. **Managing non-numeric inputs**
 
-    The class includes a method called `isNumeric`, which determines whether a given input is numeric. By using the `Integer.parseInt()` method and catching a `NumberFormatException`, it can identify non-numeric inputs and return `false`. This method proves useful in subsequent conditional handling.
+   The class includes a method called `isNumeric`, which determines whether a given input is numeric. By using the `Integer.parseInt()` method and catching a `NumberFormatException`, it can identify non-numeric inputs and return `false`. This method proves useful in subsequent conditional handling.
 
    ```Java
    public static boolean isNumeric(String val) {
@@ -25,11 +25,11 @@ The `InputHandler` class effectively manages the following scenarios:
 
 2. **Handling extra white spaces**
 
-    The `InputHandler` employs the powerful combination of the `.trim()` method available to `String` objects and regular expressions (Regex) to handle white spaces. By utilizing `.trim()` on the input, leading and trailing white spaces are removed. Then, the input is split using the regular expression pattern `"\\s+"`, which matches any number of consecutive white spaces. This ensures that regardless of the amount of white space entered, the input is correctly split.
+   The `InputHandler` employs the powerful combination of the `.trim()` method available to `String` objects and regular expressions (Regex) to handle white spaces. By utilizing `.trim()` on the input, leading and trailing white spaces are removed. Then, the input is split using the regular expression pattern `"\\s+"`, which matches any number of consecutive white spaces. This ensures that regardless of the amount of white space entered, the input is correctly split.
 
-    ```java
-    String[] splitInput = input.trim().split("\\s+");
-    ```
+   ```java
+   String[] splitInput = input.trim().split("\\s+");
+   ```
 
 Here are some examples:
 
@@ -43,8 +43,8 @@ Enter your input: 2                 3
 You have entered: 2 3
 
 # Excessive white spaces at the beginning and end of the inputs
-Enter your input:            2 3        
-You have entered: 2 3 
+Enter your input:            2 3
+You have entered: 2 3
 ```
 
 By employing these techniques, the `InputHandler` class ensures that user input is appropriately processed, regardless of accidental additional white spaces or non-numeric characters. This enhances the reliability and usability of the input functionality within our project.
@@ -132,7 +132,7 @@ Mod value: 0
 
 As we can observe, only three 1s are generated from this algorithm. Since the blocks are processed from the back, only the last three blocks are incremented by 1 in the encryption process. Therefore, to reverse the process, we simply need to subtract 1 from those three blocks using
 
- the same concept.
+the same concept.
 
 ```java
 private int process(int val, int secretKey, boolean isEncryption) {
@@ -143,7 +143,7 @@ private int process(int val, int secretKey, boolean isEncryption) {
         int flag = secretKey % 2;
         int blockValue = Integer.parseInt(block, 2) + ((isEncryption) ? 1 : -1) * flag;
         processedBlocks.push(pad(blockValue));
-        secretKey >>= 1; 
+        secretKey >>= 1;
     }
     // Omitted code ...
 }
@@ -497,7 +497,7 @@ ConsolePrinter.printDecorator();
 Output:
 
 ```bash
->>> 
+>>>
 ```
 
 ### 2. `printRule(Rule rule)`

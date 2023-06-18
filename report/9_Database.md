@@ -1,4 +1,4 @@
-# Database
+# **9. Database**
 
 The Database package contains two classes: `DatabaseConnector.java` and `DatabaseManager.java`. These classes provide functionality for connecting to the database, managing the database connection, and performing database operations.
 
@@ -10,124 +10,129 @@ The package offers the following key functions:
 
 1. **Database Connection**: The `DatabaseConnector` class establishes a connection to the database, allowing other classes to interact with it. It utilizes the JDBC (Java Database Connectivity) API to connect to an SQLite database.
 
-
 2. **Database Creation**: If the database file does not exist, the `DatabaseConnector` class automatically creates the necessary database table (`users`) during the initialization process. The table structure includes columns for user identification (`id`), username (`name`), password (`password`), game statistics (`win`, `lose`, `draw`, `score`), and more.
-    ```java
-    private static boolean isDatabaseExists() {
-        return new File(databaseFilePath).exists();
-    }
 
-    private static void createDatabase() {
-        try {
-            Class.forName("org.sqlite.JDBC");
+   ```java
+   private static boolean isDatabaseExists() {
+       return new File(databaseFilePath).exists();
+   }
 
-            try (Connection connection = DriverManager.getConnection(jdbcURL);
-            Statement statement = connection.createStatement()) {
+   private static void createDatabase() {
+       try {
+           Class.forName("org.sqlite.JDBC");
 
-                // Create the table
-                final String createTableQuery = "CREATE TABLE users (" +
-                        "id INTEGER PRIMARY KEY," +
-                        "name TEXT UNIQUE," +
-                        "password TEXT," +
-                        "win INTEGER," +
-                        "lose INTEGER," +
-                        "draw INTEGER," +
-                        "score INTEGER" +
-                        ")";
-                statement.executeUpdate(createTableQuery);
-            }
-        } catch (ClassNotFoundException | SQLException e) {
-            e.printStackTrace();
-        }
-    }
-    ```
+           try (Connection connection = DriverManager.getConnection(jdbcURL);
+           Statement statement = connection.createStatement()) {
+
+               // Create the table
+               final String createTableQuery = "CREATE TABLE users (" +
+                       "id INTEGER PRIMARY KEY," +
+                       "name TEXT UNIQUE," +
+                       "password TEXT," +
+                       "win INTEGER," +
+                       "lose INTEGER," +
+                       "draw INTEGER," +
+                       "score INTEGER" +
+                       ")";
+               statement.executeUpdate(createTableQuery);
+           }
+       } catch (ClassNotFoundException | SQLException e) {
+           e.printStackTrace();
+       }
+   }
+   ```
 
 3. **User Management**: The `DatabaseManager` class handles various user-related operations, such as checking if a user exists, validating passwords, updating game statistics, creating new users, updating passwords, removing users, and loading user data from the database.
 
-
 4. **Data Visualization**: The `DatabaseManager` class includes a `showDatabase()` method that retrieves all user data from the database and presents it in a formatted table. This feature provides a convenient way to visualize and analyze user statistics, which will also be functioning as the leaderboard of our game system.
-    ```java
-    public void showDatabase() {
-        try (Statement statement = connection.createStatement()) {
-            String sql = "SELECT name, win, lose, draw, score FROM users";
-            ResultSet rs = statement.executeQuery(sql);
 
-            // Print the table headers
-            ResultSetMetaData rsmd = rs.getMetaData();
-            int numColumns = rsmd.getColumnCount();
-            String[] headers = new String[numColumns];
-            for (int i = 1; i <= numColumns; i++) {
-                headers[i - 1] = rsmd.getColumnName(i);
-            }
+   ```java
+   public void showDatabase() {
+       try (Statement statement = connection.createStatement()) {
+           String sql = "SELECT name, win, lose, draw, score FROM users";
+           ResultSet rs = statement.executeQuery(sql);
 
-            // Create the table object
-            PrettyTable table = PrettyTable.fieldNames(headers);
+           // Print the table headers
+           ResultSetMetaData rsmd = rs.getMetaData();
+           int numColumns = rsmd.getColumnCount();
+           String[] headers = new String[numColumns];
+           for (int i = 1; i <= numColumns; i++) {
+               headers[i - 1] = rsmd.getColumnName(i);
+           }
 
-            // Add rows to the table
-            while (rs.next()) {
-                String[] row = new String[numColumns];
-                for (int i = 1; i <= numColumns; i++) {
-                    row[i - 1] = rs.getString(i);
-                }
-                table.addRow((Object[]) row);
-            }
+           // Create the table object
+           PrettyTable table = PrettyTable.fieldNames(headers);
 
-            // Print the table
-            table.sortTable("score", true);
-            System.out.println(table.toString());
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-    ```
+           // Add rows to the table
+           while (rs.next()) {
+               String[] row = new String[numColumns];
+               for (int i = 1; i <= numColumns; i++) {
+                   row[i - 1] = rs.getString(i);
+               }
+               table.addRow((Object[]) row);
+           }
+
+           // Print the table
+           table.sortTable("score", true);
+           System.out.println(table.toString());
+       } catch (SQLException e) {
+           e.printStackTrace();
+       }
+   }
+   ```
 
 The `com.assignment.suzume.database` package serves as the backbone for handling user data and interactions with a database in the application. It facilitates the storage and retrieval of user information, such as usernames, passwords, game statistics (wins, losses, draws, scores), and more.
 
 ## Workflow
+
 The workflow for the Database package involves the following steps:
 
 1. The application initializes the `DatabaseManager` class, which ensures a single instance of the class using the Singleton design pattern. This instance manages the database connection and user-related operations.
-    ```java
-        private DatabaseManager() {
-            this.connection = DatabaseConnector.getConnection();
-        }
 
-        public static DatabaseManager getInstance() {
-            if (instance == null) {
-                instance = new DatabaseManager();
-            }
-            return instance;
-        }
-    ```
+   ```java
+       private DatabaseManager() {
+           this.connection = DatabaseConnector.getConnection();
+       }
+
+       public static DatabaseManager getInstance() {
+           if (instance == null) {
+               instance = new DatabaseManager();
+           }
+           return instance;
+       }
+   ```
 
 2. When a user registers or logs in, the `DatabaseManager` class is used to interact with the database. It checks if the user exists, validates passwords, updates game statistics, creates new users, updates passwords, removes users, or loads user data. Below shows one of the methods in the `DatabaseManager` class which checks if the user exists.
-    ```java
-        public boolean checkIfUserExists(String username) {
-            try (PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM users WHERE name = ?")) {
-                preparedStatement.setString(1, username);
 
-                try (ResultSet resultSet = preparedStatement.executeQuery()) {
-                    return resultSet.next();
-                }
-            } catch (SQLException e) {
-                System.out.println("Failed to check user. Error: " + e.getMessage());
-                return false;
-            }
-        }
-    ```
+   ```java
+       public boolean checkIfUserExists(String username) {
+           try (PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM users WHERE name = ?")) {
+               preparedStatement.setString(1, username);
+
+               try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                   return resultSet.next();
+               }
+           } catch (SQLException e) {
+               System.out.println("Failed to check user. Error: " + e.getMessage());
+               return false;
+           }
+       }
+   ```
 
 3. The `DatabaseManager` class uses prepared statements and SQL queries to interact with the database. Prepared statements provide security against SQL injection attacks and enable parameterized queries.
-    ```sql
-    SELECT * FROM users WHERE name = ?
-    ```
-    The SQL statement retrieves all columns from the `users` table where the `name` column matches a specified value (parameterized query).
+
+   ```sql
+   SELECT * FROM users WHERE name = ?
+   ```
+
+   The SQL statement retrieves all columns from the `users` table where the `name` column matches a specified value (parameterized query).
 
 4. The `showDatabase()` method in the `DatabaseManager` class retrieves user data from the database, constructs a formatted table using the `PrettyTable` library, and displays the table to visualize the user statistics.
-    <p>
-        <img src="showDatabase_output.png" alt="Alt Text" style="width:320px;" />
-        <br />
-        <em>Output of `showDatabase()` method</em>
-    </p>
+<p>
+    <img src="showDatabase_output.png" alt="Alt Text" style="width:320px;" />
+    <br />
+    <em>Output of `showDatabase()` method</em>
+</p>
 
 ## DatabaseConnector.java
 

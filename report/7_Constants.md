@@ -1,4 +1,4 @@
-# **Constants**
+# **7. Constants**
 
 This file package contains 2 items, one of it is a normal Java class, and another one of it is an enum Java class. Both of these files are used to store constants that are repeatedly accessed
 

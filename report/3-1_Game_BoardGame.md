@@ -1,4 +1,4 @@
-# Board Game: A Smooth and Exciting Journey
+# **3.1 Board Game: A Smooth and Exciting Journey**
 
 The `BoardGameRunner` class takes on the crucial role of orchestrating the board game, bringing together various necessary components for a delightful gaming experience. To accomplish this, several classes are imported, including
 
@@ -66,7 +66,7 @@ The `Rule` class is responsible for reading the rules from the `.txt` file. This
 
 Huh, what is enum?
 
-> *In Java, an enum (short for enumeration) is a special data type used to define a set of named constant values. It allows you to create a group of related constants that can be treated as a data type on their own. Enums provide a convenient way to represent a fixed set of values that are meaningful and limited in scope.*
+> _In Java, an enum (short for enumeration) is a special data type used to define a set of named constant values. It allows you to create a group of related constants that can be treated as a data type on their own. Enums provide a convenient way to represent a fixed set of values that are meaningful and limited in scope._
 
 The functions of `GameAnalyzer` and `UserActionHandler` will be introduced in the **Auxiliary Tools** section. Now, let's focus on the core function of the `BoardGameRunner` class: `.play()`. The `.play()` function can be divided into three parts.
 
@@ -119,7 +119,7 @@ while (!board.isFull()) {
     if (hasWon) {
         // Handling the situation when someone has won
     }
-    
+
     isFirstPlayerTurn = !isFirstPlayerTurn;
 }
 ```

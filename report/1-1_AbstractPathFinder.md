@@ -1,4 +1,4 @@
-# AbstractPathFinder
+# **1.1 AbstractPathFinder**
 
 The `AbstractPathFinder` class is an abstract base class for path-finding algorithms in a two-dimensional map. It provides common functionality and utility methods used by concrete path-finding implementations.
 

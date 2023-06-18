@@ -1,4 +1,4 @@
-# Auxiliary Tools
+# **3.3 Auxiliary Tools**
 
 ## Game Analyzer
 
@@ -38,7 +38,7 @@ To grasp the essence of this code, let's consider a TicTacToe board arrangement:
 Imagine that an 'X' mark is placed in the top-left position. In this configuration, the 'X' mark has the potential to form three winning moves:
 
 ```bash
- --- --- ---        --- --- ---        --- --- --- 
+ --- --- ---        --- --- ---        --- --- ---
 | X |   |   |      | X | X | X |      | X |   |   |
  --- --- ---        --- --- ---        --- --- ---
 | X |   |   |      |   |   |   |      |   | X |   |
@@ -67,7 +67,7 @@ In this scenario,
 
 Although the score doesn't hold significant meaning at this stage, it becomes a potent evaluation tool in the subsequent `.get3X3Score()` method. For now, let's consider that if `.getLineScore()` returns a value greater than 0, it indicates that the mark on the respective line has a chance to form a complete line.
 
-In other words, `.getLineScore()` simply answers the question, *"Does the mark have the potential to win on this line?"* If the line is blocked by the opponent's mark, then there is no way for the mark to achieve victory.
+In other words, `.getLineScore()` simply answers the question, _"Does the mark have the potential to win on this line?"_ If the line is blocked by the opponent's mark, then there is no way for the mark to achieve victory.
 
 ### `.get3X3Score()`
 
@@ -129,7 +129,7 @@ Understanding this code snippet is key to comprehending how the `GameAnalyzer` o
 However, the score can have a significant impact on `winMove`. What exactly is a `winMove`? A `winMove` refers to a line on a 3x3 board that has two marks which haven't been blocked yet. Here are some examples of `winMove`:
 
 ```bash
- --- --- ---        --- --- ---        --- --- --- 
+ --- --- ---        --- --- ---        --- --- ---
 | X |   |   |      | X |   | X |      |   |   |   |
  --- --- ---        --- --- ---        --- --- ---
 | X |   |   |      |   |   |   |      |   | X |   |
@@ -140,7 +140,7 @@ However, the score can have a significant impact on `winMove`. What exactly is a
 
 A `winMove` indicates how many winning moves a player can potentially make. In a standard TicTacToe game, if a player has two or more `winMove`s available, we can confidently say that the player is guaranteed to win the game as long as they choose their moves optimally.
 
-Moving on, the `.get3X3Score()` method examines every line,  checks their respective `winMove` and `score`, and accumulates them to return an integer array consisting of the mentioned values.
+Moving on, the `.get3X3Score()` method examines every line, checks their respective `winMove` and `score`, and accumulates them to return an integer array consisting of the mentioned values.
 
 ### `.getWinProbability()`
 
@@ -163,7 +163,7 @@ public double[] getWinProbability() {
         if(isPlayerOneTurn && playerTwoWinMove >= 2) return new double[] { 0, 1 };
         if(!isPlayerOneTurn && playerTwoWinMove >= 1) return new double[] { 0, 1 };
         if(!isPlayerOneTurn && playerOneWinMove >= 2) return new double[] { 1, 0 };
-        
+
         double playerOneWinProbability = (totalScore + playerOneScore[0]) % totalScore / (double) totalScore;
         double playerTwoWinProbability = (totalScore + playerTwoScore[0]) % totalScore / (double) totalScore;
 
@@ -198,11 +198,11 @@ By using the substitution method, we can demonstrate that the mathematical formu
 However, it is imperative to handle potential edge cases, and fortunately, the previous code snippet offers a reliable solution. It addresses scenarios that may pose challenges to the mathematical formula, such as the "ArithmeticException: Division by zero" and the "0 - 0" win rate. Let's take a closer look at the snippet:
 
 ```java
-if (totalScore == 0) 
+if (totalScore == 0)
     return new double[] { 0.5, 0.5 };
-if (totalScore == playerOneScore[0]) 
+if (totalScore == playerOneScore[0])
     return new double[] { 1, 0 };
-if (totalScore == playerTwoScore[0]) 
+if (totalScore == playerTwoScore[0])
     return new double[] { 0, 1 };
 ```
 
@@ -221,13 +221,13 @@ In addition to these edge cases, where the mathematical formula encounters limit
 Suppose it is now `X`'s turn. In this scenario, we can confidently declare `X` as the eventual victor, as they have multiple optimal moves that lead to victory:
 
 ```bash
- --- --- ---        --- --- ---        --- --- ---  
-| X | O | O |      | X | O | O |      | X | O | O |  
- --- --- ---        --- --- ---        --- --- --- 
+ --- --- ---        --- --- ---        --- --- ---
+| X | O | O |      | X | O | O |      | X | O | O |
+ --- --- ---        --- --- ---        --- --- ---
 | X |   | O |      |   |   | O |      |   | X | O |
- --- --- ---        --- --- ---        --- --- --- 
+ --- --- ---        --- --- ---        --- --- ---
 | X |   | X |      | X | X | X |      | X |   | X |
- --- --- ---        --- --- ---        --- --- --- 
+ --- --- ---        --- --- ---        --- --- ---
 ```
 
 Hence, when it is `X`'s turn, as long as they have at least one winning move available, their win rate stands at an unwavering 100%. However, what if it is not `X`'s turn? In that case, we need to assess whether `O` has at least one winning move. If so, assuming that `O` plays intelligently, they will emerge victorious. Conversely, if `O` does not possess a winning move, as long as `X` has at least two winning moves, they can secure a win. Allow me to illustrate this situation:
@@ -258,7 +258,7 @@ public int[] getScore(char mark) {
     int[] scores = get3X3Score(mark, 0, 0);
     int totalScore = scores[0];
     int winMove = scores[1];
-    return new int[] { 
+    return new int[] {
         winMove >= 2 ? winMove * WIN_SCORE : totalScore, winMove };
 }
 ```
@@ -290,11 +290,11 @@ This is the resulting board placement:
 
 ```bash
 -------------
-| X |   | X | 
+| X |   | X |
 -------------
-| O |   |   | 
+| O |   |   |
 -------------
-| X | O |   | 
+| X | O |   |
 -------------
 ```
 
@@ -350,7 +350,7 @@ By dividing it into 3x3 sections, the layout would appear as follows:
 
 ```bash
 +-----+-----+-----+  +-----+-----+-----+  +-----+-----+-----+
-|  1  |  2  |  3  |  |  2  |  3  |  4  |  |  3  |  4  |  5  |  
+|  1  |  2  |  3  |  |  2  |  3  |  4  |  |  3  |  4  |  5  |
 +-----+-----+-----+  +-----+-----+-----+  +-----+-----+-----+
 |  6  |  7  |  8  |  |  7  |  8  |  9  |  |  8  |  9  |  10  |
 +-----+-----+-----+  +-----+-----+-----+  +-----+-----+-----+
@@ -389,7 +389,7 @@ The resulting output would be:
 
 ```bash
 ---------------------
-| X | O |   |   |   | 
+| X | O |   |   |   |
 ---------------------
 |   |   |   |   |   |
 ---------------------
@@ -439,9 +439,9 @@ public static void main(String[] args) {
     board.placeMark(1, 2, 'X');
     board.placeMark(2, 1, 'O');
     board.placeMark(2, 2, 'O');
-    
+
     board.printBoard();
-    reverseGameAnalyzer.setPlayerTurn(true);        
+    reverseGameAnalyzer.setPlayerTurn(true);
 
     System.out.println("The score of X = " + reverseGameAnalyzer.getScore('X')[0]);
     System.out.println("The score of O = " + reverseGameAnalyzer.getScore('O')[0]);
@@ -456,7 +456,7 @@ The resulting output is as follows:
 
 ```bash
 -------------
-| X |   | X | 
+| X |   | X |
 -------------
 | O | O | X |
 -------------
@@ -506,14 +506,14 @@ In reality, the intricate logic used to determine the winner in advance has been
 private boolean isBoardAlmostFull() {
     int count = 0;
     for(int i = 0; i < 3; i++)
-        for(int j = 0; j < 3; j++) 
+        for(int j = 0; j < 3; j++)
             if(gamingBoard.getBoard()[i][j] != ' ')
                 count++;
     return count >= 8;
 }
 ```
 
-This piece of code employs a straightforward approach known as brute force. It iterates over the gaming board's cells and increments a counter whenever a cell contains a mark other than an empty space. Once the count reaches eight or more, the board is considered to be *almost full*.
+This piece of code employs a straightforward approach known as brute force. It iterates over the gaming board's cells and increments a counter whenever a cell contains a mark other than an empty space. Once the count reaches eight or more, the board is considered to be _almost full_.
 
 By implementing this method, the program can identify when the gameplay has reached a critical point where only a few empty spaces remain on the board. This information becomes valuable as it indicates that the game is nearing its conclusion, making it easier to determine the winner based on the remaining moves.
 
@@ -536,7 +536,7 @@ public static void main(String[] args) {
     // board.placeMark(2, 2, 'O');
 
     board.printBoard();
-    reverseGameAnalyzer.setPlayerTurn(true);        
+    reverseGameAnalyzer.setPlayerTurn(true);
 
     System.out.println("The score of X = " + reverseGameAnalyzer.getScore('X')[0]);
     System.out.println("The score of O = " + reverseGameAnalyzer.getScore('O')[0]);
@@ -551,7 +551,7 @@ The output will be shown as below:
 
 ```bash
 -------------
-| X |   | X | 
+| X |   | X |
 -------------
 | O | O |   |
 -------------
@@ -631,7 +631,7 @@ public void replay() {
         // Code omitted
         double[] previousEvaluation = moveEvaluation.pop();
         double[] currentEvaluation = moveEvaluation.peek();
-        
+
         if ((char) move[2] == 'X') {
             double winProbabilityChange = currentEvaluation[0] - previousEvaluation[0];
             System.out.println(
