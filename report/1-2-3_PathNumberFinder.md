@@ -1,4 +1,4 @@
-# 2.1.2 Path Number Finder
+**# 1.2.3 Path Number Finder**
 
 In this article, we will discuss the `PathNumberFinder` class, along with its implementations `BFSFinder` and `DFSFinder`, as they share a similar concept with the `ShortestPathFinder`. In fact, `PathNumberFinder` can be considered as a subset of the solution provided by `ShortestPathFinder`, as it implements a similar concept.
 
@@ -29,7 +29,7 @@ while (!pixelQueue.isEmpty()) {
         if (isDestination(newRow, newCol)) {
             // Increment numberOfPaths
         }
-            
+
         pixelQueue.offer(neighbor);
         BitSet newVisited = (BitSet) visited.clone();
         newVisited.set(getKey(newRow, newCol));
@@ -62,7 +62,7 @@ private int countPathsHelper(int[][] visited, int numOfStations, int row, int co
     int count = 0;
     for(int[] step : DIRECTIONS) {
         count += countPathsHelper(visited, numOfStations, row + step[0], col + step[1], stations);
-    } 
+    }
     visited[row][col] = 0;
     return count;
 }

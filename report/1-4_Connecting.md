@@ -1,4 +1,4 @@
-# Game - Connecting the Dots
+# **1.4 Game - Connecting the Dots**
 
 ## Integrating the Map and TicTacToe Sections
 

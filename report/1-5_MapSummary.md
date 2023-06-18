@@ -1,4 +1,4 @@
-# Summary
+# **1.5 Map Summary**
 
 In summary, both `PathNumberFinder` and `ShortestPathFinder` employ similar concepts to achieve their respective purposes, while their implementation details may differ.
 
@@ -33,6 +33,7 @@ As of required by the question, I've put the pseudocode for each of the implemen
 4. Invoke the `countPathsHelper` method, passing the "visited" array, number of stations, starting row and column (initially 0), and the initial number of stations as 0.
 
 5. In the `countPathsHelper` method:
+
    - Check if the current location is invalid or already visited. If so, return 0 (indicating no path).
    - If the current location is a station, increment the number of stations and check if it exceeds the desired number of stations. If so, return 0 (indicating no path).
    - Check if the current location is the destination and the desired number of stations have been reached. If so, return 1 (indicating a valid path).
@@ -63,6 +64,7 @@ By following this workflow and providing the desired number of stations, you can
 6. Initialize the `numberOfPath` variable to 0, which will keep track of the total number of paths.
 
 7. Perform a BFS traversal using the following steps until `pixelQueue` is empty:
+
    - Dequeue the current pixel from `pixelQueue` and the corresponding visited BitSet from `visitedQueue`.
    - Extract the row, column, and current station from the current pixel.
    - Get the neighboring pixels that are valid and not visited using the `getNeighbors` function.
@@ -87,10 +89,12 @@ By following this workflow and providing the desired number of stations, you can
 5. Initialize `shortestDistance` to be the maximum possible value.
 
 6. Perform a BFS traversal using the following steps until the `queue` is empty:
+
    - Dequeue the current `Node` from the `queue`.
    - If the current `Node`'s distance is greater than the `shortestDistance`, continue to the next iteration.
    - If the current `Node`'s number of stations is greater than the desired number of stations, continue to the next iteration.
    - If the current `Node` is at the destination:
+
      - If the current `Node`'s number of stations matches the desired number of stations:
        - If the current `Node`'s distance is less than the `shortestDistance`:
          - Reset `shortestPaths` to null (helps with memory usage).
@@ -124,10 +128,12 @@ By following this workflow and providing the desired number of stations, you can
 5. Initialize `shortestDistance` to be the maximum possible value.
 
 6. Perform a BFS traversal using the following steps until the `queue` is empty:
+
    - Dequeue the current `Node` from the `queue`.
    - If the current `Node`'s distance is greater than the `shortestDistance`, continue to the next iteration.
    - If the current `Node`'s number of stations is greater than the desired number of stations, continue to the next iteration.
    - If the current `Node` is at the destination:
+
      - If the current `Node`'s number of stations matches the desired number of stations:
        - If the current `Node`'s distance is less than the `shortestDistance`:
          - Reset `shortestPaths` to null (helps with memory usage).

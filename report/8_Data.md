@@ -1,4 +1,4 @@
-# **Data**
+# **8. Data**
 
 The **'data'** package contains 2 Java classes, which include **GameFileDataManager** and **GameFolderInitializer**. The use of the classes in this package is to manage the game files that stores the progress of the user in respective games.
 

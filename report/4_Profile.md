@@ -1,15 +1,18 @@
-# Profile 
+# **4 Profile **
 
 ## Profile Package Structure
+
 The code is organized into the package `com.assignment.suzume.profile`, which contains the classes related to the user profile.
 
 ### 1. **`Dashboard`** (Class)
+
 The `Dashboard` class is responsible for displaying the user's profile and providing options for different actions within the application. It has the following methods:
 
 - `checkAccountAnalysis()`: This method displays the account analysis information such as the user's name, number of wins, losses, draws, win rate, lose rate, draw rate, and score.
 
-- `showDashboard()`: This method is the main entry point for the user's profile dashboard. It presents a menu of options and executes the corresponding actions based on the user's choice. 
-This is the code:
+- `showDashboard()`: This method is the main entry point for the user's profile dashboard. It presents a menu of options and executes the corresponding actions based on the user's choice.
+  This is the code:
+
 ```java
  public void showDashboard() {
     System.out.println("Welcome back, " + user.getName());
@@ -33,8 +36,8 @@ This is the code:
  }
 ```
 
-
 ### 2. **`User`** (Class)
+
 The `User` class represents a user profile and contains information such as the user's name, number of wins, losses, draws, and score. It has the following methods:
 
 - `getInstance()`: This method returns the singleton instance of the `User` class, ensuring that only one instance exists throughout the application.
@@ -47,9 +50,10 @@ The `User` class represents a user profile and contains information such as the 
 
 Output:
 
-![Alt text](image.png)
+![Alt text](profile1.png)
 
 ## Usage
+
 The code demonstrates the usage of the `Dashboard` and `User` classes. In the `showDashboard()` method, a menu is displayed using `System.out.println()` statements, and the user's choice is obtained using `InputHandler.getIntInput()`. Based on the user's choice, different actions are performed:
 
 Case 1: Calls the `checkAccountAnalysis()` method to display the account analysis information.
@@ -62,8 +66,8 @@ Case 4: Loads a game replay using `GameFileDataManager` and plays it using a `Vi
 
 Case 5: Logs out the user and breaks the loop to exit the dashboard.
 
-Output: 
+Output:
 
-![Alt text](image-1.png)
+![Alt text](profile2.png)
 
 Overall, the code provides a simple user profile dashboard for a game application, allowing users to view their account analysis, play games, view the leaderboard, watch game replays, and logout.

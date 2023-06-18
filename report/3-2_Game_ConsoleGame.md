@@ -1,4 +1,4 @@
-# Console Game
+# **3.2 Console Game**
 
 The Console Game section revolves around the integration of the map into the gameplay. In this game, our protagonist Suzume embarks on an adventure across the entire map, playing TicTacToe whenever she encounters a station. This seamless gaming experience is made possible through three key classes: `ConsoleGameSetup`, `ConsoleGameStatus`, and `ConsoleGame`.
 
@@ -99,7 +99,7 @@ public class ConsoleGameStatus {
 
 Some of the instance variables are self-explanatory. Now, let's dive into the `stationHistory` variable, which is the heart of the `ConsoleGameStatus` class. As specified in the assignment:
 
-> *In short, the basic requirement for this part is to at least create a console interaction, make Suzume stop at respective stations and play the station games. If she wins, she can proceed to the next station; otherwise, she has to fall back to the previous station. If she fails at the very first station, her journey ends. Likewise, if she succeeds at all the stations, her journey ends, but with glory.*
+> _In short, the basic requirement for this part is to at least create a console interaction, make Suzume stop at respective stations and play the station games. If she wins, she can proceed to the next station; otherwise, she has to fall back to the previous station. If she fails at the very first station, her journey ends. Likewise, if she succeeds at all the stations, her journey ends, but with glory._
 
 To implement a similar functionality, a stack structure is used. The following methods are built around the `stationHistory`:
 
@@ -205,7 +205,7 @@ As you can see, the formidable `BoardGameRunner`, as we discussed earlier, graci
 
 ```java
 private void handleBoardGameLoss() {
-    System.out.println("Alas! Suzume has been defeated in the station game.");        
+    System.out.println("Alas! Suzume has been defeated in the station game.");
 
     boolean isBackToPreviousStation = status.backToPreviousStation();
     if (!isBackToPreviousStation) {
@@ -225,7 +225,7 @@ private void handleBoardGameWin() {
 
 These meticulously crafted methods smoothly handle the player's victories and defeats. They are designed with simplicity and clarity, precisely fulfilling the requirements of the question:
 
-> *If Suzume wins, she can proceed to the next station, but if she fails, she bravely falls back to the previous station. However, if she is unfortunate enough to fail at the very first station, her remarkable journey comes to an end.*
+> _If Suzume wins, she can proceed to the next station, but if she fails, she bravely falls back to the previous station. However, if she is unfortunate enough to fail at the very first station, her remarkable journey comes to an end._
 
 The elegance of the code lies in its straightforwardness and adherence to the game's rules. It captures the essence of Suzume's adventure, where triumph and setback intertwine in a thrilling quest.
 

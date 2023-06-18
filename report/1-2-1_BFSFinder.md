@@ -1,4 +1,4 @@
-# 2.1.1 BFSFinder
+# **1.2.1 BFSFinder**
 
 ## Introduction
 
@@ -29,19 +29,19 @@ Hence, only two nodes will be added to the queue as valid neighbors. By continuo
 
 1. **No backtrack**
 
-    To prevent indefinite loops, we need to ensure that a node does not backtrack to a previous node. Otherwise, it could consume excessive memory and result in an `OutOfMemory` error.
+   To prevent indefinite loops, we need to ensure that a node does not backtrack to a previous node. Otherwise, it could consume excessive memory and result in an `OutOfMemory` error.
 
 2. **Find the shortest paths rather than exploring all possible paths**
 
-    This requires evaluating the distance traveled and selecting the paths with the minimum distance.
+   This requires evaluating the distance traveled and selecting the paths with the minimum distance.
 
 3. **To trace back the parent node and obtain the complete path from the source point to the destination.**
 
-    We need to store the parent node information for each visited node during the traversal.
+   We need to store the parent node information for each visited node during the traversal.
 
 4. **The algorithm should eliminate paths that do not pass through exactly four stations.**
 
-    This can be achieved by keeping track of the number of stations visited and discarding paths that do not meet this requirement.
+   This can be achieved by keeping track of the number of stations visited and discarding paths that do not meet this requirement.
 
 By addressing these challenges and implementing the necessary logic, the BFSFinder algorithm can effectively find the shortest path from the source to the destination, considering the constraints of a 2x2 grid.
 
@@ -80,12 +80,13 @@ However, using a `HashSet` consumes a significant amount of space, and its mecha
 `BitSet` is a class in Java that represents a fixed-size collection of bits. Each bit can have two states: 0 or 1. The `BitSet` class provides various methods to manipulate and access these bits efficiently.
 
 1. `set(int index)` method:
+
    - The `set` method is used to set the bit at a specified index to 1.
    - Here's an example:
 
      ```java
      BitSet bitSet = new BitSet(8); // Create a BitSet with 8 bits
-     
+
      // Set the bit at index 2 to 1
      bitSet.set(2);
      ```
@@ -93,16 +94,17 @@ However, using a `HashSet` consumes a significant amount of space, and its mecha
      After executing this code, the `bitSet` will have the bit at index 2 set to 1, and all other bits will remain unchanged.
 
 2. `get(int index)` method:
+
    - The `get` method is used to retrieve the value of the bit at a specified index.
    - It returns `true` if the bit is set to 1, and `false` if the bit is set to 0.
    - Here's an example:
 
      ```java
      BitSet bitSet = new BitSet(8); // Create a BitSet with 8 bits
-     
+
      // Set the bit at index 3 to 1
      bitSet.set(3);
-     
+
      // Get the value of the bit at index 3
      boolean value = bitSet.get(3);
      System.out.println(value); // Output: true
@@ -156,7 +158,7 @@ public List<List<String>> findAllShortestPaths(int numOfStation) {
 
         if (isDestination(current.row, current.col)) {
             // Implement the logic for handling the destination node
-        } 
+        }
 
         for (int i = 0; i < DIRECTIONS.length; i++) {
             int newRow = current.row + DIRECTIONS[i][0];
@@ -176,7 +178,7 @@ public List<List<String>> findAllShortestPaths(int numOfStation) {
 }
 ```
 
-It is worth noting that the `convertListVectorToName` method is defined in the `PathUtils` class. It is designed to convert the vector representation of a location into the corresponding direction name. For instance, if the vector is represented as $<1, 0>$, it will be converted to *Down*.
+It is worth noting that the `convertListVectorToName` method is defined in the `PathUtils` class. It is designed to convert the vector representation of a location into the corresponding direction name. For instance, if the vector is represented as $<1, 0>$, it will be converted to _Down_.
 
 The logic for handling the destination node is implemented as follows:
 
@@ -200,7 +202,7 @@ if (isDestination(current.row, current.col)) {
     Collections.reverse(path);
     shortestPaths.add(path);
     continue;
-} 
+}
 ```
 
 The code is self-explanatory.

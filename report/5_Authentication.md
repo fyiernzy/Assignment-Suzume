@@ -1,11 +1,13 @@
-# Authentication
+# **5 Authentication**
 
 The Authentication package consists of classes and utilities responsible for managing user authentication processes within the application. It provides functionality for user login and sign-up operations, ensuring secure access to the system. The package contains three main classes: `LoginManager`, `SignInManager`, and `SignUpManager`.
 
 ## Login Manager
+
 The `LoginManager` class plays a vital role as the entry point for user authentication within the application. It manages the overall authentication process and provides a centralized interface for users to sign in, sign up, or exit the system.
 
 ### Singleton Implementation and Initialization
+
 To ensure a single instance of the `LoginManager` class throughout the application, it follows the singleton design pattern. The class maintains a private static instance variable and a private constructor to restrict the creation of multiple instances. The `getInstance()` method is used to retrieve the existing instance or create a new one if it doesn't exist.
 
 During the initialization of the `LoginManager`, it also initializes other necessary components such as the `SignInManager` and `SignUpManager` instances. Additionally, it checks and ensures the existence of the game folder by utilizing the `GameFolderInitializer` singleton.
@@ -19,6 +21,7 @@ private LoginManager() {
 ```
 
 ### User Interface for Authentication
+
 The `LoginManager` presents a user-friendly interface for authentication, allowing users to interact with the system through a console-based interface. Upon execution, the class displays a banner and a welcome message to greet the user.
 
 The available options presented to the user are:
@@ -41,6 +44,7 @@ public void login() {
 These options are displayed using `System.out.println()` statements, providing a clear menu for the user to select their desired action.
 
 ### Switch-Case Logic for User Choices
+
 The `LoginManager` employs a switch-case statement to handle the user's choice after displaying the available options. The `InputHandler.getIntInput()` method is used to obtain the user's input as an integer, allowing them to select an option.
 
 Based on the user's choice, the switch-case logic directs the flow of execution to the appropriate action. For instance:
@@ -48,7 +52,7 @@ Based on the user's choice, the switch-case logic directs the flow of execution 
 - If the user chooses "Sign in" (option 1), the `signInManager.run()` method is invoked to initiate the sign-in process.
 - If the user selects "Sign up" (option 2), the `signUpManager.run()` method is called to facilitate the sign-up procedure.
 - If the user chooses "Exit" (option 3), the `System.exit(0)` statement is executed, terminating the application.
-In the default case, if the user enters an invalid choice, an appropriate message is displayed to notify them about the invalid selection.
+  In the default case, if the user enters an invalid choice, an appropriate message is displayed to notify them about the invalid selection.
 
 The switch-case logic ensures that the user's choice is processed correctly and the corresponding actions are taken accordingly.
 
@@ -98,13 +102,14 @@ if (!databaseManager.checkIfPasswordMatch(username, password)) {
 
 ### Loading User Profile and Dashboard Redirection
 
-Upon successful authentication, the `SignInManager` loads the user's profile from the database. It retrieves the relevant user information and creates a `Dashboard` object to provide access to the application's main functionality. 
+Upon successful authentication, the `SignInManager` loads the user's profile from the database. It retrieves the relevant user information and creates a `Dashboard` object to provide access to the application's main functionality.
 
 ```java
 databaseManager.loadUser(username);
 Dashboard dashboard = new Dashboard(User.getInstance());
 dashboard.showDashboard();
 ```
+
 <p>
     <img src="signin_successfully.png" alt="Alt Text" style="width:450px;" />
     <br />
@@ -135,8 +140,8 @@ The `SignInManager` class incorporates error handling mechanisms to provide info
     <em>Empty Username or Password Submitted</em>
 </p>
 
-
 ## Sign Up Manager
+
 The `SignUpManager` class is an essential component responsible for handling user sign-up functionality. It encompasses the following key aspects:
 
 ### Functionality and Responsibilities
