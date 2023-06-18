@@ -40,7 +40,7 @@ public class VideoPlayer {
     }
 
     public void replay() {
-        System.out.println(FontStyle.YELLOW_BOLD);
+        System.out.println(FontStyle.YELLOW_BOLD_BRIGHT);
         board.printBoard();
 
         while (!sequentialMoveHistory.isEmpty()) {
@@ -50,7 +50,7 @@ public class VideoPlayer {
             double[] currentEvaluation = moveEvaluation.peek();
             boolean previousHasPlayerWinningMove = false;
             boolean previousHasOpponentWinningMove = false;
-            System.out.println(FontStyle.YELLOW_BOLD);
+            System.out.println(FontStyle.YELLOW_BOLD_BRIGHT);
             board.printBoard();
             System.out.println();
 
@@ -102,7 +102,7 @@ public class VideoPlayer {
                 System.out.format("| Previous Win Probability: %5.2f |%n", previousEvaluation[0]);
                 System.out.format("| Current Win Probability : %5.2f |%n", currentEvaluation[0]);
                 System.out.format("| Win Probability Change  : %5s |%n",
-                        format + String.format("%.2f", Math.abs(winProbabilityChange)) + FontStyle.YELLOW_BOLD);
+                        format + String.format("%.2f", Math.abs(winProbabilityChange)) + FontStyle.YELLOW_BOLD_BRIGHT);
                 System.out.println("+---------------------------------+");
 
             }
