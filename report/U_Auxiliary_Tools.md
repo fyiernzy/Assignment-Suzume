@@ -180,7 +180,7 @@ Now, let's explore a couple of examples:
 **Example 1:**
 
 $$
-\text{{score}} = \frac{{(totalScore + playerScore) \mod \\totalScore}}{{totalScore}}
+\text{{score}} = \frac{{(totalScore + playerScore) \mod totalScore}}{{totalScore}}
 = \frac{{(10 + 4) \mod 10}}{{10}}
 = \frac{{14 \mod 10}}{{10}}
 = \frac{{4}}{{10}}
