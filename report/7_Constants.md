@@ -97,3 +97,53 @@ The enum class has a constructor that accepts an integer value (val) as a parame
 **is() Method :**
 
 The enum class includes an is() method that compares the provided integer value (val) with the VALUE field of the enum constant. If the values match, it returns true; otherwise, it returns false. This method can be used to check if a given value corresponds to a specific enum constant.
+
+## FontStyle
+
+"Finally, we have an amazing set of powerful constants called `FontStyle` that define a range of ANSI color code constants. Now, you might be wondering, what's the fuss about ANSI color? Well, my friend, let me paint you a vivid picture using the following example:
+
+<p align="center">
+    <img src="image-16.png" alt="Alt Text" style="width:200px;" />
+    <br />
+    <em>Yep it's boring and unattractive...</em>
+</p>
+
+Behold, a simple and humble "Hello World." It's plain, unimpressive, and, dare I say, quite boring. But wait! With a wave of our magic code wand, like so:
+
+```java
+System.out.println("\033[0;31mHello World")
+```
+
+<p align="center">
+    <img src="image-17.png" alt="Alt Text" style="width:200px;" />
+    <br />
+    <em>Now it's look much more attractive!</em>
+</p>
+
+Voilà! The colors have changed! Those special codes we just mentioned are none other than the famous ANSI codes. They possess the power to transform the way our supported console displays text—like a makeover for your mundane strings! And let me tell you, it's a remarkable transformation:
+
+![Alt text](image-18.png)
+
+Now, isn't our program looking more attractive? It's as if it received a snazzy new outfit to impress its users!
+
+We have defined teh constants as follows:
+
+```java
+public class FontStyle {
+    // Reset
+    public static final String RESET = "\033[0m";  // Text Reset
+
+    // Regular Colors
+    public static final String BLACK = "\033[0;30m";   // BLACK
+    public static final String RED = "\033[0;31m";     // RED
+    public static final String GREEN = "\033[0;32m";   // GREEN
+    public static final String YELLOW = "\033[0;33m";  // YELLOW
+    public static final String BLUE = "\033[0;34m";    // BLUE
+    public static final String PURPLE = "\033[0;35m";  // PURPLE
+    public static final String CYAN = "\033[0;36m";    // CYAN
+    public static final String WHITE = "\033[0;37m";   // WHITE
+    public static final String MAGNETA = "\033[0;35m"; // MAGNETA
+
+    // Omitted code...
+}
+```
