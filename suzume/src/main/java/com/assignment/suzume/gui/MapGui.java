@@ -25,8 +25,8 @@ import javafx.scene.control.RadioMenuItem;
 import javafx.scene.control.ToggleGroup;
 
 public class MapGui extends Application {
-    private static final double MAP_WIDTH = Screen.getPrimary().getVisualBounds().getWidth()/4;
-    private static final double MAP_HEIGHT = Screen.getPrimary().getVisualBounds().getHeight()-16;
+    private static final double MAP_WIDTH = Screen.getPrimary().getVisualBounds().getWidth()/ 4.8;
+    private static final double MAP_HEIGHT = Screen.getPrimary().getVisualBounds().getHeight()- 176;
 
     private ConsoleGameStatus status;
     private int[][] map;
@@ -94,11 +94,11 @@ public class MapGui extends Application {
         // Define the size of each grid cell
         double cellWidth = 16;
         double cellHeight = 16;
-        Image grass = new Image("/static/images/tree.png");
-        Image door = new Image("/static/images/doors.png");
-        Image brick = new Image("/static/images/floor01.png");
-        Image star = new Image("/static/images/chest.png");
-        Image suzume = new Image("/static/images/boy.png");
+        Image grass = new Image("static/images/tree.png");
+        Image door = new Image("static/images/doors.png");
+        Image brick = new Image("static/images/floor01.png");
+        Image star = new Image("static/images/chest.png");
+        Image suzume = new Image("static/images/boy.png");
 
         // Clear the canvas
         gc.clearRect(0, 0, MAP_WIDTH, MAP_HEIGHT);

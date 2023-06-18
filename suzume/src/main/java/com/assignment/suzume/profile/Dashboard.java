@@ -93,9 +93,4 @@ public class Dashboard {
         }
 
     }
-
-    public static void main(String[] args) {
-        DecimalFormat decimalFormat = new DecimalFormat("#.00");
-        System.out.println(decimalFormat.format(0.125456789));
-    }
 }
