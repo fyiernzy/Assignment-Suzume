@@ -1,9 +1,11 @@
 package com.assignment.suzume.game;
 
 import java.util.Stack;
+
+import com.assignment.suzume.constants.FontStyle;
 import com.assignment.suzume.game.analyzer.*;
 import com.assignment.suzume.tictactoe.board.*;
-import com.assignment.suzume.utils.InputHandler;    
+import com.assignment.suzume.utils.InputHandler;
 
 public class VideoPlayer {
     private GamingBoard board;
@@ -38,6 +40,7 @@ public class VideoPlayer {
     }
 
     public void replay() {
+        System.out.println(FontStyle.YELLOW_BOLD);
         board.printBoard();
 
         while (!sequentialMoveHistory.isEmpty()) {
@@ -47,6 +50,7 @@ public class VideoPlayer {
             double[] currentEvaluation = moveEvaluation.peek();
             boolean previousHasPlayerWinningMove = false;
             boolean previousHasOpponentWinningMove = false;
+            System.out.println(FontStyle.YELLOW_BOLD);
             board.printBoard();
             System.out.println();
 
@@ -66,14 +70,14 @@ public class VideoPlayer {
                 double winProbabilityChange = currentEvaluation[0] - previousEvaluation[0];
 
                 if (previousHasPlayerWinningMove) {
-                    if (hasPlayerWinningMove) {
-                        System.out.println("The player already has a winning move.");
-                        System.out.println("The player does not make the winning move.");
-                        System.out.println("This move is: BAD.");
-                    } else if (sequentialMoveHistory.isEmpty()) {
+                    if (sequentialMoveHistory.isEmpty()) {
                         System.out.println("The opponent does not make the blocking move.");
                         System.out.println("The player WINS.");
                         break;
+                    } else if (hasPlayerWinningMove) {
+                        System.out.println("The player already has a winning move.");
+                        System.out.println("The player does not make the winning move.");
+                        System.out.println("This move is: BAD.");
                     }
                 } else if (previousHasOpponentWinningMove) {
                     System.out.println("The opponent already has a winning move.");
@@ -91,22 +95,23 @@ public class VideoPlayer {
                     System.out.println("The move is: " + (winProbabilityChange > 0 ? "GOOD." : "BAD."));
                 }
 
-                System.out.println("+--------------------------------+");
-                System.out.println("|         Move Evaluation        |");
-                System.out.println("+--------------------------------+");
-                System.out.format("| Previous Win Probability: %.2f |%n", previousEvaluation[0]);
-                System.out.format("| Current Win Probability : %.2f |%n", currentEvaluation[0]);
-                System.out.format("| Win Probability Change  : %.2f |%n", Math.abs(winProbabilityChange));
-                System.out.println("+--------------------------------+");
-                
+                String format = (winProbabilityChange > 0 ? FontStyle.GREEN + "+" : FontStyle.RED + "-");
+                System.out.println("+---------------------------------+");
+                System.out.println("|         Move Evaluation         |");
+                System.out.println("+---------------------------------+");
+                System.out.format("| Previous Win Probability: %5.2f |%n", previousEvaluation[0]);
+                System.out.format("| Current Win Probability : %5.2f |%n", currentEvaluation[0]);
+                System.out.format("| Win Probability Change  : %5s |%n",
+                        format + String.format("%.2f", Math.abs(winProbabilityChange)) + FontStyle.YELLOW_BOLD);
+                System.out.println("+---------------------------------+");
+
             }
+            System.out.print(FontStyle.MAGNETA);
             System.out.println("\nPress ENTER to continue...");
             InputHandler.next();
         }
         System.out.println("Game ended.\n");
     }
-
-
 
     public static VideoPlayer getSuitableVideoPlayer(GamingBoard board) {
         if (board instanceof RegularBoard) {

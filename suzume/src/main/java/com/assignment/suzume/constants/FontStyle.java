@@ -89,4 +89,8 @@ public class FontStyle {
     public static final String CYAN_BACKGROUND_BRIGHT = "\033[0;106m";  // CYAN
     public static final String WHITE_BACKGROUND_BRIGHT = "\033[0;107m";   // WHITE
     public static final String MAGNETA_BACKGROUND_BRIGHT = "\033[0;105m";   // MAGNETA
+
+    public static void main(String[] args) {
+        System.out.println("Hello World");
+    }
 }

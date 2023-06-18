@@ -1,8 +1,6 @@
 package com.assignment.suzume.tictactoe.board;
 
-import java.awt.*;
 import java.util.Stack;
-
 import com.assignment.suzume.constants.FontStyle;
 import org.apache.commons.lang3.StringUtils;
 

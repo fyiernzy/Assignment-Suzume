@@ -109,10 +109,6 @@ public class GameFileInputHandler {
         String parentFolderPath = getParentFolderPath(gameMode);
         manager.createFolderIfNotExists(parentFolderPath);
 
-        if (!computeIfFileExists(parentFolderPath)) {
-            return Optional.empty();
-        }
-
         while (true) {
             Optional<String> filename = getSaveFileName(parentFolderPath);
 
