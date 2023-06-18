@@ -54,10 +54,10 @@ public class Dashboard {
 
     public void showDashboard() {
         System.out.println();
-        System.out.println("Welcome back, " + user.getName() + "!");
+        System.out.println(FontStyle.PURPLE_BOLD_BRIGHT + "Welcome back, " + user.getName() + "!");
 
         loop: while (true) {
-            System.out.println(FontStyle.PURPLE_BOLD + "What do you want to do?");
+            System.out.println(FontStyle.PURPLE_BOLD_BRIGHT + "What do you want to do?");
             System.out.println(" --> [1] Check account analysis");
             System.out.println(" --> [2] Start challenge the Suzume's Adventure");
             System.out.println(" --> [3] Show leaderboard");
@@ -85,7 +85,7 @@ public class Dashboard {
                     }
 
                     Timer.waitInMilliseconds(500);
-                    System.out.println("\n" + FontStyle.PURPLE_BOLD + "Logout successfully.\n");
+                    System.out.println("\n" + FontStyle.PURPLE_BOLD_BRIGHT + "Logout successfully.\n");
                     break loop;
                 }
                 default -> System.out.println("Invalid choice.");
